@@ -19,4 +19,6 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 
 ## Contributors 💰🤝💰
 
-- Lucas Galhardo - [LucasKiller](https://github.com/LucasKiller) 🔪
+- Lucas Galhardo - [LucasKiller](https://github.com/LucasKiller) 🧑🔪
+- Victor Gasperi - [VictorGasperi](https://github.com/VictorGasperi)
+- João Paulo - [yJony](https://github.com/yJony)
