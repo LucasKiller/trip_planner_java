@@ -20,7 +20,7 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 ## Contributors 💰🤝💰
 
 - Lucas Galhardo - [LucasKiller](https://github.com/LucasKiller) 🧑🔪
-- Victor Gasperi - [VictorGasperi](https://github.com/VictorGasperi)
-- João Paulo - [yJony](https://github.com/yJony)
-- Tiago Azevedo - [tiagooazevedo](https://github.com/tiagooazevedo)
-- Lucas Olivares - [lvcasolivares](https://github.com/lvcasolivares)
+- Victor Gasperi - [VictorGasperi](https://github.com/VictorGasperi) 🧐
+- João Paulo - [yJony](https://github.com/yJony) 🐺
+- Tiago Azevedo - [tiagooazevedo](https://github.com/tiagooazevedo) 🥶
+- Lucas Olivares - [lvcasolivares](https://github.com/lvcasolivares) 🤯
