@@ -13,8 +13,6 @@ public class App {
             conn.setAutoCommit(false);
             DatabaseSetup.executeInitialSQL(conn);
 
-            
-
         } catch (ClassNotFoundException ex) {
             System.out.println("Driver não encontrado!");
         } catch (SQLException sql_ex) {
