@@ -10,8 +10,8 @@ public class ConnectDB {
 
     private static final String servidor = "localhost";
     private static final String porta = "3306";
-    private static final String usuario = "faculdade";
-    private static final String senha = "pass4321";
+    private static final String usuario = "aluno";
+    private static final String senha = "alunos";
 
     /*
      * Realiza a conexao ao servidor descrito nas constantes acima
