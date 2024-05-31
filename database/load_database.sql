@@ -3,6 +3,7 @@ USE project_trip_planner;
 
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(60) NOT NULL,
   login VARCHAR(60) NOT NULL,
   password VARCHAR(60) NOT NULL
 );

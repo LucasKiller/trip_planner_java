@@ -7,12 +7,19 @@ public class App {
         //Connection conn = null;
         String driver = "com.mysql.cj.jdbc.Driver";
 
+        User user;
+
         try (Connection conn = ConnectDB.conectar();){
             Class.forName(driver);
 
             conn.setAutoCommit(false);
             DatabaseSetup.executeInitialSQL(conn);
 
+            user = new User("kyp", "Victor", "pass");
+
+            user.inserir(conn);
+            
+            conn.commit();
         } catch (ClassNotFoundException ex) {
             System.out.println("Driver não encontrado!");
         } catch (SQLException sql_ex) {
