@@ -1,13 +1,17 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 public class User {
     
     private String user;
     private String nome;
     private String pass;
-    private String ID;
+    private int ID = 0;
+    
 
     /*
      * Construtor para a verificar a existencia do login e senha do usuario
@@ -45,14 +49,17 @@ public class User {
     public void setPass(String pass) {
         this.pass = pass;
     }
-    public String getID() {
+    public int getID() {
         return ID;
     }
-    public void setID(String iD) {
+    public void setID(int iD) {
         ID = iD;
     }
 
     // Metodos de persistência
+    /*
+     * No caso de novo usuario
+     */
     public void inserir(Connection conn) {
         
         String sqlInsert = "INSERT INTO users(id, nome, login, password) VALUES (null, ?, ?, ?)";
@@ -70,6 +77,70 @@ public class User {
             } catch (SQLException sql_ex) {
                 System.out.println(sql_ex.getStackTrace());
             }
+        }
+    }
+
+    /*
+     * Extra
+     */
+    public void excluir(Connection conn) {
+        String sqlDelete = "DELETE FROM users WHERE id = ?";
+
+        try (PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
+            stm.setInt(1, this.getID());
+
+            stm.execute();
+        } catch(Exception ex) {
+            try {
+                conn.rollback();
+            } catch(SQLException sql_ex) {
+                System.out.println(sql_ex.getStackTrace());
+            }
+        }
+    }
+
+    /*
+     * Extra
+     */
+    public void atualiza(Connection conn) {
+        String sqlUpdate = "UPDATE users SET nome = ?, login = ?, password = ? WHERE id = ?";
+
+        try (PreparedStatement stm = conn.prepareStatement(sqlUpdate)) {
+            stm.setString(1, this.getNome());
+            stm.setString(2, this.getUser());
+            stm.setString(3, this.getPass());
+            stm.setInt(4, this.getID());
+
+            stm.execute();
+        } catch (Exception ex) {
+            try {
+                conn.rollback();
+            } catch(SQLException sql_ex) {
+                System.out.println(sql_ex.getStackTrace());
+            }
+        }
+    }
+
+    /*
+     * Verificar se o usuario existe
+     */
+    public void carregar(Connection conn) {
+
+        String sqlSelect = "SELECT * FROM users WHERE login = ? AND password = ?";
+
+        try (PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+            stm.setString(1, this.getUser());
+            stm.setString(2, this.getPass());
+            try (ResultSet rs = stm.executeQuery();) {
+                if(rs.next()) {
+                    this.setNome(rs.getString(2));
+                    this.setID(rs.getInt(1));
+                } 
+            } catch(Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (SQLException sql_ex) {
+            System.out.println(sql_ex.getStackTrace());
         }
     }
 
