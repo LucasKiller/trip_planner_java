@@ -4,10 +4,9 @@ import java.sql.SQLException;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        //Connection conn = null;
         String driver = "com.mysql.cj.jdbc.Driver";
 
-        User user;
+        Carro carro;
 
         try (Connection conn = ConnectDB.conectar();){
             Class.forName(driver);
@@ -15,9 +14,9 @@ public class App {
             conn.setAutoCommit(false);
             DatabaseSetup.executeInitialSQL(conn);
 
-            user = new User("kyp", "Victor", "pass");
+            carro = new Carro("Fiat", "BRA2E19", true, "");
 
-            user.inserir(conn);
+            carro.inserir(conn);
             
             conn.commit();
         } catch (ClassNotFoundException ex) {
