@@ -13,16 +13,23 @@ public class ConnectDB {
     private static final String usuario = "aluno";
     private static final String senha = "alunos";
 
+    private static Connection conn = null;
+
     /*
      * Realiza a conexao ao servidor descrito nas constantes acima
      */
 
     public static Connection conectar() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://" + servidor + ":" + porta, usuario, senha);
+        if (conn != null) {
+            return conn;
+        }
+
+        conn = DriverManager.getConnection("jdbc:mysql://" + servidor + ":" + porta, usuario, senha);
+        return conn;
     }
 
-    public static void desconectar(Connection conn) throws SQLException {
-        conn.close();
+    public static Connection getConnection() {
+        return conn;
     }
 
 }

@@ -40,3 +40,5 @@ CREATE TABLE trips (
   FOREIGN KEY (id_carro) REFERENCES carro(id)
 );
 
+INSERT INTO `project_trip_planner`.`users` (`id`, `nome`, `login`, `password`) VALUES (null, 'Lucas Milani', 'lukita', 'admin');
+

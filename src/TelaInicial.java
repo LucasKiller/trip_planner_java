@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 public class TelaInicial extends JFrame {
     private JLabel bemVindo;
@@ -26,8 +27,13 @@ public class TelaInicial extends JFrame {
     private JTextField campoNovoLogin;
     private JTextField campoNovaSenha;
 
+    private Connection connection;
+    private ManageUserLogin manager;
+
     public TelaInicial() {
         super("Login");
+
+        manager = new ManageUserLogin();
 
         bemVindo = new JLabel("Seja bem-vindo ao Trip Planner Java!");
         botaoLogin = new JButton("Entrar");
@@ -91,10 +97,21 @@ public class TelaInicial extends JFrame {
                     caixa.revalidate();
                     pack();
                 } else {
-                    JOptionPane.showMessageDialog(caixa, "Preencha o seu login e senha!");
+                    String login = campoLogin.getText();
+                    String senha = campoSenha.getText();
+
+                    if (login.isEmpty() || senha.isEmpty()) {
+                        JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para logar!");
+                    } else {
+                        int result = manager.logUser(connection, login, senha);
+                        if (result == -1) {
+                            JOptionPane.showMessageDialog(caixa, "Login ou senha incorretos!");
+                        } else {
+                            JOptionPane.showMessageDialog(caixa, "Login bem-sucedido!");
+                        }
                 }
             }
-        });
+        }});
 
         botaoRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -108,8 +125,18 @@ public class TelaInicial extends JFrame {
                     caixa.revalidate();
                     caixa.add(Box.createVerticalStrut(10));
                     pack();
-                } else {
-                    JOptionPane.showMessageDialog(caixa, "Cadastre o seu login e senha!");
+                }
+                
+                else {
+                    String novoUser = campoNovoUser.getText();
+                    String novoLogin = campoNovoLogin.getText();
+                    String novaSenha = campoNovaSenha.getText();
+
+                    if (novoUser.isEmpty() || novoLogin.isEmpty() || novaSenha.isEmpty()) {
+                        JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para se registrar!");
+                    } else {
+                        manager.registerUser(connection, novoLogin, novaSenha, novoUser);
+                    }
                 }
             }
         });
