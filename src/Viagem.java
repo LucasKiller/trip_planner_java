@@ -48,8 +48,4 @@ public class Viagem {
             }
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 718f6ef7e71e6da1aab3fb3dd3a8bc5fbc41c81f
