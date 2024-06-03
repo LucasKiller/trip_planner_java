@@ -11,8 +11,10 @@ public class Carro {
     private boolean temSeguro;
     private String imagem;
 
-    public Carro(String placa) {
-        this.placa = placa;
+    private int ID;
+
+    public Carro(int ID) {
+        this.ID = ID;
     }
 
     public Carro(String marca, String placa, boolean temSeguro, String imagem) {
@@ -77,11 +79,11 @@ public class Carro {
 
     public void deletar(Connection conn) {
 
-        String sqlDelete = "DELETE FROM carro WHERE placa = ?";
+        String sqlDelete = "DELETE FROM carro WHERE id = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
 
-            stm.setString(1, this.getPlaca());
+            stm.setInt(1, this.getID());
 
             stm.execute();
 
@@ -92,15 +94,16 @@ public class Carro {
     }
 
     public void atualizar(Connection conn) {
-        String sqlUpdate = "UPDATE carro SET nome = ?, marca = ?, temSeguro = ?, img_path = ? WHERE placa = ?";
+        String sqlUpdate = "UPDATE carro SET nome = ?, marca = ?, placa = ?, temSeguro = ?, img_path = ? WHERE id = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 
             stm.setString(1, this.getNome());
             stm.setString(2, this.getMarca());
-            stm.setBoolean(3, this.isTemSeguro());
-            stm.setString(4, this.getImagem());
-            stm.setString(5, this.getPlaca());
+            stm.setString(3, this.getPlaca());
+            stm.setBoolean(4, this.isTemSeguro());
+            stm.setString(5, this.getImagem());
+            stm.setInt(6, this.getID());
 
             stm.execute();
         } catch(SQLException sql_ex) {
@@ -109,10 +112,10 @@ public class Carro {
     }
 
     public void carregar(Connection conn) {
-        String sqlSelect = "SELECT * FROM carro WHERE placa = ?";
+        String sqlSelect = "SELECT * FROM carro WHERE id = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
-            stm.setString(1, this.getPlaca());
+            stm.setInt(1, this.getID());
 
             stm.execute();
         } catch(SQLException sql_ex) {
@@ -126,6 +129,14 @@ public class Carro {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int iD) {
+        ID = iD;
     }
 }
 
