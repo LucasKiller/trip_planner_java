@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Hotel {
@@ -62,6 +63,59 @@ public class Hotel {
                 System.out.println(sql_ex.getMessage());
             }
             System.out.println("Erro ao inserir hotel: " + ex.getMessage());
+        }
+    }
+
+        public void excluir(Connection conn) {
+        String sqlDelete = "DELETE FROM hotel";
+
+        try (PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
+            stm.setString(1, this.getNome());
+
+            stm.execute();
+        } catch(Exception ex) {
+            try {
+                conn.rollback();
+            } catch(SQLException sql_ex) {
+                System.out.println(sql_ex.getStackTrace());
+            }
+        }
+    }
+
+    public void atualiza(Connection conn) {
+        String sqlUpdate = "UPDATE hotel SET endereco = ?, checkin = ?, checkout = ? WHERE nome = ?";
+
+        try (PreparedStatement stm = conn.prepareStatement(sqlUpdate)) {
+            stm.setString(2, this.getEndereco());
+            stm.setString(3, this.getCheckin());
+            stm.setString(3, this.getCheckout());
+            stm.setString(4, this.getNome());
+
+            stm.execute();
+        } catch (Exception ex) {
+            try {
+                conn.rollback();
+            } catch(SQLException sql_ex) {
+                System.out.println(sql_ex.getStackTrace());
+            }
+        }
+    }
+
+    public void carregar(Connection conn) {
+
+        String sqlSelect = "SELECT * FROM hotel WHERE nome = ?";
+
+        try (PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+            stm.setString(1, this.getNome());
+            try (ResultSet rs = stm.executeQuery();) {
+                if(rs.next()) {
+                    this.setNome(rs.getString(2));
+                } 
+            } catch(Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (SQLException sql_ex) {
+            System.out.println(sql_ex.getStackTrace());
         }
     }
 }
