@@ -6,44 +6,25 @@ import java.util.Date;
 public class Viagem {
     
     private User user;
-<<<<<<< HEAD
-    // private Hotel hotel;
-    // private Ingresso ingresso;
-    private Date diaFinal;
-    // private Date diaInicial;
-=======
     private Hotel hotel;
     private Ingresso ingresso;
     private Date diaFinal;
     private Date diaInicial;
->>>>>>> 718f6ef7e71e6da1aab3fb3dd3a8bc5fbc41c81f
     private String nomeViagem;
     private String descricaoViagem;
     private String diaInicio;
 
-<<<<<<< HEAD
-    public Viagem(Date diaFinal, Date diaInicial, String nomeViagem, String descricaoViagem, String diaInicio){
-        // this.user = user;
-        // this.hotel = hotel;
-        // this.ingresso = ingresso;
-=======
     public Viagem(User user, Hotel hotel, Ingresso ingresso, Date diaFinal, Date diaInicial, String nomeViagem, String descricaoViagem, String diaInicio){
         this.user = user;
         this.hotel = hotel;
         this.ingresso = ingresso;
->>>>>>> 718f6ef7e71e6da1aab3fb3dd3a8bc5fbc41c81f
         this.diaFinal = diaFinal;
         this.diaInicial = diaInicial;
         this.nomeViagem = nomeViagem;
         this.descricaoViagem = descricaoViagem;
         this.diaInicio = diaInicio;
     }
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 718f6ef7e71e6da1aab3fb3dd3a8bc5fbc41c81f
+    
     public void inserir(Connection conn) {
         
         String sqlInsert = "INSERT INTO viagem (id, nome_viagem, descricao, data_inicio, data_final, user_id, hotel_id, ingresso_id) VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
@@ -53,15 +34,9 @@ public class Viagem {
             stm.setString(2, this.descricaoViagem);
             stm.setString(3, this.diaInicio);
             stm.setString(4, this.diaFinal.toString());
-<<<<<<< HEAD
-            // stm.setInt(5, this.user.getId());
-            // stm.setInt(6, this.hotel.getId());
-            // stm.setInt(7, this.ingresso.getId());
-=======
             stm.setInt(5, this.user.getId());
             stm.setInt(6, this.hotel.getId());
             stm.setInt(7, this.ingresso.getId());
->>>>>>> 718f6ef7e71e6da1aab3fb3dd3a8bc5fbc41c81f
 
             stm.execute();
         } catch(SQLException ex) {
