@@ -15,7 +15,7 @@ public class App {
             conn.setAutoCommit(false);
             DatabaseSetup.executeInitialSQL(conn);
 
-            TelaInicial tl = new TelaInicial(conn);
+            new TelaInicial(conn);
             
         } catch (ClassNotFoundException ex) {
             System.out.println("Driver não encontrado!");
