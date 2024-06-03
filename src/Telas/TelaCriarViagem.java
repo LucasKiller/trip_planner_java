@@ -417,6 +417,12 @@ public class TelaCriarViagem extends JFrame{
             }
         });
 
+        botaoCancelarViagem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 

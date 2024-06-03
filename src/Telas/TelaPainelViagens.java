@@ -1,7 +1,23 @@
 package Telas;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+
+import java.awt.event.ActionEvent;
 
 public class TelaPainelViagens extends JFrame {
     private JLabel painelControle;
@@ -55,6 +71,13 @@ public class TelaPainelViagens extends JFrame {
         contentPane.setLayout(new BorderLayout());
 
         contentPane.add(painelBorda, BorderLayout.CENTER);
+
+        addViagem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaCriarViagem telaCriarViagem = new TelaCriarViagem();
+                telaCriarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
 
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
