@@ -48,24 +48,22 @@ public class Carro {
     }
 
     public void inserir(Connection conn) {
-        
-        String sqlInsert = "INSERT INTO users(marca, placa, temSeguro, Imagem) VALUES (null, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO carros(marca, placa, temSeguro, imagem) VALUES (null, ?, ?, ?)";
 
-        try (PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
+        try (PreparedStatement stm = conn.prepareStatement(sqlInsert)) {
             stm.setString(1, this.getMarca());
             stm.setString(2, this.getPlaca());
             stm.setBoolean(3, this.isTemSeguro());
-            stm.setString(3, this.getImagem());
+            stm.setString(4, this.getImagem());
 
             stm.execute();
-        } catch(Exception ex) {
-
+        } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException sql_ex) {
-                System.out.println(sql_ex.getStackTrace());
+                System.out.println(sql_ex.getMessage());
             }
+            System.out.println("Erro ao inserir carro: " + ex.getMessage());
         }
     }
-
 }
