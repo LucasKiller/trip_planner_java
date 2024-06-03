@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        new TelaInicial();
+
         String driver = "com.mysql.cj.jdbc.Driver";
 
         try (Connection conn = ConnectDB.conectar();){
