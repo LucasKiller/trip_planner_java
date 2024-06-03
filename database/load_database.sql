@@ -1,14 +1,14 @@
-CREATE DATABASE project_trip_planner;
+CREATE DATABASE IF NOT EXISTS project_trip_planner;
 USE project_trip_planner;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(60) NOT NULL,
   login VARCHAR(60) NOT NULL,
   password VARCHAR(60) NOT NULL
 );
 
-CREATE TABLE hotel (
+CREATE TABLE IF NOT EXISTS hotel (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(60) NOT NULL,
   checkin DATE,
@@ -16,7 +16,7 @@ CREATE TABLE hotel (
   image_path VARCHAR(100)
 );
 
-CREATE TABLE carro (
+CREATE TABLE IF NOT EXISTS carro (
   id INT AUTO_INCREMENT PRIMARY KEY, 
   nome VARCHAR(60) NOT NULL,
   marca VARCHAR(60) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE carro (
   img_path VARCHAR(60)
 );
 
-CREATE TABLE trips (
+CREATE TABLE IF NOT EXISTS trips (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(60) NOT NULL,
   descrp LONGTEXT,
@@ -40,5 +40,4 @@ CREATE TABLE trips (
   FOREIGN KEY (id_carro) REFERENCES carro(id)
 );
 
-INSERT INTO `project_trip_planner`.`users` (`id`, `nome`, `login`, `password`) VALUES (null, 'Lucas Milani', 'lukita', 'admin');
 
