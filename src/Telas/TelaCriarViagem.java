@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.Image;
 import java.awt.FlowLayout;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -62,6 +64,8 @@ public class TelaCriarViagem extends JFrame{
     private JLabel textImagemCarro;
     private JLabel imagemLabelCarro;
     private JButton botaoSelecionarImagemCarro;
+
+    // private List<Viagem> viagens = new ArrayList<Viagem>();
 
     public TelaCriarViagem(){
         super("Criar Viagem");
