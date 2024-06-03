@@ -143,11 +143,15 @@ public class TelaInicial extends JFrame {
                         JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para se registrar!");
                     } else {
                         try {
-                            manager.registerUser(conn, novoNome, novoLogin, novaSenha);
-                            conn.commit();
+                            int result = manager.registerUser(conn, novoNome, novoLogin, novaSenha);
+                            if (result == -1) {
+                                JOptionPane.showMessageDialog(caixa, "O perfil já existe!");
+                            } else {
+                                JOptionPane.showMessageDialog(caixa, "Perfil registrado!");
+                            }
                         } catch (Exception ex) {
                             ex.printStackTrace();
-                        } 
+                        }
                     }
                 }
             }
