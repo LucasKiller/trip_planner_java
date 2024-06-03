@@ -33,8 +33,8 @@ public class ManageUserLogin {
 
     }
 
-    public int registerUser(Connection conn, String user, String pass, String nome) {
-        this.setUser(new User(user, pass, nome));
+    public int registerUser(Connection conn, String nome, String user, String pass) {
+        this.setUser(new User(nome, user, pass));
         this.getUser().carregar(conn);
         if(this.getUser().getID() != 0) {
             // Utilizar de algum dialogo para informar que o registro foi MAL SUCEDIDO
