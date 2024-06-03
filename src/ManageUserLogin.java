@@ -38,11 +38,13 @@ public class ManageUserLogin {
         this.getUser().carregar(conn);
         if(this.getUser().getID() != 0) {
             // Utilizar de algum dialogo para informar que o registro foi MAL SUCEDIDO
+            JOptionPane.showMessageDialog(null, "Usuario já existe!");
             return -1;
         }
 
         this.getUser().inserir(conn);
         this.setLogged(true);
+        JOptionPane.showMessageDialog(null, "Usuario criado com sucesso");
         return 1;
     }
 
