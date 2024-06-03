@@ -1,7 +1,5 @@
 import java.sql.Connection;
 
-import javax.swing.JOptionPane;
-
 /*
  * Classe para monitoriamento de login de usuario
  * Metodos como: login, registrar
