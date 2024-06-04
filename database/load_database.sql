@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS carro (
   marca VARCHAR(60) NOT NULL,
   placa VARCHAR(10) NOT NULL,
   temSeguro BOOLEAN,
+  valorSeguro INT,
   img_path VARCHAR(100)
 );
 
