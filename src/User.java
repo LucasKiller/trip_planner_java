@@ -22,7 +22,7 @@ public class User {
     /*
      * Construtor para a criacao de um novo usuario
      */
-    public User(String user, String nome, String pass) {
+    public User(String nome, String user, String pass) {
         this.user = user;
         this.nome = nome;
         this.pass = pass;
@@ -61,7 +61,6 @@ public class User {
     public void inserir(Connection conn) {
         
         String sqlInsert = "INSERT INTO users(id, nome, login, password) VALUES (null, ?, ?, ?)";
-
         try (PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
             stm.setString(1, this.getNome());
             stm.setString(2, this.getUser());
@@ -73,7 +72,7 @@ public class User {
             try {
                 conn.rollback();
             } catch (SQLException sql_ex) {
-                System.out.println(sql_ex.getStackTrace());
+                sql_ex.printStackTrace();
             }
         }
     }

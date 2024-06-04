@@ -5,14 +5,20 @@ import java.sql.SQLException;
 public class App {
     public static void main(String[] args) throws Exception {
         String driver = "com.mysql.cj.jdbc.Driver";
+        Connection conn = null;
 
-        try (Connection conn = ConnectDB.conectar();){
+        try {
             Class.forName(driver);
+
+            conn = ConnectDB.conectar();
 
             conn.setAutoCommit(false);
             DatabaseSetup.executeInitialSQL(conn);
 
             conn.commit();
+
+            new TelaInicial(conn);
+            
         } catch (ClassNotFoundException ex) {
             System.out.println("Driver não encontrado!");
         } catch (SQLException sql_ex) {
