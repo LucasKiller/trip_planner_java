@@ -59,7 +59,7 @@ public class Carro {
     }
 
     public void inserir(Connection conn) {
-        String sqlInsert = "INSERT INTO carro(id, nome, marca, placa, temSeguro, imagem) VALUES (null, ?, ?, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO carro(id, nome, marca, placa, temSeguro, img_path) VALUES (null, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlInsert)) {
             stm.setString(1, this.getNome());

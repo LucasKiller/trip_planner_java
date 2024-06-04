@@ -67,7 +67,7 @@ public class TelaCriarViagem extends JFrame {
 
     // private List<Viagem> viagens = new ArrayList<Viagem>();
 
-    public TelaCriarViagem(Connection conn){
+    public TelaCriarViagem(Connection conn, ManageUserLogin manager){
         super("Criar Viagem");
 
         criarViagem = new JLabel("Como vai ser a sua viagem?");
@@ -430,10 +430,10 @@ public class TelaCriarViagem extends JFrame {
         botaoCriarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                ManageUserLogin managerUser = new ManageUserLogin();
-                Hotel hotel = new Hotel(nomeHotel.toString() , enderecoHotel.toString(), Fix_Date_String.fix_date(checkInHotel.toString()), Fix_Date_String.fix_date(checkOutHotel.toString()));
-                Carro carro = new Carro(nomeCarro.toString(), modeloCarro.toString(), placaCarro.toString(), (valorSeguro.isVisible() ? true : false), "Teste");
-                Viagem trip = new Viagem(managerUser.getUser(), hotel, carro, Fix_Date_String.fix_date(dataInicio.toString()), Fix_Date_String.fix_date(dataFim.toString()), nomeViagem.toString(), descricaoViagem.toString());
+                
+                Hotel hotel = new Hotel(campoNomeHotel.toString(), campoEnderecoHotel.toString(),campoCheckInHotel.toString(), campoCheckOutHotel.toString());
+                Carro carro = new Carro(campoNomeCarro.toString(), campoModeloCarro.toString(), campoPlacaCarro.toString(), (campoValorSeguro.isVisible() ? true : false), "Teste");
+                Viagem trip = new Viagem(manager.getUser(), hotel, carro, campoDataInicio.toString(), campoDataFim.toString(), campoNomeViagem.toString(), campoDescricaoViagem.toString());
                 try {
                     hotel.inserir(conn);
                     carro.inserir(conn);

@@ -28,7 +28,7 @@ public class Viagem {
     
     public void inserir(Connection conn) {
         
-        String sqlInsert = "INSERT INTO viagem (id, nome, descrp, id_hotel, id_carro, init_date, final_date, img_path, id_user) VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO trips (id, nome, descrp, id_hotel, id_carro, init_date, final_date, img_path, id_user) VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
 
@@ -53,7 +53,7 @@ public class Viagem {
     }
 
      public void excluir(Connection conn) {
-        String sqlDelete = "DELETE FROM viagem WHERE id = ?";
+        String sqlDelete = "DELETE FROM trips WHERE id = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
             stm.setInt(1, this.getID());
@@ -69,7 +69,7 @@ public class Viagem {
     }
 
     public void atualiza(Connection conn) {
-        String sqlUpdate = "UPDATE viagem SET nome = ?, descrp = ?, id_hotel = ?, id_carro = ?, init_date = ?, final_date = ?, img_path = ? WHERE id = ?";
+        String sqlUpdate = "UPDATE trips SET nome = ?, descrp = ?, id_hotel = ?, id_carro = ?, init_date = ?, final_date = ?, img_path = ? WHERE id = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlUpdate)) {
             stm.setString(1, this.getNomeViagem());
@@ -95,7 +95,7 @@ public class Viagem {
 
     public void carregar(Connection conn) {
 
-        String sqlSelect = "SELECT * FROM viagem WHERE id = ?";
+        String sqlSelect = "SELECT * FROM trips WHERE id = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
             stm.setInt(1, this.getID());

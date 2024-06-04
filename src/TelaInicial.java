@@ -115,7 +115,7 @@ public class TelaInicial extends JFrame {
                             JOptionPane.showMessageDialog(caixa, "Login ou senha incorretos!");
                         } else {
                             JOptionPane.showMessageDialog(caixa, "Login bem-sucedido!");
-                            TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, login);
+                            TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, login, manager);
                             dispose();
                         }
                     }

@@ -33,7 +33,7 @@ public class TelaPainelViagens extends JFrame {
     private JMenuItem sairUserItem;
 
 
-    public TelaPainelViagens(Connection conn, String login) {
+    public TelaPainelViagens(Connection conn, String login, ManageUserLogin manager) {
         super("Painel de controle");
 
         painelControle = new JLabel("Painel de controle de viagens:");
@@ -85,7 +85,7 @@ public class TelaPainelViagens extends JFrame {
 
         addViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(conn);
+                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(conn, manager);
                 telaCriarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });

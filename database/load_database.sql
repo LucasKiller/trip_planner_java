@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS hotel (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(60) NOT NULL,
   endereco VARCHAR(60) NOT NULL,
-  checkin DATE,
-  checkout DATE,
+  checkin VARCHAR(60),
+  checkout VARCHAR(60)
 );
 
 CREATE TABLE IF NOT EXISTS carro (
@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS trips (
   descrp LONGTEXT,
   id_hotel INT NOT NULL,
   id_carro INT NOT NULL,
-  init_date DATE,
-  final_date DATE,
+  init_date VARCHAR(60),
+  final_date VARCHAR(60),
   img_path VARCHAR(100),
   id_user INT NOT NULL,
   FOREIGN KEY (id_user) REFERENCES users(id),
