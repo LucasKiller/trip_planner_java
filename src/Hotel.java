@@ -5,19 +5,21 @@ import java.sql.SQLException;
 
 public class Hotel {
     
+    private int ID;
     private String nome;
     private String endereco;
     private String checkin;
     private String checkout;
-    
-    /*
-     * Construtor para a criacao de um novo usuario
-     */
+
     public Hotel(String nome, String endereco, String checkin, String checkout) {
         this.nome = nome;
         this.endereco = endereco;
         this.checkin = checkin;
         this.checkout = checkout;
+    }
+
+    public Hotel(int ID) {
+        this.ID = ID;
     }
 
     //Metodos de acesso e modificadores
@@ -47,7 +49,7 @@ public class Hotel {
     }
 
     public void inserir(Connection conn) {
-        String sqlInsert = "INSERT INTO hotel(nome, endereco, checkin, checkout) VALUES (null, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO hotel(id, nome, endereco, checkin, checkout) VALUES (null, ?, ?, ?, ?)";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlInsert)) {
             stm.setString(1, this.getNome());
@@ -67,10 +69,10 @@ public class Hotel {
     }
 
         public void excluir(Connection conn) {
-        String sqlDelete = "DELETE FROM hotel";
+        String sqlDelete = "DELETE FROM hotel WHERE id = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
-            stm.setString(1, this.getNome());
+            stm.setInt(1, this.getID());
 
             stm.execute();
         } catch(Exception ex) {
@@ -83,13 +85,14 @@ public class Hotel {
     }
 
     public void atualiza(Connection conn) {
-        String sqlUpdate = "UPDATE hotel SET endereco = ?, checkin = ?, checkout = ? WHERE nome = ?";
+        String sqlUpdate = "UPDATE hotel SET nome = ?, endereco = ?, checkin = ?, checkout = ?, img_path = ? WHERE id = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlUpdate)) {
+            stm.setString(1, this.getNome());
             stm.setString(2, this.getEndereco());
             stm.setString(3, this.getCheckin());
-            stm.setString(3, this.getCheckout());
-            stm.setString(4, this.getNome());
+            stm.setString(4, this.getCheckout());
+            stm.setInt(6, this.getID());
 
             stm.execute();
         } catch (Exception ex) {
@@ -103,13 +106,16 @@ public class Hotel {
 
     public void carregar(Connection conn) {
 
-        String sqlSelect = "SELECT * FROM hotel WHERE nome = ?";
+        String sqlSelect = "SELECT * FROM hotel WHERE id = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
-            stm.setString(1, this.getNome());
+            stm.setInt(1, this.getID());
             try (ResultSet rs = stm.executeQuery();) {
                 if(rs.next()) {
                     this.setNome(rs.getString(2));
+                    this.setEndereco(rs.getString(3));
+                    this.setCheckin(rs.getString(4));
+                    this.setCheckout(rs.getString(5));
                 } 
             } catch(Exception ex) {
                 ex.printStackTrace();
@@ -117,5 +123,13 @@ public class Hotel {
         } catch (SQLException sql_ex) {
             System.out.println(sql_ex.getStackTrace());
         }
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int iD) {
+        ID = iD;
     }
 }

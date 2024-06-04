@@ -7,17 +7,17 @@ public class Viagem {
     
     private User user;
     private Hotel hotel;
-    private Ingresso ingresso;
-    private Date diaFinal;
-    private Date diaInicial;
+    private Carro carro;
+    private String diaFinal;
+    private String diaInicial;
     private String nomeViagem;
     private String descricaoViagem;
     private String diaInicio;
 
-    public Viagem(User user, Hotel hotel, Ingresso ingresso, Date diaFinal, Date diaInicial, String nomeViagem, String descricaoViagem, String diaInicio){
+    public Viagem(User user, Hotel hotel, Carro carro, String diaFinal, String diaInicial, String nomeViagem, String descricaoViagem, String diaInicio){
         this.user = user;
         this.hotel = hotel;
-        this.ingresso = ingresso;
+        this.carro = carro;
         this.diaFinal = diaFinal;
         this.diaInicial = diaInicial;
         this.nomeViagem = nomeViagem;
@@ -36,7 +36,6 @@ public class Viagem {
             stm.setString(4, this.diaFinal.toString());
             stm.setInt(5, this.user.getId());
             stm.setInt(6, this.hotel.getId());
-            stm.setInt(7, this.ingresso.getId());
 
             stm.execute();
         } catch(SQLException ex) {
