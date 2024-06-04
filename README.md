@@ -1,6 +1,6 @@
 # trip_planner_java ✈🧳
 
-Trip Planner Java is an application developed in Java aimed at helping users plan their trips efficiently and organized. The system allows users to create, manage, and track travel itineraries, including details such as destinations, dates, activities, and budgets.
+Trip Planner Java is an application developed in Java aimed at helping users plan their trips efficiently and organized. The system allows users to create, manage, and track travel itineraries, including details such as destinations, dates and activities.
 
 ## Project information 👨‍💻
 
