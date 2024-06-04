@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import java.awt.Component;
@@ -23,12 +24,12 @@ public class TelaInicial extends JFrame {
     private JLabel textLogin;
     private JButton botaoLogin;
     private JTextField campoLogin;
-    private JTextField campoSenha;
+    private JPasswordField campoSenha;
     private JLabel textRegistrar;
     private JButton botaoRegistrar;
     private JTextField campoNovoNome; // senha
     private JTextField campoNovoLogin; // nome
-    private JTextField campoNovaSenha; // login
+    private JPasswordField campoNovaSenha; // login
 
     private ManageUserLogin manager;
 
@@ -40,12 +41,12 @@ public class TelaInicial extends JFrame {
         botaoLogin = new JButton("Entrar");
         textLogin = new JLabel("Login:");
         campoLogin = new JTextField("Login", 15);
-        campoSenha = new JTextField("Senha", 15);
+        campoSenha = new JPasswordField("Senha", 15);
         textRegistrar = new JLabel("Não tem uma conta ainda?");
         botaoRegistrar = new JButton("Registrar");
         campoNovoNome = new JTextField("Usuário", 15);
         campoNovoLogin = new JTextField("Login", 15);
-        campoNovaSenha = new JTextField("Senha", 15);
+        campoNovaSenha = new JPasswordField("Senha", 15);
 
         bemVindo.setFont(bemVindo.getFont().deriveFont(Font.BOLD, 16));
 
