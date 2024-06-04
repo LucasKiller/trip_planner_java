@@ -11,9 +11,9 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS hotel (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(60) NOT NULL,
+  endereco VARCHAR(60) NOT NULL,
   checkin DATE,
   checkout DATE,
-  image_path VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS carro (
@@ -22,12 +22,13 @@ CREATE TABLE IF NOT EXISTS carro (
   marca VARCHAR(60) NOT NULL,
   placa VARCHAR(10) NOT NULL,
   temSeguro BOOLEAN,
-  img_path VARCHAR(60)
+  valorSeguro INT,
+  img_path VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS trips (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(60) NOT NULL,
+  nome VARCHAR(60) NOT NULL,
   descrp LONGTEXT,
   id_hotel INT NOT NULL,
   id_carro INT NOT NULL,
