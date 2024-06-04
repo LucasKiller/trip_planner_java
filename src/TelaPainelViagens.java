@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 
@@ -34,8 +35,20 @@ public class TelaPainelViagens extends JFrame {
     private JMenuItem verUserItem;
     private JMenuItem editarUserItem;
     private JMenuItem sairUserItem;
-    private List<Viagem> viagens = new ArrayList<Viagem>();
+    private ArrayList<Viagem> viagens;
 
+    private JLabel nomeViagem;
+    private JLabel descricaoViagem;
+    private JLabel dataViagem;
+    private JLabel hotelNome;
+    private JLabel endereco;
+    private JLabel checkin;
+    private JLabel checkout;
+    private JLabel carroNome;
+    private JLabel marca;
+    private JLabel placa;
+    private JLabel seguro;
+    private JLabel valorSeguro;
 
     public TelaPainelViagens(Connection conn, String login, ManageUserLogin manager) {
         super("Painel de controle");
@@ -50,6 +63,19 @@ public class TelaPainelViagens extends JFrame {
         verUserItem = new JMenuItem("👔 Ver Perfil");
         editarUserItem = new JMenuItem("🖊 Editar Perfil");
         sairUserItem = new JMenuItem("🖐 Sair");
+        viagens = new ArrayList<Viagem>();
+        nomeViagem = new JLabel("Nome da viagem:");
+        descricaoViagem = new JLabel("Descrição da viagem:");
+        dataViagem = new JLabel("Data da viagem:");
+        hotelNome = new JLabel("Nome do hotel:");
+        endereco = new JLabel("Endereço:");
+        checkin = new JLabel("Check-in:");
+        checkout = new JLabel("Check-out:");
+        carroNome = new JLabel("Nome do carro:");
+        marca = new JLabel("Marca:");
+        placa = new JLabel("Placa:");
+        seguro = new JLabel("Tem seguro:");
+        valorSeguro = new JLabel("Valor do seguro:");
 
         painelControle.setFont(painelControle.getFont().deriveFont(Font.BOLD, 16));
         painelControle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -76,12 +102,111 @@ public class TelaPainelViagens extends JFrame {
 
         setJMenuBar(menuBar);
 
-        JPanel caixaCardViagem = new JPanel();
-        caixaCardViagem.setLayout(new BoxLayout(caixaCardViagem, BoxLayout.Y_AXIS));
+        viagens = GetTrips.getTrips(conn, manager);
 
-        
+        for (Viagem viagem : viagens) {
+            JPanel cardViagem = new JPanel();
+            cardViagem.setLayout(new BoxLayout(cardViagem, BoxLayout.Y_AXIS));
 
-        caixa.add(caixaCardViagem);
+            JPanel caixaViagem = new JPanel();
+            caixaViagem.setLayout(new FlowLayout());
+
+            caixaViagem.add(nomeViagem);
+            JLabel nomeViagem = new JLabel(viagem.getNomeViagem());
+            cardViagem.add(caixaViagem);
+
+            JPanel caixaDescricao = new JPanel();
+            caixaDescricao.setLayout(new FlowLayout());
+
+            caixaDescricao.add(descricaoViagem);
+            JLabel descricaoViagem = new JLabel(viagem.getDescricaoViagem());
+            cardViagem.add(caixaDescricao);
+
+            JPanel caixaData = new JPanel();
+            caixaData.setLayout(new FlowLayout());
+
+            caixaData.add(dataViagem);
+            JLabel dataViagem = new JLabel(viagem.getDiaInicial() + " - " + viagem.getDiaFinal());
+            cardViagem.add(caixaData);
+
+            JPanel caixaHotel = new JPanel();
+            caixaHotel.setLayout(new FlowLayout());
+
+            caixaHotel.add(hotelNome);
+            JLabel hotelNome = new JLabel(viagem.getHotel().getNome());
+            cardViagem.add(caixaHotel);
+
+            JPanel caixaEndereco = new JPanel();
+            caixaEndereco.setLayout(new FlowLayout());
+
+            caixaEndereco.add(endereco);
+            JLabel endereco = new JLabel(viagem.getHotel().getEndereco());
+            cardViagem.add(caixaEndereco);
+
+            JPanel caixaCheckin = new JPanel();
+            caixaCheckin.setLayout(new FlowLayout());
+
+            caixaCheckin.add(checkin);
+            JLabel checkin = new JLabel(viagem.getHotel().getCheckin());
+            cardViagem.add(caixaCheckin);
+
+            JPanel caixaCheckout = new JPanel();
+            caixaCheckout.setLayout(new FlowLayout());
+
+            caixaCheckout.add(checkout);
+            JLabel checkout = new JLabel(viagem.getHotel().getCheckout());
+            cardViagem.add(caixaCheckout);
+
+            JPanel caixaCarro = new JPanel();
+            caixaCarro.setLayout(new FlowLayout());
+
+            caixaCarro.add(carroNome);
+            JLabel carroNome = new JLabel(viagem.getCarro().getNome());
+            cardViagem.add(caixaCarro);
+
+            JPanel caixaMarca = new JPanel();
+            caixaMarca.setLayout(new FlowLayout());
+
+            caixaMarca.add(marca);
+            JLabel marca = new JLabel(viagem.getCarro().getMarca());
+            cardViagem.add(caixaMarca);
+
+            JPanel caixaPlaca = new JPanel();
+            caixaPlaca.setLayout(new FlowLayout());
+
+            caixaPlaca.add(placa);
+            JLabel placa = new JLabel(viagem.getCarro().getPlaca());
+            cardViagem.add(caixaPlaca);
+
+            JPanel caixaSeguro = new JPanel();
+            caixaSeguro.setLayout(new FlowLayout());
+
+            caixaSeguro.add(seguro);
+            JLabel seguro = new JLabel(viagem.getCarro().isTemSeguro() ? "Sim" : "Não");
+            cardViagem.add(caixaSeguro);
+
+            JPanel caixaValorSeguro = new JPanel();
+            caixaValorSeguro.setLayout(new FlowLayout());
+
+            caixaValorSeguro.add(valorSeguro);
+            JLabel valorSeguro = new JLabel(Integer.toString(viagem.getCarro().getValorSeguro()));
+            cardViagem.add(caixaValorSeguro);
+
+            cardViagem.add(nomeViagem);
+            cardViagem.add(descricaoViagem);
+            cardViagem.add(dataViagem);
+            cardViagem.add(hotelNome);
+            cardViagem.add(endereco);
+            cardViagem.add(checkin);
+            cardViagem.add(checkout);
+            cardViagem.add(carroNome);
+            cardViagem.add(marca);
+            cardViagem.add(placa);
+            cardViagem.add(seguro);
+            cardViagem.add(valorSeguro);
+
+            caixa.add(cardViagem);
+        }
 
         JPanel painelBorda = new JPanel();
         painelBorda.setLayout(new BoxLayout(painelBorda, BoxLayout.Y_AXIS));
