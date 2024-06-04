@@ -93,19 +93,20 @@ public class Viagem {
         }
     }
 
-    public void carregar(Connection conn) {
+    public void carregar(Connection conn, ManageUserLogin manager) {
 
-        String sqlSelect = "SELECT * FROM trips WHERE id = ?";
+        String sqlSelect = "SELECT * FROM trips WHERE id_user = ?";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
-            stm.setInt(1, this.getID());
+            stm.setInt(1, manager.getUser().getID());
             try (ResultSet rs = stm.executeQuery();) {
                 if(rs.next()) {
-                    // this.setNome(rs.getString(2));
-                    // this.setEndereco(rs.getString(3));
-                    // this.setCheckin(rs.getString(4));
-                    // this.setCheckout(rs.getString(5));
-                    // this.setImagepath(rs.getString(6));
+                    this.setID(rs.getInt("id"));
+                    this.setNomeViagem(rs.getString("nome"));
+                    this.setDescricaoViagem(rs.getString("descrp"));
+                    this.setDiaInicial(rs.getString("init_date"));
+                    this.setDiaFinal(rs.getString("final_date"));
+                    this.setImagepath(rs.getString("img_path"));
                 } 
             } catch(Exception ex) {
                 ex.printStackTrace();

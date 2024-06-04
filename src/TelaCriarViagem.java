@@ -4,8 +4,6 @@ import java.awt.event.ActionListener;
 import java.awt.Image;
 import java.awt.FlowLayout;
 import java.io.File;
-// import java.util.ArrayList;
-// import java.util.List;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -65,8 +63,6 @@ public class TelaCriarViagem extends JFrame {
     private JLabel imagemLabelCarro;
     private JButton botaoSelecionarImagemCarro;
 
-    // private List<Viagem> viagens = new ArrayList<Viagem>();
-
     public TelaCriarViagem(Connection conn, ManageUserLogin manager){
         super("Criar Viagem");
 
@@ -107,7 +103,7 @@ public class TelaCriarViagem extends JFrame {
         temSeguro = new JCheckBox("Sim");
         semSeguro = new JCheckBox("Não");
         valorSeguro = new JLabel("Valor do seguro:");
-        campoValorSeguro = new JTextField("R$ 100,00", 10);
+        campoValorSeguro = new JTextField("100", 10);
         textImagemCarro = new JLabel("Imagem Carro:");
         imagemLabelCarro = new JLabel();
         botaoSelecionarImagemCarro = new JButton("Selecionar Imagem");
@@ -333,6 +329,12 @@ public class TelaCriarViagem extends JFrame {
                 if (semCarro.isSelected()) {
                     temCarro.setSelected(false);
 
+                    campoNomeCarro.setText("");
+                    campoModeloCarro.setText("");
+                    campoPlacaCarro.setText("");
+                    campoValorSeguro.setText("0");
+                    semSeguro.setSelected(true);
+
                     nomeCarro.setVisible(false);
                     campoNomeCarro.setVisible(false);
                     modeloCarro.setVisible(false);
@@ -379,6 +381,8 @@ public class TelaCriarViagem extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (semSeguro.isSelected()) {
                     temSeguro.setSelected(false);
+
+                    campoValorSeguro.setText("0");
 
                     valorSeguro.setVisible(false);
                     campoValorSeguro.setVisible(false);
@@ -431,7 +435,7 @@ public class TelaCriarViagem extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 
                 Hotel hotel = new Hotel(campoNomeHotel.getText(), campoEnderecoHotel.getText(),campoCheckInHotel.getText(), campoCheckOutHotel.getText());
-                Carro carro = new Carro(campoNomeCarro.getText(), campoModeloCarro.getText(), campoPlacaCarro.getText(), (campoValorSeguro.isVisible() ? true : false), Integer.parseInt(campoValorSeguro.getText()),"Teste");
+                Carro carro = new Carro(campoNomeCarro.getText(), campoModeloCarro.getText(), campoPlacaCarro.getText(), temSeguro.isSelected(), Integer.parseInt(campoValorSeguro.getText()),"Teste");
                 Viagem trip = new Viagem(manager.getUser(), hotel, carro, campoDataInicio.getText(), campoDataFim.getText(), campoNomeViagem.getText(), campoDescricaoViagem.getText());
 
                 try {
@@ -444,6 +448,7 @@ public class TelaCriarViagem extends JFrame {
                 } catch (SQLException sql_ex) {
                     sql_ex.printStackTrace();
                 }
+                dispose();
             }
         });
 

@@ -4,10 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.naming.spi.DirStateFactory.Result;
-
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
-
 public class Carro {
     private String nome;
     private String marca;

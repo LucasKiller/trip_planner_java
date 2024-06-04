@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 
 import java.sql.Connection;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -31,6 +34,7 @@ public class TelaPainelViagens extends JFrame {
     private JMenuItem verUserItem;
     private JMenuItem editarUserItem;
     private JMenuItem sairUserItem;
+    private List<Viagem> viagens = new ArrayList<Viagem>();
 
 
     public TelaPainelViagens(Connection conn, String login, ManageUserLogin manager) {
@@ -71,6 +75,13 @@ public class TelaPainelViagens extends JFrame {
         menuBar.add(menuUser);
 
         setJMenuBar(menuBar);
+
+        JPanel caixaCardViagem = new JPanel();
+        caixaCardViagem.setLayout(new BoxLayout(caixaCardViagem, BoxLayout.Y_AXIS));
+
+        
+
+        caixa.add(caixaCardViagem);
 
         JPanel painelBorda = new JPanel();
         painelBorda.setLayout(new BoxLayout(painelBorda, BoxLayout.Y_AXIS));
