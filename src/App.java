@@ -2,12 +2,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import Telas.TelaPainelViagens;
-
 public class App {
     public static void main(String[] args) throws Exception {
-        new TelaPainelViagens();
-
         String driver = "com.mysql.cj.jdbc.Driver";
 
         try (Connection conn = ConnectDB.conectar();){
