@@ -40,7 +40,7 @@ public class TelaPainelViagens extends JFrame {
     // private JMenuItem excluirViagemItem;
     private JMenu menuUser;
     private JMenuItem verUserItem;
-    private JMenuItem editarUserItem;
+    // private JMenuItem editarUserItem;
     private JMenuItem sairUserItem;
     private ArrayList<Viagem> viagens;
 
