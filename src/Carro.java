@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
@@ -117,7 +118,17 @@ public class Carro {
         try (PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
             stm.setInt(1, this.getID());
 
-            stm.execute();
+            try (ResultSet rs = stm.executeQuery(sqlSelect);) {
+                if(rs.next()) {
+                    this.setNome(rs.getString(2));
+                    this.setMarca(rs.getString(3));
+                    this.setPlaca(rs.getString(4));
+                    this.setTemSeguro(rs.getBoolean(5));
+                    this.setImagem(rs.getString(6));
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         } catch(SQLException sql_ex) {
             sql_ex.printStackTrace();
         }
