@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 
-public class TelaCriarViagem extends JFrame{
+public class TelaEditarViagem extends JFrame{
     private JLabel criarViagem;
     private JLabel nomeViagem;
     private JTextField campoNomeViagem;
@@ -67,47 +67,47 @@ public class TelaCriarViagem extends JFrame{
 
     // private List<Viagem> viagens = new ArrayList<Viagem>();
 
-    public TelaCriarViagem(){
-        super("Criar Viagem");
+    public TelaEditarViagem(){
+        super("Edição de Viagem");
 
-        criarViagem = new JLabel("Como vai ser a sua viagem?");
+        criarViagem = new JLabel("Altere os dados da viagem");
         nomeViagem = new JLabel("Nome da viagem:");
-        campoNomeViagem = new JTextField("Viagem em família", 10);
+        campoNomeViagem = new JTextField(10);
         descricaoViagem = new JLabel("Descrição da viagem:");
-        campoDescricaoViagem = new JTextField("Viagem de férias", 10);
+        campoDescricaoViagem = new JTextField(10);
         cidade = new JLabel("Cidade:");
-        campoCidade = new JTextField("São Paulo", 10);
+        campoCidade = new JTextField(10);
         nomeHotel = new JLabel("nome do hotel:");
-        campoNomeHotel = new JTextField("Hotel X", 10);
+        campoNomeHotel = new JTextField(10);
         enderecoHotel = new JLabel("Endereço:");
-        campoEnderecoHotel = new JTextField("Rua X, 123", 10);
+        campoEnderecoHotel = new JTextField(10);
         checkInHotel = new JLabel("Check-in:");
-        campoCheckInHotel = new JTextField("01/01/2021", 10);
+        campoCheckInHotel = new JTextField(10);
         checkOutHotel = new JLabel("Check-out:");
-        campoCheckOutHotel = new JTextField("10/01/2021", 10);
+        campoCheckOutHotel = new JTextField(10);
         alugarCarro = new JLabel("Você vai alugar um carro?");
         temCarro = new JCheckBox("Sim");
         semCarro = new JCheckBox("Não");
         dataInicio = new JLabel("Data de início:");
-        campoDataInicio = new JTextField("01/01/2021", 10);
+        campoDataInicio = new JTextField(10);
         dataFim = new JLabel("Data de fim:");
-        campoDataFim = new JTextField("10/01/2021", 10);
+        campoDataFim = new JTextField(10);
         textImagem = new JLabel("Imagem:");
         botaoSelecionarImagem = new JButton("Selecionar Imagem");
         imagemLabel = new JLabel();
-        botaoCriarViagem = new JButton("Criar Viagem");
+        botaoCriarViagem = new JButton("Editar Viagem");
         botaoCancelarViagem = new JButton("Cancelar");
         nomeCarro = new JLabel("Nome do carro:");
-        campoNomeCarro = new JTextField("Carro X", 10);
+        campoNomeCarro = new JTextField(10);
         modeloCarro = new JLabel("Modelo do carro:");
-        campoModeloCarro = new JTextField("Modelo X", 10);
+        campoModeloCarro = new JTextField(10);
         placaCarro = new JLabel("Placa do carro:");
-        campoPlacaCarro = new JTextField("XXX-0000", 10);
+        campoPlacaCarro = new JTextField(10);
         seguroCarro = new JLabel("Você contratou um seguro?");
         temSeguro = new JCheckBox("Sim");
         semSeguro = new JCheckBox("Não");
         valorSeguro = new JLabel("Valor do seguro:");
-        campoValorSeguro = new JTextField("R$ 100,00", 10);
+        campoValorSeguro = new JTextField(10);
         textImagemCarro = new JLabel("Imagem Carro:");
         imagemLabelCarro = new JLabel();
         botaoSelecionarImagemCarro = new JButton("Selecionar Imagem");
@@ -436,3 +436,4 @@ public class TelaCriarViagem extends JFrame{
         
     }
 }
+

@@ -92,7 +92,8 @@ public class TelaPainelViagens extends JFrame {
 
         editarViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Fazer a logica de editr
+                TelaEditarViagem telaEditarViagem = new TelaEditarViagem();
+                telaEditarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
@@ -107,6 +108,12 @@ public class TelaPainelViagens extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 TelaEditarPerfil telaEditarPerfil = new TelaEditarPerfil();
                 telaEditarPerfil.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+
+        sairUserItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // vai pra telaInicial()
             }
         });
 
