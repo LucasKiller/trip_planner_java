@@ -42,3 +42,6 @@ CREATE TABLE IF NOT EXISTS trips (
 );
 
 INSERT INTO `project_trip_planner`.`users` (`id`, `nome`, `login`, `password`) VALUES (null, 'Lucas Milani', 'lukita', 'admin');
+INSERT INTO `project_trip_planner`.`carro` (`id`, `nome`, `marca`, `placa`, `temSeguro`, `valorSeguro`, `img_path`) VALUES (null, 'Carro top', 'Modelo Topissimo', '123-ABCD', '1', 1200, 'Teste');
+INSERT INTO `project_trip_planner`.`hotel` (`id`, `nome`, `endereco`, `checkin`, `checkout`) VALUES (null, 'Hotel Chique', 'Rua Tal, 123', '05/06/2024', '09/06/2024');
+INSERT INTO `project_trip_planner`.`trips` (`id`, `nome`, `descrp`, `id_hotel`, `id_carro`, `init_date`, `final_date`, `id_user`) VALUES (null, 'Viagem para a praia', 'Viagem em familia', '1', '1', '05/06/2024', '10/06/2024', '1');
