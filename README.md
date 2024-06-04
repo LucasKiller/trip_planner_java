@@ -6,7 +6,7 @@ Trip Planner Java is an application developed in Java aimed at helping users pla
 
 The workspace contains two folders by default, where:
 
--`database`: the folder to maintain a database
+- `database`: the folder to maintain a database
 - `src`: the folder to maintain sources
 - `lib`: the folder to maintain dependencies
 
