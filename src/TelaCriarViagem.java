@@ -425,6 +425,13 @@ public class TelaCriarViagem extends JFrame{
             }
         });
 
+        botaoCriarViagem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+
+            }
+        });
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
