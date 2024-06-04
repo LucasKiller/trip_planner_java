@@ -1,3 +1,4 @@
+package classes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -127,7 +128,7 @@ public class Carro {
         try (PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
             stm.setInt(1, this.getID());
 
-            try (ResultSet rs = stm.executeQuery(sqlSelect);) {
+            try (ResultSet rs = stm.executeQuery();) {
                 if(rs.next()) {
                     this.setNome(rs.getString(2));
                     this.setMarca(rs.getString(3));

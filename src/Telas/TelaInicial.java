@@ -1,3 +1,4 @@
+package Telas;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -7,6 +8,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import classes.ManageUserLogin;
+import utils.ConnectDB;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -115,7 +119,7 @@ public class TelaInicial extends JFrame {
                             JOptionPane.showMessageDialog(caixa, "Login ou senha incorretos!");
                         } else {
                             JOptionPane.showMessageDialog(caixa, "Login bem-sucedido!");
-                            TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, login, manager);
+                            TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, manager);
                             dispose();
                         }
                     }

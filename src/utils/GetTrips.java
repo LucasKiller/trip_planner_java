@@ -1,3 +1,4 @@
+package utils;
 import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -5,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import classes.Carro;
+import classes.Hotel;
+import classes.ManageUserLogin;
+import classes.Viagem;
 
 public class GetTrips {
     
@@ -23,7 +29,7 @@ public class GetTrips {
                     Carro carro = new Carro((rs.getInt(5)));
                     carro.carregar(conn);
 
-                    Viagem viagem = new Viagem(manager.getUser(), hotel, carro, rs.getString("descrp"), rs.getString("init_date"), rs.getString("final_date"), rs.getString("img_path"));
+                    Viagem viagem = new Viagem(manager.getUser(), hotel, carro, rs.getString("final_date"), rs.getString("init_date"), rs.getString("nome"), rs.getString("descrp"));
                     viagens.add(viagem);
                 }
             } catch(Exception ex) {

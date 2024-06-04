@@ -1,11 +1,12 @@
+package Telas;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.Image;
 import java.awt.FlowLayout;
 import java.io.File;
-// import java.util.ArrayList;
-// import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,9 +19,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import classes.Carro;
+import classes.Hotel;
+import classes.ManageUserLogin;
+import classes.Viagem;
+
 import java.awt.event.ActionEvent;
 
-public class TelaEditarViagem extends JFrame{
+public class TelaCriarViagem extends JFrame {
     private JLabel criarViagem;
     private JLabel nomeViagem;
     private JTextField campoNomeViagem;
@@ -63,49 +69,47 @@ public class TelaEditarViagem extends JFrame{
     private JLabel imagemLabelCarro;
     private JButton botaoSelecionarImagemCarro;
 
-    // private List<Viagem> viagens = new ArrayList<Viagem>();
+    public TelaCriarViagem(Connection conn, ManageUserLogin manager){
+        super("Criar Viagem");
 
-    public TelaEditarViagem(){
-        super("Edição de Viagem");
-
-        criarViagem = new JLabel("Altere os dados da viagem");
+        criarViagem = new JLabel("Como vai ser a sua viagem?");
         nomeViagem = new JLabel("Nome da viagem:");
-        campoNomeViagem = new JTextField(10);
+        campoNomeViagem = new JTextField("Viagem em família", 10);
         descricaoViagem = new JLabel("Descrição da viagem:");
-        campoDescricaoViagem = new JTextField(10);
+        campoDescricaoViagem = new JTextField("Viagem de férias", 10);
         cidade = new JLabel("Cidade:");
-        campoCidade = new JTextField(10);
+        campoCidade = new JTextField("São Paulo", 10);
         nomeHotel = new JLabel("nome do hotel:");
-        campoNomeHotel = new JTextField(10);
+        campoNomeHotel = new JTextField("Hotel X", 10);
         enderecoHotel = new JLabel("Endereço:");
-        campoEnderecoHotel = new JTextField(10);
+        campoEnderecoHotel = new JTextField("Rua X, 123", 10);
         checkInHotel = new JLabel("Check-in:");
-        campoCheckInHotel = new JTextField(10);
+        campoCheckInHotel = new JTextField("01/01/2021", 10);
         checkOutHotel = new JLabel("Check-out:");
-        campoCheckOutHotel = new JTextField(10);
+        campoCheckOutHotel = new JTextField("10/01/2021", 10);
         alugarCarro = new JLabel("Você vai alugar um carro?");
         temCarro = new JCheckBox("Sim");
         semCarro = new JCheckBox("Não");
         dataInicio = new JLabel("Data de início:");
-        campoDataInicio = new JTextField(10);
+        campoDataInicio = new JTextField("01/01/2021", 10);
         dataFim = new JLabel("Data de fim:");
-        campoDataFim = new JTextField(10);
+        campoDataFim = new JTextField("10/01/2021", 10);
         textImagem = new JLabel("Imagem:");
         botaoSelecionarImagem = new JButton("Selecionar Imagem");
         imagemLabel = new JLabel();
-        botaoCriarViagem = new JButton("Editar Viagem");
+        botaoCriarViagem = new JButton("Criar Viagem");
         botaoCancelarViagem = new JButton("Cancelar");
         nomeCarro = new JLabel("Nome do carro:");
-        campoNomeCarro = new JTextField(10);
+        campoNomeCarro = new JTextField("Carro X", 10);
         modeloCarro = new JLabel("Modelo do carro:");
-        campoModeloCarro = new JTextField(10);
+        campoModeloCarro = new JTextField("Modelo X", 10);
         placaCarro = new JLabel("Placa do carro:");
-        campoPlacaCarro = new JTextField(10);
+        campoPlacaCarro = new JTextField("XXX-0000", 10);
         seguroCarro = new JLabel("Você contratou um seguro?");
         temSeguro = new JCheckBox("Sim");
         semSeguro = new JCheckBox("Não");
         valorSeguro = new JLabel("Valor do seguro:");
-        campoValorSeguro = new JTextField(10);
+        campoValorSeguro = new JTextField("100", 10);
         textImagemCarro = new JLabel("Imagem Carro:");
         imagemLabelCarro = new JLabel();
         botaoSelecionarImagemCarro = new JButton("Selecionar Imagem");
@@ -331,6 +335,12 @@ public class TelaEditarViagem extends JFrame{
                 if (semCarro.isSelected()) {
                     temCarro.setSelected(false);
 
+                    campoNomeCarro.setText("");
+                    campoModeloCarro.setText("");
+                    campoPlacaCarro.setText("");
+                    campoValorSeguro.setText("0");
+                    semSeguro.setSelected(true);
+
                     nomeCarro.setVisible(false);
                     campoNomeCarro.setVisible(false);
                     modeloCarro.setVisible(false);
@@ -378,6 +388,8 @@ public class TelaEditarViagem extends JFrame{
                 if (semSeguro.isSelected()) {
                     temSeguro.setSelected(false);
 
+                    campoValorSeguro.setText("0");
+
                     valorSeguro.setVisible(false);
                     campoValorSeguro.setVisible(false);
                 };
@@ -421,6 +433,30 @@ public class TelaEditarViagem extends JFrame{
 
         botaoCancelarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, manager);
+                dispose();
+            }
+        });
+
+        botaoCriarViagem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+                Hotel hotel = new Hotel(campoNomeHotel.getText(), campoEnderecoHotel.getText(),campoCheckInHotel.getText(), campoCheckOutHotel.getText());
+                Carro carro = new Carro(campoNomeCarro.getText(), campoModeloCarro.getText(), campoPlacaCarro.getText(), temSeguro.isSelected(), Integer.parseInt(campoValorSeguro.getText()),"Teste");
+                Viagem trip = new Viagem(manager.getUser(), hotel, carro, campoDataInicio.getText(), campoDataFim.getText(), campoNomeViagem.getText(), campoDescricaoViagem.getText());
+
+                try {
+                    hotel.inserir(conn);
+                    conn.commit();
+                    carro.inserir(conn);
+                    conn.commit();
+                    trip.inserir(conn);
+                    conn.commit();
+                } catch (SQLException sql_ex) {
+                    sql_ex.printStackTrace();
+                }
+                
+                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, manager);
                 dispose();
             }
         });
@@ -434,4 +470,3 @@ public class TelaEditarViagem extends JFrame{
         
     }
 }
-

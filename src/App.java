@@ -2,6 +2,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import Telas.TelaInicial;
+import utils.ConnectDB;
+import utils.DatabaseSetup;
+
 public class App {
     public static void main(String[] args) throws Exception {
         String driver = "com.mysql.cj.jdbc.Driver";
