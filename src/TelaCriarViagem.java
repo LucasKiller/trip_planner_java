@@ -429,14 +429,16 @@ public class TelaCriarViagem extends JFrame {
 
         botaoCriarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
                 
-                Hotel hotel = new Hotel(campoNomeHotel.toString(), campoEnderecoHotel.toString(),campoCheckInHotel.toString(), campoCheckOutHotel.toString());
-                Carro carro = new Carro(campoNomeCarro.toString(), campoModeloCarro.toString(), campoPlacaCarro.toString(), (campoValorSeguro.isVisible() ? true : false), "Teste");
-                Viagem trip = new Viagem(manager.getUser(), hotel, carro, campoDataInicio.toString(), campoDataFim.toString(), campoNomeViagem.toString(), campoDescricaoViagem.toString());
+                Hotel hotel = new Hotel(campoNomeHotel.getText(), campoEnderecoHotel.getText(),campoCheckInHotel.getText(), campoCheckOutHotel.getText());
+                Carro carro = new Carro(campoNomeCarro.getText(), campoModeloCarro.getText(), campoPlacaCarro.getText(), (campoValorSeguro.isVisible() ? true : false), Integer.parseInt(campoValorSeguro.getText()),"Teste");
+                Viagem trip = new Viagem(manager.getUser(), hotel, carro, campoDataInicio.getText(), campoDataFim.getText(), campoNomeViagem.getText(), campoDescricaoViagem.getText());
+
                 try {
                     hotel.inserir(conn);
+                    conn.commit();
                     carro.inserir(conn);
+                    conn.commit();
                     trip.inserir(conn);
                     conn.commit();
                 } catch (SQLException sql_ex) {

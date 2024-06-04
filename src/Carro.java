@@ -2,6 +2,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.naming.spi.DirStateFactory.Result;
 
 import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 
@@ -10,6 +13,7 @@ public class Carro {
     private String marca;
     private String placa;
     private boolean temSeguro;
+    private int valorSeguro;
     private String imagem;
 
     private int ID;
@@ -18,11 +22,12 @@ public class Carro {
         this.ID = ID;
     }
 
-    public Carro(String nome, String marca, String placa, boolean temSeguro, String imagem) {
+    public Carro(String nome, String marca, String placa, boolean temSeguro, int valorSeguro, String imagem) {
         this.nome = nome;
         this.marca = marca;
         this.placa = placa;
         this.temSeguro = temSeguro;
+        this.valorSeguro = valorSeguro;
         this.imagem = imagem;
     }
 
@@ -59,16 +64,23 @@ public class Carro {
     }
 
     public void inserir(Connection conn) {
-        String sqlInsert = "INSERT INTO carro(id, nome, marca, placa, temSeguro, img_path) VALUES (null, ?, ?, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO carro(id, nome, marca, placa, temSeguro, valorSeguro, img_path) VALUES (null, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement stm = conn.prepareStatement(sqlInsert)) {
+        try (PreparedStatement stm = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS)) {
             stm.setString(1, this.getNome());
             stm.setString(2, this.getMarca());
             stm.setString(3, this.getPlaca());
             stm.setBoolean(4, this.isTemSeguro());
-            stm.setString(5, this.getImagem());
+            stm.setInt(5, this.getValorSeguro());
+            stm.setString(6, this.getImagem());
 
-            stm.execute();
+            stm.executeUpdate();
+
+            ResultSet generatedID = stm.getGeneratedKeys();
+            if(generatedID.next()) {
+                this.setID(generatedID.getInt(1));
+            }
+
         } catch (SQLException ex) {
             try {
                 conn.rollback();
@@ -149,6 +161,14 @@ public class Carro {
 
     public void setID(int iD) {
         ID = iD;
+    }
+
+    public int getValorSeguro() {
+        return valorSeguro;
+    }
+
+    public void setValorSeguro(int valorSeguro) {
+        this.valorSeguro = valorSeguro;
     }
 }
 

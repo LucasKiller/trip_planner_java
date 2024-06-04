@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Hotel {
     
@@ -51,13 +52,19 @@ public class Hotel {
     public void inserir(Connection conn) {
         String sqlInsert = "INSERT INTO hotel(id, nome, endereco, checkin, checkout) VALUES (null, ?, ?, ?, ?)";
 
-        try (PreparedStatement stm = conn.prepareStatement(sqlInsert)) {
+        try (PreparedStatement stm = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS)) {
             stm.setString(1, this.getNome());
             stm.setString(2, this.getEndereco());
             stm.setString(3, this.getCheckin());
             stm.setString(4, this.getCheckout());
 
-            stm.execute();
+            stm.executeUpdate();
+
+            ResultSet generatedID = stm.getGeneratedKeys();
+            if(generatedID.next()) {
+                this.setID(generatedID.getInt(1));
+            }
+
         } catch (SQLException ex) {
             try {
                 conn.rollback();
