@@ -16,13 +16,18 @@ public class ConnectDB {
     /*
      * Realiza a conexao ao servidor descrito nas constantes acima
      */
-
     public static Connection conectar() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://" + servidor + ":" + porta, usuario, senha);
     }
 
-    public static void desconectar(Connection conn) throws SQLException {
-        conn.close();
+    public static void desconectar(Connection conn) {
+        if(conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException sql_ex) {
+                sql_ex.printStackTrace();
+            }
+        }
     }
 
 }

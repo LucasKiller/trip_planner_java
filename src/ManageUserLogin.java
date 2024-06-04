@@ -4,6 +4,8 @@ import java.sql.Connection;
  * Classe para monitoriamento de login de usuario
  * Metodos como: login, registrar
  * Variaveis: isLogged -> diz respeito a condicao atual do usuario (se esta logado ou nao)
+ * 
+ * Objeto mng com os metodos logUser e registerUser
  */
 
 public class ManageUserLogin {
@@ -27,6 +29,19 @@ public class ManageUserLogin {
         this.setLogged(true); // Informar que o login foi bem sucedido e trocar telas
         return 1;
 
+    }
+
+    public int registerUser(Connection conn, String nome, String user, String pass) {
+        this.setUser(new User(nome, user, pass));
+        this.getUser().carregar(conn);
+        if(this.getUser().getID() != 0) {
+            // Utilizar de algum dialogo para informar que o registro foi MAL SUCEDIDO
+            return -1;
+        }
+
+        this.getUser().inserir(conn);
+        this.setLogged(true);
+        return 1;
     }
 
     public boolean getIsLogged() {
