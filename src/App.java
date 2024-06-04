@@ -13,11 +13,6 @@ public class App {
 
                 conn.setAutoCommit(false);
                 DatabaseSetup.executeInitialSQL(conn);
-
-                Hotel hotel = new Hotel("Fasano", "rua marilha, 918", "21/02/1912", "13/04/1938"); // Adicione o caminho da imagem se necessário
-                hotel.inserir(conn);
-
-                conn.commit();
                 System.out.println("Hotel inserido com sucesso!");
 
             } catch (SQLException sql_ex) {

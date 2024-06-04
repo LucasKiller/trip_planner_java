@@ -101,11 +101,11 @@ public class Viagem {
             stm.setInt(1, this.getID());
             try (ResultSet rs = stm.executeQuery();) {
                 if(rs.next()) {
-                    this.setNome(rs.getString(2));
-                    this.setEndereco(rs.getString(3));
-                    this.setCheckin(rs.getString(4));
-                    this.setCheckout(rs.getString(5));
-                    this.setImagepath(rs.getString(6));
+                    // this.setNome(rs.getString(2));
+                    // this.setEndereco(rs.getString(3));
+                    // this.setCheckin(rs.getString(4));
+                    // this.setCheckout(rs.getString(5));
+                    // this.setImagepath(rs.getString(6));
                 } 
             } catch(Exception ex) {
                 ex.printStackTrace();
