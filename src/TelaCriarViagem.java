@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.io.File;
 // import java.util.ArrayList;
 // import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -20,7 +22,7 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 
-public class TelaCriarViagem extends JFrame{
+public class TelaCriarViagem extends JFrame {
     private JLabel criarViagem;
     private JLabel nomeViagem;
     private JTextField campoNomeViagem;
@@ -65,7 +67,7 @@ public class TelaCriarViagem extends JFrame{
 
     // private List<Viagem> viagens = new ArrayList<Viagem>();
 
-    public TelaCriarViagem(){
+    public TelaCriarViagem(Connection conn){
         super("Criar Viagem");
 
         criarViagem = new JLabel("Como vai ser a sua viagem?");
@@ -427,8 +429,19 @@ public class TelaCriarViagem extends JFrame{
 
         botaoCriarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
 
+                ManageUserLogin managerUser = new ManageUserLogin();
+                Hotel hotel = new Hotel(nomeHotel.toString() , enderecoHotel.toString(), Fix_Date_String.fix_date(checkInHotel.toString()), Fix_Date_String.fix_date(checkOutHotel.toString()));
+                Carro carro = new Carro(nomeCarro.toString(), modeloCarro.toString(), placaCarro.toString(), (valorSeguro.isVisible() ? true : false), "Teste");
+                Viagem trip = new Viagem(managerUser.getUser(), hotel, carro, Fix_Date_String.fix_date(dataInicio.toString()), Fix_Date_String.fix_date(dataFim.toString()), nomeViagem.toString(), descricaoViagem.toString());
+                try {
+                    hotel.inserir(conn);
+                    carro.inserir(conn);
+                    trip.inserir(conn);
+                    conn.commit();
+                } catch (SQLException sql_ex) {
+                    sql_ex.printStackTrace();
+                }
             }
         });
 

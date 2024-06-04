@@ -18,7 +18,8 @@ public class Carro {
         this.ID = ID;
     }
 
-    public Carro(String marca, String placa, boolean temSeguro, String imagem) {
+    public Carro(String nome, String marca, String placa, boolean temSeguro, String imagem) {
+        this.nome = nome;
         this.marca = marca;
         this.placa = placa;
         this.temSeguro = temSeguro;
@@ -58,7 +59,7 @@ public class Carro {
     }
 
     public void inserir(Connection conn) {
-        String sqlInsert = "INSERT INTO carros(id, nome, marca, placa, temSeguro, imagem) VALUES (null, ?, ?, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO carro(id, nome, marca, placa, temSeguro, imagem) VALUES (null, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stm = conn.prepareStatement(sqlInsert)) {
             stm.setString(1, this.getNome());

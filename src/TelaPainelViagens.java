@@ -85,7 +85,7 @@ public class TelaPainelViagens extends JFrame {
 
         addViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCriarViagem telaCriarViagem = new TelaCriarViagem();
+                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(conn);
                 telaCriarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
