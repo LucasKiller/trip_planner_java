@@ -49,9 +49,9 @@ public class TelaCriarViagem extends JFrame {
     private JTextField campoDataInicio;
     private JLabel dataFim;
     private JTextField campoDataFim;
-    private JLabel textImagem;
-    private JLabel imagemLabel;
-    private JButton botaoSelecionarImagem;
+    // private JLabel textImagem;
+    // private JLabel imagemLabel;
+    // private JButton botaoSelecionarImagem;
     private JButton botaoCriarViagem;
     private JButton botaoCancelarViagem;
     private JLabel nomeCarro;
@@ -65,9 +65,9 @@ public class TelaCriarViagem extends JFrame {
     private JCheckBox semSeguro;
     private JLabel valorSeguro;
     private JTextField campoValorSeguro;
-    private JLabel textImagemCarro;
-    private JLabel imagemLabelCarro;
-    private JButton botaoSelecionarImagemCarro;
+    // private JLabel textImagemCarro;
+    // private JLabel imagemLabelCarro;
+    // private JButton botaoSelecionarImagemCarro;
 
     public TelaCriarViagem(Connection conn, ManageUserLogin manager){
         super("Criar Viagem");
@@ -94,9 +94,9 @@ public class TelaCriarViagem extends JFrame {
         campoDataInicio = new JTextField("01/01/2021", 10);
         dataFim = new JLabel("Data de fim:");
         campoDataFim = new JTextField("10/01/2021", 10);
-        textImagem = new JLabel("Imagem:");
-        botaoSelecionarImagem = new JButton("Selecionar Imagem");
-        imagemLabel = new JLabel();
+        // textImagem = new JLabel("Imagem:");
+        // botaoSelecionarImagem = new JButton("Selecionar Imagem");
+        // imagemLabel = new JLabel();
         botaoCriarViagem = new JButton("Criar Viagem");
         botaoCancelarViagem = new JButton("Cancelar");
         nomeCarro = new JLabel("Nome do carro:");
@@ -110,9 +110,9 @@ public class TelaCriarViagem extends JFrame {
         semSeguro = new JCheckBox("Não");
         valorSeguro = new JLabel("Valor do seguro:");
         campoValorSeguro = new JTextField("100", 10);
-        textImagemCarro = new JLabel("Imagem Carro:");
-        imagemLabelCarro = new JLabel();
-        botaoSelecionarImagemCarro = new JButton("Selecionar Imagem");
+        // textImagemCarro = new JLabel("Imagem Carro:");
+        // imagemLabelCarro = new JLabel();
+        // botaoSelecionarImagemCarro = new JButton("Selecionar Imagem");
 
         criarViagem.setFont(criarViagem.getFont().deriveFont(Font.BOLD, 20));
         
@@ -189,18 +189,18 @@ public class TelaCriarViagem extends JFrame {
         caixaDataFim.add(campoDataFim);
         caixa.add(caixaDataFim);
 
-        JPanel caixaImagem = new JPanel();
-        caixaImagem.setLayout(new FlowLayout());
+        // JPanel caixaImagem = new JPanel();
+        // caixaImagem.setLayout(new FlowLayout());
 
-        caixaImagem.add(textImagem);
-        caixaImagem.add(botaoSelecionarImagem);
-        caixa.add(caixaImagem);
+        // caixaImagem.add(textImagem);
+        // caixaImagem.add(botaoSelecionarImagem);
+        // caixa.add(caixaImagem);
 
-        JPanel caixaImagemLabel = new JPanel();
-        caixaImagemLabel.setLayout(new FlowLayout());
+        // JPanel caixaImagemLabel = new JPanel();
+        // caixaImagemLabel.setLayout(new FlowLayout());
 
-        caixaImagemLabel.add(imagemLabel);
-        caixa.add(caixaImagemLabel);
+        // caixaImagemLabel.add(imagemLabel);
+        // caixa.add(caixaImagemLabel);
 
         JPanel caixaAlugarCarro = new JPanel();
         caixaAlugarCarro.setLayout(new FlowLayout());
@@ -254,9 +254,9 @@ public class TelaCriarViagem extends JFrame {
                     seguroCarro.setVisible(true);
                     temSeguro.setVisible(true);
                     semSeguro.setVisible(true);
-                    textImagemCarro.setVisible(true);
-                    botaoSelecionarImagemCarro.setVisible(true);
-                    imagemLabelCarro.setVisible(true);
+                    // textImagemCarro.setVisible(true);
+                    // botaoSelecionarImagemCarro.setVisible(true);
+                    // imagemLabelCarro.setVisible(true);
 
                     if (campoNomeCarro.getParent() == null) {
                         JPanel caixaNomeCarro = new JPanel();
@@ -265,48 +265,48 @@ public class TelaCriarViagem extends JFrame {
                         caixa.add(Box.createVerticalStrut(10), 15);
                         caixaNomeCarro.add(nomeCarro);
                         caixaNomeCarro.add(campoNomeCarro);
-                        caixa.add(caixaNomeCarro, 15);
+                        caixa.add(caixaNomeCarro, 14);
 
                         JPanel caixaModeloCarro = new JPanel();
                         caixaModeloCarro.setLayout(new FlowLayout());
 
                         caixaModeloCarro.add(modeloCarro);
                         caixaModeloCarro.add(campoModeloCarro);
-                        caixa.add(caixaModeloCarro, 16);
+                        caixa.add(caixaModeloCarro, 15);
 
                         JPanel caixaPlacaCarro = new JPanel();
                         caixaPlacaCarro.setLayout(new FlowLayout());
 
                         caixaPlacaCarro.add(placaCarro);
                         caixaPlacaCarro.add(campoPlacaCarro);
-                        caixa.add(caixaPlacaCarro, 17);
+                        caixa.add(caixaPlacaCarro, 16);
 
                         JPanel caixaSeguroCarro = new JPanel();
                         caixaSeguroCarro.setLayout(new FlowLayout());
 
                         caixaSeguroCarro.add(seguroCarro);
-                        caixa.add(caixaSeguroCarro, 18);
+                        caixa.add(caixaSeguroCarro, 17);
 
                         JPanel caixaCarroSeguro = new JPanel();
                         caixaCarroSeguro.setLayout(new FlowLayout());
 
                         caixaCarroSeguro.add(temSeguro);
                         caixaCarroSeguro.add(semSeguro);
-                        caixa.add(caixaCarroSeguro, 19);
+                        caixa.add(caixaCarroSeguro, 18);
 
-                        JPanel caixaImagemCarro = new JPanel();
-                        caixaImagemCarro.setLayout(new FlowLayout());
+                        // JPanel caixaImagemCarro = new JPanel();
+                        // caixaImagemCarro.setLayout(new FlowLayout());
 
-                        caixaImagemCarro.add(textImagemCarro);
-                        caixaImagemCarro.add(botaoSelecionarImagemCarro);
-                        caixa.add(caixaImagemCarro, 20);
+                        // caixaImagemCarro.add(textImagemCarro);
+                        // caixaImagemCarro.add(botaoSelecionarImagemCarro);
+                        // caixa.add(caixaImagemCarro, 20);
 
-                        JPanel caixaImagemLabelCarro = new JPanel();
-                        caixaImagemLabelCarro.setLayout(new FlowLayout());
+                        // JPanel caixaImagemLabelCarro = new JPanel();
+                        // caixaImagemLabelCarro.setLayout(new FlowLayout());
 
-                        caixaImagemLabelCarro.add(imagemLabelCarro);
-                        caixa.add(caixaImagemLabelCarro, 21);
-                        caixa.add(Box.createVerticalStrut(10));
+                        // caixaImagemLabelCarro.add(imagemLabelCarro);
+                        // caixa.add(caixaImagemLabelCarro, 21);
+                        caixa.add(Box.createVerticalStrut(10), 19);
 
                         caixa.revalidate();
                         pack();
@@ -322,9 +322,9 @@ public class TelaCriarViagem extends JFrame {
                     seguroCarro.setVisible(false);
                     temSeguro.setVisible(false);
                     semSeguro.setVisible(false);
-                    textImagemCarro.setVisible(false);
-                    botaoSelecionarImagemCarro.setVisible(false);
-                    imagemLabelCarro.setVisible(false);
+                    // textImagemCarro.setVisible(false);
+                    // botaoSelecionarImagemCarro.setVisible(false);
+                    // imagemLabelCarro.setVisible(false);
                 }
                 caixa.revalidate();
                 pack();
@@ -350,9 +350,9 @@ public class TelaCriarViagem extends JFrame {
                     seguroCarro.setVisible(false);
                     temSeguro.setVisible(false);
                     semSeguro.setVisible(false);
-                    textImagemCarro.setVisible(false);
-                    botaoSelecionarImagemCarro.setVisible(false);
-                    imagemLabelCarro.setVisible(false);
+                    // textImagemCarro.setVisible(false);
+                    // botaoSelecionarImagemCarro.setVisible(false);
+                    // imagemLabelCarro.setVisible(false);
                 }
                 pack();
             }
@@ -372,7 +372,7 @@ public class TelaCriarViagem extends JFrame {
 
                         caixaValorSeguro.add(valorSeguro);
                         caixaValorSeguro.add(campoValorSeguro);
-                        caixa.add(caixaValorSeguro, 20);
+                        caixa.add(caixaValorSeguro, 19);
 
                         caixa.revalidate();
                         pack();
@@ -397,39 +397,39 @@ public class TelaCriarViagem extends JFrame {
             }
         });
 
-        botaoSelecionarImagem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                int returnValue = fileChooser.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    ImageIcon imagemIcon = new ImageIcon(selectedFile.getPath());
-                    Image image = imagemIcon.getImage();
-                    Image newimg = image.getScaledInstance(200, 150,  java.awt.Image.SCALE_SMOOTH);
-                    imagemIcon = new ImageIcon(newimg);
-                    imagemLabel.setIcon(imagemIcon);
-                    pack();
-                    setLocationRelativeTo(null);
-                }
-            }
-        });
+        // botaoSelecionarImagem.addActionListener(new ActionListener() {
+        //     public void actionPerformed(ActionEvent e) {
+        //         JFileChooser fileChooser = new JFileChooser();
+        //         int returnValue = fileChooser.showOpenDialog(null);
+        //         if (returnValue == JFileChooser.APPROVE_OPTION) {
+        //             File selectedFile = fileChooser.getSelectedFile();
+        //             ImageIcon imagemIcon = new ImageIcon(selectedFile.getPath());
+        //             Image image = imagemIcon.getImage();
+        //             Image newimg = image.getScaledInstance(200, 150,  java.awt.Image.SCALE_SMOOTH);
+        //             imagemIcon = new ImageIcon(newimg);
+        //             imagemLabel.setIcon(imagemIcon);
+        //             pack();
+        //             setLocationRelativeTo(null);
+        //         }
+        //     }
+        // });
 
-        botaoSelecionarImagemCarro.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                int returnValue = fileChooser.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    ImageIcon imagemIcon = new ImageIcon(selectedFile.getPath());
-                    Image image = imagemIcon.getImage();
-                    Image newimg = image.getScaledInstance(200, 150,  java.awt.Image.SCALE_SMOOTH);
-                    imagemIcon = new ImageIcon(newimg);
-                    imagemLabelCarro.setIcon(imagemIcon);
-                    pack();
-                    setLocationRelativeTo(null);
-                }
-            }
-        });
+        // botaoSelecionarImagemCarro.addActionListener(new ActionListener() {
+        //     public void actionPerformed(ActionEvent e) {
+        //         JFileChooser fileChooser = new JFileChooser();
+        //         int returnValue = fileChooser.showOpenDialog(null);
+        //         if (returnValue == JFileChooser.APPROVE_OPTION) {
+        //             File selectedFile = fileChooser.getSelectedFile();
+        //             ImageIcon imagemIcon = new ImageIcon(selectedFile.getPath());
+        //             Image image = imagemIcon.getImage();
+        //             Image newimg = image.getScaledInstance(200, 150,  java.awt.Image.SCALE_SMOOTH);
+        //             imagemIcon = new ImageIcon(newimg);
+        //             imagemLabelCarro.setIcon(imagemIcon);
+        //             pack();
+        //             setLocationRelativeTo(null);
+        //         }
+        //     }
+        // });
 
         botaoCancelarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
