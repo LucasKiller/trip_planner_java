@@ -22,6 +22,6 @@ Upon starting the program, it opens the initial screen, which consists of a user
 - Tiago Azevedo - [tiagooazevedo](https://github.com/tiagooazevedo) 🥶
 - Lucas Olivares - [lvcasolivares](https://github.com/lvcasolivares) 🤯
 
-## Analytics
+## Analytics 📈
 
 ![Alt](https://repobeats.axiom.co/api/embed/e1dfd98cf46d9d335590ce1113757a7e27c3b17a.svg "Repobeats analytics image")
