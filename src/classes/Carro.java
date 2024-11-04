@@ -134,7 +134,8 @@ public class Carro {
                     this.setMarca(rs.getString(3));
                     this.setPlaca(rs.getString(4));
                     this.setTemSeguro(rs.getBoolean(5));
-                    this.setImagem(rs.getString(6));
+                    this.setValorSeguro(rs.getInt(6));
+                    this.setImagem(rs.getString(7));
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
