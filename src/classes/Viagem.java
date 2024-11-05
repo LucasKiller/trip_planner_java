@@ -70,7 +70,7 @@ public class Viagem {
 
     public void atualiza(Connection conn) {
         String sqlUpdate = "UPDATE trips SET nome = ?, descrp = ?, id_hotel = ?, id_carro = ?, init_date = ?, final_date = ?, img_path = ? WHERE id = ?";
-
+    
         try (PreparedStatement stm = conn.prepareStatement(sqlUpdate)) {
             stm.setString(1, this.getNomeViagem());
             stm.setString(2, this.getDescricaoViagem());
@@ -79,19 +79,18 @@ public class Viagem {
             stm.setString(5, this.getDiaInicial());
             stm.setString(6, this.getDiaFinal());
             stm.setString(7, this.getImagepath());
-            stm.setInt(8, this.getUser().getID());
-
-            stm.setInt(6, this.getID());
-
-            stm.execute();
+            stm.setInt(8, this.getID());
+    
+            stm.executeUpdate();
         } catch (Exception ex) {
             try {
                 conn.rollback();
-            } catch(SQLException sql_ex) {
-                System.out.println(sql_ex.getStackTrace());
+            } catch (SQLException sql_ex) {
+                sql_ex.printStackTrace();
             }
+            ex.printStackTrace();
         }
-    }
+    }    
 
     public void carregar(Connection conn, ManageUserLogin manager) {
 

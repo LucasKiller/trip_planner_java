@@ -73,42 +73,42 @@ public class TelaEditarViagem extends JFrame{
 
         criarViagem = new JLabel("Altere os dados da viagem");
         nomeViagem = new JLabel("Nome da viagem:");
-        campoNomeViagem = new JTextField(10);
+        campoNomeViagem = new JTextField(viagem.getNomeViagem(), 10);
         descricaoViagem = new JLabel("Descrição da viagem:");
-        campoDescricaoViagem = new JTextField(10);
+        campoDescricaoViagem = new JTextField(viagem.getDescricaoViagem(), 10);
         cidade = new JLabel("Cidade:");
-        campoCidade = new JTextField(10);
+        campoCidade = new JTextField(10); //getCidade()
         nomeHotel = new JLabel("nome do hotel:");
-        campoNomeHotel = new JTextField(10);
+        campoNomeHotel = new JTextField(viagem.getHotel().getNome(), 10);
         enderecoHotel = new JLabel("Endereço:");
-        campoEnderecoHotel = new JTextField(10);
+        campoEnderecoHotel = new JTextField(viagem.getHotel().getEndereco(), 10);
         checkInHotel = new JLabel("Check-in:");
-        campoCheckInHotel = new JTextField(10);
+        campoCheckInHotel = new JTextField(10); //getCheckIn()
         checkOutHotel = new JLabel("Check-out:");
-        campoCheckOutHotel = new JTextField(10);
+        campoCheckOutHotel = new JTextField(10); //getCheckOut()
         alugarCarro = new JLabel("Você vai alugar um carro?");
-        temCarro = new JCheckBox("Sim");
-        semCarro = new JCheckBox("Não");
+        temCarro = new JCheckBox("Sim"); //isTemCarro()
+        semCarro = new JCheckBox("Não"); //isTemCarro()
         dataInicio = new JLabel("Data de início:");
-        campoDataInicio = new JTextField(10);
+        campoDataInicio = new JTextField(viagem.getDiaInicial(), 10);
         dataFim = new JLabel("Data de fim:");
-        campoDataFim = new JTextField(10);
+        campoDataFim = new JTextField(viagem.getDiaFinal(), 10);
         // textImagem = new JLabel("Imagem:");
         // botaoSelecionarImagem = new JButton("Selecionar Imagem");
         // imagemLabel = new JLabel();
         botaoCriarViagem = new JButton("Editar Viagem");
         botaoCancelarViagem = new JButton("Cancelar");
         nomeCarro = new JLabel("Nome do carro:");
-        campoNomeCarro = new JTextField(10);
+        campoNomeCarro = new JTextField(viagem.getCarro().getNome(), 10);
         modeloCarro = new JLabel("Modelo do carro:");
-        campoModeloCarro = new JTextField(10);
+        campoModeloCarro = new JTextField(viagem.getCarro().getMarca(), 10);
         placaCarro = new JLabel("Placa do carro:");
-        campoPlacaCarro = new JTextField(10);
+        campoPlacaCarro = new JTextField(viagem.getCarro().getPlaca(), 10);
         seguroCarro = new JLabel("Você contratou um seguro?");
-        temSeguro = new JCheckBox("Sim");
-        semSeguro = new JCheckBox("Não");
+        temSeguro = new JCheckBox("Sim", viagem.getCarro().isTemSeguro());
+        semSeguro = new JCheckBox("Não", !viagem.getCarro().isTemSeguro());
         valorSeguro = new JLabel("Valor do seguro:");
-        campoValorSeguro = new JTextField(10);
+        campoValorSeguro = new JTextField(String.valueOf(viagem.getCarro().getValorSeguro()), 10);
         // textImagemCarro = new JLabel("Imagem Carro:");
         // imagemLabelCarro = new JLabel();
         // botaoSelecionarImagemCarro = new JButton("Selecionar Imagem");
@@ -430,6 +430,12 @@ public class TelaEditarViagem extends JFrame{
                 viagem.setDiaFinal(campoDataFim.getText());
                 viagem.getHotel().setNome(campoNomeHotel.getText());
                 viagem.getHotel().setEndereco(campoEnderecoHotel.getText());
+                viagem.getCarro().setNome(campoNomeCarro.getText());
+                viagem.getCarro().setMarca(campoModeloCarro.getText());
+                viagem.getCarro().setPlaca(campoPlacaCarro.getText());
+                viagem.getCarro().setTemSeguro(temSeguro.isSelected());
+                int valorSeguroInt = campoValorSeguro.getText().isEmpty() ? 0 : Integer.parseInt(campoValorSeguro.getText());
+                viagem.getCarro().setValorSeguro(valorSeguroInt);
 
                 viagem.atualiza(conn);
                 dispose();
