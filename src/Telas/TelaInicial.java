@@ -110,7 +110,7 @@ public class TelaInicial extends JFrame {
                     pack();
                 } else {
                     String login = campoLogin.getText();
-                    String senha = campoSenha.getText();
+                    String senha = new String(campoSenha.getPassword());
 
                     if (login.isEmpty() || senha.isEmpty()) {
                         JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para logar!");
@@ -145,7 +145,7 @@ public class TelaInicial extends JFrame {
                 else {
                     String novoNome = campoNovoNome.getText();
                     String novoLogin = campoNovoLogin.getText();
-                    String novaSenha = campoNovaSenha.getText();
+                    String novaSenha = new String(campoNovaSenha.getPassword());
 
                     if (novoNome.isEmpty() || novoLogin.isEmpty() || novaSenha.isEmpty()) {
                         JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para se registrar!");
