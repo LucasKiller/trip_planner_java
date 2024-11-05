@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -31,31 +32,22 @@ import utils.GetTrips;
 
 import java.awt.event.ActionEvent;
 
-public class TelaPainelViagens extends JFrame {
+public class TelaModificarViagens extends JFrame {
     private JLabel painelControle;
     private JSeparator separador;
     private JMenuBar menuBar;
     private JMenu menuOpcoes;
-    private JMenuItem addViagemItem;
-    private JMenuItem excluirViagemItem;
-    private JMenu menuUser;
-    private JMenuItem verUserItem;
-    // private JMenuItem editarUserItem;
-    private JMenuItem sairUserItem;
+    private JMenuItem voltarViagemItem;
     private ArrayList<Viagem> viagens;
 
-    public TelaPainelViagens(Connection conn, ManageUserLogin manager) {
-        super("Painel de controle");
+    public TelaModificarViagens(Connection conn, ManageUserLogin manager) {
+        super("Painel de edição");
 
-        painelControle = new JLabel("Painel de controle de viagens:");
+        painelControle = new JLabel("Painel de edição de viagens:");
         separador = new JSeparator(SwingConstants.HORIZONTAL);
         menuBar = new JMenuBar();
         menuOpcoes = new JMenu("Opções");
-        addViagemItem = new JMenuItem("➕ Adicionar Viagem");
-        excluirViagemItem = new JMenuItem("🖋 Modificar Viagem");
-        menuUser = new JMenu("Usuário");
-        verUserItem = new JMenuItem("👔 Ver Perfil");
-        sairUserItem = new JMenuItem("🖐 Sair");
+        voltarViagemItem = new JMenuItem("◀ Voltar");
         viagens = new ArrayList<Viagem>();
 
         painelControle.setFont(painelControle.getFont().deriveFont(Font.BOLD, 16));
@@ -70,16 +62,9 @@ public class TelaPainelViagens extends JFrame {
         caixa.add(Box.createVerticalStrut(10));
         caixa.add(separador);
 
-        menuOpcoes.add(addViagemItem);
-        menuOpcoes.add(excluirViagemItem);
+        menuOpcoes.add(voltarViagemItem);
         
         menuBar.add(menuOpcoes);
-
-        menuUser.add(verUserItem);
-        // menuUser.add(editarUserItem);
-        menuUser.add(sairUserItem);
-
-        menuBar.add(menuUser);
 
         setJMenuBar(menuBar);
 
@@ -87,11 +72,10 @@ public class TelaPainelViagens extends JFrame {
 
         JPanel gridPanel = new JPanel(new GridLayout(0, 4, 20, 20));
 
-        int contViagem = 1;
         for (Viagem viagem : viagens) {
             JPanel caixaViagem = new JPanel();
             caixaViagem.setLayout(new BoxLayout(caixaViagem, BoxLayout.Y_AXIS));
-            caixaViagem.setBorder(BorderFactory.createTitledBorder("Viagem " + contViagem));
+            caixaViagem.setBorder(BorderFactory.createTitledBorder("Viagem"));
 
             JLabel nomeViagem = new JLabel("Nome: " + viagem.getNomeViagem());
             JLabel descricaoViagem = new JLabel("Descrição: " + viagem.getDescricaoViagem());
@@ -151,10 +135,39 @@ public class TelaPainelViagens extends JFrame {
             caixaViagem.add(placa);
             caixaViagem.add(seguro);
             caixaViagem.add(valorSeguro);
+            caixaViagem.add(Box.createVerticalStrut(10));
+
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+
+            JButton btnExcluir = new JButton("❌");
+            JButton btnEditar = new JButton("🖊");
+
+            btnExcluir.setAlignmentX(Component.CENTER_ALIGNMENT);
+            btnEditar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            buttonPanel.add(btnExcluir);
+            buttonPanel.add(Box.createHorizontalStrut(15));
+            buttonPanel.add(btnEditar);
+
+            btnExcluir.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    viagem.excluir(conn);
+                    new TelaModificarViagens(conn, manager);
+                    TelaModificarViagens.this.dispose();
+                }
+            });
+
+            btnEditar.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    TelaEditarViagem telaEditarViagem = new TelaEditarViagem(conn, manager, viagem);
+                    telaEditarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                }
+            });
+
+            caixaViagem.add(buttonPanel);
 
             gridPanel.add(caixaViagem);
-
-            contViagem += 1;
 
             setSize(1280, 720);
         }
@@ -186,40 +199,11 @@ public class TelaPainelViagens extends JFrame {
 
         contentPane.add(painelBorda, BorderLayout.CENTER);
 
-        addViagemItem.addActionListener(new ActionListener() {
+        voltarViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(conn, manager);
-                telaCriarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                TelaPainelViagens.this.dispose();
-            }
-        });
-
-        excluirViagemItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaModificarViagens telaExcluirViagem = new TelaModificarViagens(conn, manager);
-                telaExcluirViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                TelaPainelViagens.this.dispose();
-            }
-        });
-
-        verUserItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaVerPerfil telaVerPerfil = new TelaVerPerfil(conn, manager);
-                telaVerPerfil.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        });
-
-        // editarUserItem.addActionListener(new ActionListener() {
-        //     public void actionPerformed(ActionEvent e) {
-        //         TelaEditarPerfil telaEditarPerfil = new TelaEditarPerfil();
-        //         telaEditarPerfil.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //     }
-        // });
-
-        sairUserItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new TelaInicial(conn);
+                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, manager);
+                telaPainelViagens.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                TelaModificarViagens.this.dispose();
             }
         });
 
