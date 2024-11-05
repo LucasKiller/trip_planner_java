@@ -194,6 +194,20 @@ public class TelaModificarViagens extends JFrame {
         painelBorda.add(Box.createVerticalStrut(10));
         painelBorda.add(caixa);
 
+        JButton botaoVoltar = new JButton("Voltar");
+        botaoVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+        botaoVoltar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, manager);
+                telaPainelViagens.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                TelaModificarViagens.this.dispose();
+            }
+        });
+        painelBorda.add(Box.createVerticalStrut(10));
+        painelBorda.add(botaoVoltar);
+        painelBorda.add(Box.createVerticalStrut(10));
+
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
