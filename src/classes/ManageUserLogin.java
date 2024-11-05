@@ -1,6 +1,8 @@
 package classes;
 import java.sql.Connection;
 
+import utils.CryptoKeyHandler;
+
 /*
  * Classe para monitoriamento de login de usuario
  * Metodos como: login, registrar
@@ -19,7 +21,9 @@ public class ManageUserLogin {
      */
     public int logUser(Connection conn, String user, String pass) {
 
-        this.setUser(new User(user, pass));
+        String criptoPass = CryptoKeyHandler.getCipherPass(pass);
+
+        this.setUser(new User(user, criptoPass));
         this.getUser().carregar(conn);
 
         if(this.getUser().getID() == 0) {
@@ -33,7 +37,10 @@ public class ManageUserLogin {
     }
 
     public int registerUser(Connection conn, String nome, String user, String pass) {
-        this.setUser(new User(nome, user, pass));
+
+        String criptoPass = CryptoKeyHandler.getCipherPass(pass);
+
+        this.setUser(new User(nome, user, criptoPass));
         this.getUser().carregar(conn);
         if(this.getUser().getID() != 0) {
             // Utilizar de algum dialogo para informar que o registro foi MAL SUCEDIDO

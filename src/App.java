@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import telas.TelaInicial;
 import utils.ConnectDB;
+import utils.CryptoKeyHandler;
 import utils.DatabaseSetup;
 
 public class App {
@@ -12,6 +13,9 @@ public class App {
         Connection conn = null;
 
         try {
+
+            CryptoKeyHandler.generateKey();
+
             Class.forName(driver);
 
             conn = ConnectDB.conectar();

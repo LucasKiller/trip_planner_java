@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 
 import classes.ManageUserLogin;
 import utils.ConnectDB;
+import utils.CryptoKeyHandler;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -151,7 +152,7 @@ public class TelaInicial extends JFrame {
                         JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para se registrar!");
                     } else {
                         try {
-                                
+
                             int result = manager.registerUser(conn, novoNome, novoLogin, novaSenha);
 
                             if(result == -1) {
