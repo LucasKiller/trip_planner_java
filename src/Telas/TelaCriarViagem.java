@@ -2,18 +2,18 @@ package Telas;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.Image;
+// import java.awt.Image;
 import java.awt.FlowLayout;
-import java.io.File;
+// import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
+// import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
+// import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -433,7 +433,7 @@ public class TelaCriarViagem extends JFrame {
 
         botaoCancelarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, manager);
+                new TelaPainelViagens(conn, manager);
                 dispose();
             }
         });
@@ -456,7 +456,7 @@ public class TelaCriarViagem extends JFrame {
                     sql_ex.printStackTrace();
                 }
                 
-                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, manager);
+                new TelaPainelViagens(conn, manager);
                 dispose();
             }
         });
