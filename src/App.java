@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import Telas.TelaInicial;
+import telas.TelaInicial;
 import utils.ConnectDB;
 import utils.DatabaseSetup;
 

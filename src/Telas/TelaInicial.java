@@ -1,4 +1,5 @@
-package Telas;
+package telas;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
