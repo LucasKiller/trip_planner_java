@@ -52,18 +52,18 @@ public class Viagem {
         }
     }
 
-     public void excluir(Connection conn) {
+    public void excluir(Connection conn) {
         String sqlDelete = "DELETE FROM trips WHERE id = ?";
 
-        try (PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
+        try (PreparedStatement stm = conn.prepareStatement(sqlDelete)) {
             stm.setInt(1, this.getID());
-
-            stm.execute();
-        } catch(Exception ex) {
+            stm.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
             try {
                 conn.rollback();
-            } catch(SQLException sql_ex) {
-                System.out.println(sql_ex.getStackTrace());
+            } catch (SQLException sql_ex) {
+                sql_ex.printStackTrace();
             }
         }
     }

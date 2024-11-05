@@ -12,29 +12,33 @@ import classes.Viagem;
 
 public class GetTrips {
     
-    public static ArrayList <Viagem> getTrips(Connection conn, ManageUserLogin manager) {
-        ArrayList <Viagem> viagens = new ArrayList<Viagem>();
-
-        String sqlSelect = ("SELECT * FROM trips WHERE id_user = ?");
-
-        try (PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+    public static ArrayList<Viagem> getTrips(Connection conn, ManageUserLogin manager) {
+        ArrayList<Viagem> viagens = new ArrayList<>();
+    
+        String sqlSelect = "SELECT * FROM trips WHERE id_user = ?";
+    
+        try (PreparedStatement stm = conn.prepareStatement(sqlSelect)) {
             stm.setInt(1, manager.getUser().getID());
-            try (ResultSet rs = stm.executeQuery();) {
-                while(rs.next()) {
-                    Hotel hotel = new Hotel((rs.getInt(4)));
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    Hotel hotel = new Hotel(rs.getInt("id_hotel"));
                     hotel.carregar(conn);
-
-                    Carro carro = new Carro((rs.getInt(5)));
+    
+                    Carro carro = new Carro(rs.getInt("id_carro"));
                     carro.carregar(conn);
-
-                    Viagem viagem = new Viagem(manager.getUser(), hotel, carro, rs.getString("final_date"), rs.getString("init_date"), rs.getString("nome"), rs.getString("descrp"));
+    
+                    Viagem viagem = new Viagem(manager.getUser(), hotel, carro, 
+                                               rs.getString("final_date"), 
+                                               rs.getString("init_date"), 
+                                               rs.getString("nome"), 
+                                               rs.getString("descrp"));
+                                               
+                    viagem.setID(rs.getInt("id"));
                     viagens.add(viagem);
                 }
-            } catch(Exception ex) {
-                ex.printStackTrace();
             }
-        } catch (SQLException sql_ex) {
-            System.out.println(sql_ex.getStackTrace());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         return viagens;
     }
