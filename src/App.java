@@ -19,6 +19,8 @@ public class App {
             conn.setAutoCommit(false);
             DatabaseSetup.executeInitialSQL(conn);
 
+            conn.commit();
+
             new TelaInicial(conn);
             
         } catch (ClassNotFoundException ex) {
