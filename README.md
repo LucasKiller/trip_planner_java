@@ -4,18 +4,15 @@ Trip Planner Java is an application developed in Java aimed at helping users pla
 
 ## Project information 👨‍💻
 
-(Completar com mais informações aqui ainda)
+The workspace contains these folders by default, where:
 
-The workspace contains two folders by default, where:
-
+- `database`: the folder to maintain a already preset database
 - `src`: the folder to maintain sources
 - `lib`: the folder to maintain dependencies
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-(Completar com mais informações aqui ainda)
+Upon starting the program, it opens the initial screen, which consists of a user login and password or a registration form. If registered, the information will be sent directly to the database. Upon logging in, the user will be redirected to the control panel screen where they can create a new trip or edit an existing one. Additionally, the user can edit and view their own profile.
 
 ## Contributors 💰🤝💰
 
@@ -24,3 +21,7 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 - João Paulo - [yJony](https://github.com/yJony) 🐺
 - Tiago Azevedo - [tiagooazevedo](https://github.com/tiagooazevedo) 🥶
 - Lucas Olivares - [lvcasolivares](https://github.com/lvcasolivares) 🤯
+
+## Analytics 📈
+
+![Alt](https://repobeats.axiom.co/api/embed/e1dfd98cf46d9d335590ce1113757a7e27c3b17a.svg "Repobeats analytics image")
