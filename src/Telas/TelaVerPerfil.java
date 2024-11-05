@@ -1,4 +1,4 @@
-package Telas;
+package telas;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -6,27 +6,27 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import classes.ManageUserLogin;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.sql.Connection;
 
 import javax.swing.Box;
 
 public class TelaVerPerfil extends JFrame{
-    private JLabel fotoUser;
     private JLabel nomeUser;
     private JLabel loginUser;
     private JButton botaoVoltar;
     
-    public TelaVerPerfil() {
+    public TelaVerPerfil(Connection conn, ManageUserLogin manager) {
         super("Perfil");
 
-        fotoUser = new JLabel("Foto do usuário");
-        nomeUser = new JLabel("Nome do usuário");
-        loginUser = new JLabel("Login do usuário");
+        nomeUser = new JLabel("Nome: " + manager.getUser().getNome());
+        loginUser = new JLabel("Usuário: @" + manager.getUser().getUser());
         botaoVoltar = new JButton("Voltar");
 
-        fotoUser.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         nomeUser.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         loginUser.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         botaoVoltar.setAlignmentX(JButton.CENTER_ALIGNMENT);
@@ -34,8 +34,6 @@ public class TelaVerPerfil extends JFrame{
         JPanel caixa = new JPanel();
         caixa.setLayout(new BoxLayout(caixa, BoxLayout.Y_AXIS));
 
-        caixa.add(fotoUser);
-        caixa.add(Box.createVerticalStrut(10));
         caixa.add(nomeUser);
         caixa.add(Box.createVerticalStrut(10));
         caixa.add(loginUser);

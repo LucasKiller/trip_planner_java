@@ -1,3 +1,5 @@
+package telas;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -5,7 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import classes.ManageUserLogin;
+import utils.ConnectDB;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -23,12 +29,12 @@ public class TelaInicial extends JFrame {
     private JLabel textLogin;
     private JButton botaoLogin;
     private JTextField campoLogin;
-    private JTextField campoSenha;
+    private JPasswordField campoSenha;
     private JLabel textRegistrar;
     private JButton botaoRegistrar;
     private JTextField campoNovoNome; // senha
     private JTextField campoNovoLogin; // nome
-    private JTextField campoNovaSenha; // login
+    private JPasswordField campoNovaSenha; // login
 
     private ManageUserLogin manager;
 
@@ -40,12 +46,12 @@ public class TelaInicial extends JFrame {
         botaoLogin = new JButton("Entrar");
         textLogin = new JLabel("Login:");
         campoLogin = new JTextField("Login", 15);
-        campoSenha = new JTextField("Senha", 15);
+        campoSenha = new JPasswordField("Senha", 15);
         textRegistrar = new JLabel("Não tem uma conta ainda?");
         botaoRegistrar = new JButton("Registrar");
         campoNovoNome = new JTextField("Usuário", 15);
         campoNovoLogin = new JTextField("Login", 15);
-        campoNovaSenha = new JTextField("Senha", 15);
+        campoNovaSenha = new JPasswordField("Senha", 15);
 
         bemVindo.setFont(bemVindo.getFont().deriveFont(Font.BOLD, 16));
 
@@ -104,7 +110,7 @@ public class TelaInicial extends JFrame {
                     pack();
                 } else {
                     String login = campoLogin.getText();
-                    String senha = campoSenha.getText();
+                    String senha = new String(campoSenha.getPassword());
 
                     if (login.isEmpty() || senha.isEmpty()) {
                         JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para logar!");
@@ -114,6 +120,8 @@ public class TelaInicial extends JFrame {
                             JOptionPane.showMessageDialog(caixa, "Login ou senha incorretos!");
                         } else {
                             JOptionPane.showMessageDialog(caixa, "Login bem-sucedido!");
+                            new TelaPainelViagens(conn, manager);
+                            dispose();
                         }
                     }
                 }
@@ -137,7 +145,7 @@ public class TelaInicial extends JFrame {
                 else {
                     String novoNome = campoNovoNome.getText();
                     String novoLogin = campoNovoLogin.getText();
-                    String novaSenha = campoNovaSenha.getText();
+                    String novaSenha = new String(campoNovaSenha.getPassword());
 
                     if (novoNome.isEmpty() || novoLogin.isEmpty() || novaSenha.isEmpty()) {
                         JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para se registrar!");
