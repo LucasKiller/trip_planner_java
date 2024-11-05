@@ -1,4 +1,4 @@
-package Telas;
+package telas;
 
 import java.awt.Container;
 import java.awt.Font;
