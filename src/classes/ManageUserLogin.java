@@ -1,4 +1,8 @@
 package classes;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 
 import utils.CryptoKeyHandler;
@@ -23,7 +27,27 @@ public class ManageUserLogin {
 
         String criptoPass = CryptoKeyHandler.getCipherPass(pass);
 
+        // User userTest = new User(user, criptoPass);
+
+        // try {
+        //     ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+        //     ObjectOutputStream out = new ObjectOutputStream(byteOut);
+        //     out.writeObject(userTest);
+        //     out.flush();
+
+        //     byte[] personBytes = byteOut.toByteArray();
+
+        //     this.setUser(new User(personBytes));
+
+        //     System.out.println(this.getUser().getPass());
+
+        // } catch (Exception ex) {
+        //     ex.printStackTrace();
+        // }
+
         this.setUser(new User(user, criptoPass));
+
+
         this.getUser().carregar(conn);
 
         if(this.getUser().getID() == 0) {

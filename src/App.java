@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import classes.ClientSocket;
 import telas.TelaInicial;
 import utils.ConnectDB;
 import utils.CryptoKeyHandler;
@@ -13,6 +14,7 @@ public class App {
         Connection conn = null;
 
         try {
+            
 
             CryptoKeyHandler.generateKey();
 
@@ -23,14 +25,17 @@ public class App {
             conn.setAutoCommit(false);
             DatabaseSetup.executeInitialSQL(conn);
 
-            new TelaInicial(conn);
+            ClientSocket clientSocket = new ClientSocket();
+            clientSocket.start();
+
+            new TelaInicial(conn, clientSocket);
             
         } catch (ClassNotFoundException ex) {
             System.out.println("Driver não encontrado!");
         } catch (SQLException sql_ex) {
             System.out.println("Não foi possível realizar a conexão ao server: " + sql_ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("Não foi possível ler o arquivo!");
+            System.out.println("Erro do arquivo do banco de dados ou do socket do cliente!");
         }
     }
 }

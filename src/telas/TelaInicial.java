@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import classes.ClientSocket;
 import classes.ManageUserLogin;
 import utils.ConnectDB;
 
@@ -38,7 +39,7 @@ public class TelaInicial extends JFrame {
 
     private ManageUserLogin manager;
 
-    public TelaInicial(Connection conn) {
+    public TelaInicial(Connection conn, ClientSocket clientSocket) {
         super("Login");
         manager = new ManageUserLogin();
 
@@ -116,10 +117,12 @@ public class TelaInicial extends JFrame {
                         JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para logar!");
                     } else {
                         int result = manager.logUser(conn, login, senha);
+                        
                         if (result == -1) {
                             JOptionPane.showMessageDialog(caixa, "Login ou senha incorretos!");
                         } else {
                             JOptionPane.showMessageDialog(caixa, "Login bem-sucedido!");
+                            clientSocket.doRequest();
                             new TelaPainelViagens(conn, manager);
                             dispose();
                         }
