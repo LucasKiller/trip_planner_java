@@ -1,10 +1,13 @@
-package classes;
+package entities;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Viagem {
+import classes.ManageUserLogin;
+
+public class Viagem implements Serializable{
 
     private int ID;
     private User user;

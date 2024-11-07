@@ -1,35 +1,15 @@
 package telas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-import java.sql.Connection;
+import classes.ClientSocket;
+import classes.Request;
+import classes.Response;
+import entities.Viagem;
+import enums.RequestType;
 
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-
-import classes.ManageUserLogin;
-import classes.Viagem;
-import utils.GetTrips;
-
-import java.awt.event.ActionEvent;
 
 public class TelaPainelViagens extends JFrame {
     private JLabel painelControle;
@@ -43,9 +23,9 @@ public class TelaPainelViagens extends JFrame {
     private JMenuItem verUserItem;
     // private JMenuItem editarUserItem;
     private JMenuItem sairUserItem;
-    private ArrayList<Viagem> viagens;
+    private Viagem[] viagens;
 
-    public TelaPainelViagens(Connection conn, ManageUserLogin manager) {
+    public TelaPainelViagens(ClientSocket clientSocket) {
         super("Painel de controle");
 
         painelControle = new JLabel("Painel de controle de viagens:");
@@ -59,7 +39,6 @@ public class TelaPainelViagens extends JFrame {
         verUserItem = new JMenuItem("👔 Ver Perfil");
         // editarUserItem = new JMenuItem("🖊 Editar Perfil");
         sairUserItem = new JMenuItem("🖐 Sair");
-        viagens = new ArrayList<Viagem>();
 
         painelControle.setFont(painelControle.getFont().deriveFont(Font.BOLD, 16));
         painelControle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -87,7 +66,13 @@ public class TelaPainelViagens extends JFrame {
 
         setJMenuBar(menuBar);
 
-        viagens = GetTrips.getTrips(conn, manager);
+        // viagens = GetTrips.getTrips(conn, manager); REQUISICAO -> GET_TRIPS
+
+        Request req = new Request(RequestType.GET_TRIPS, new Object[0]);
+
+        Response res = clientSocket.doRequest(req);
+
+        viagens = (Viagem[]) res.getParameters();
 
         JPanel gridPanel = new JPanel(new GridLayout(0, 4, 20, 20));
 
@@ -160,7 +145,7 @@ public class TelaPainelViagens extends JFrame {
             setSize(1280, 720);
         }
 
-        if (viagens.isEmpty()) {
+        if (viagens.length == 0) {
             JPanel caixaSemViagem = new JPanel();
             caixaSemViagem.setLayout(new BoxLayout(caixaSemViagem, BoxLayout.Y_AXIS));
 
@@ -189,7 +174,7 @@ public class TelaPainelViagens extends JFrame {
 
         addViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(conn, manager);
+                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(clientSocket);
                 telaCriarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 TelaPainelViagens.this.dispose();
             }
@@ -213,7 +198,7 @@ public class TelaPainelViagens extends JFrame {
 
         verUserItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaVerPerfil telaVerPerfil = new TelaVerPerfil(conn, manager);
+                TelaVerPerfil telaVerPerfil = new TelaVerPerfil(clientSocket);
                 telaVerPerfil.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
@@ -232,11 +217,18 @@ public class TelaPainelViagens extends JFrame {
             }
         });
 
-        if (viagens.size() <= 4 && viagens.size() > 0) {
+        if (viagens.length <= 4 && viagens.length > 0) {
             pack();
         }
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Desconecta do DB ao fechar a janela
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                clientSocket.doRequest(new Request(RequestType.CLOSE_CONNECTION, new Object[0]));
+            }
+        });
         setVisible(true);
         setLocationRelativeTo(null);
 

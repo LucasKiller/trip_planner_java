@@ -5,14 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import classes.Carro;
-import classes.Hotel;
 import classes.ManageUserLogin;
-import classes.Viagem;
+import entities.Carro;
+import entities.Hotel;
+import entities.Viagem;
 
 public class GetTrips {
     
-    public static ArrayList <Viagem> getTrips(Connection conn, ManageUserLogin manager) {
+    public static Viagem[] getTrips(Connection conn, ManageUserLogin manager) {
         ArrayList <Viagem> viagens = new ArrayList<Viagem>();
 
         String sqlSelect = ("SELECT * FROM trips WHERE id_user = ?");
@@ -36,6 +36,6 @@ public class GetTrips {
         } catch (SQLException sql_ex) {
             System.out.println(sql_ex.getStackTrace());
         }
-        return viagens;
+        return viagens.toArray(new Viagem[0]);
     }
 }

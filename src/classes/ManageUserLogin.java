@@ -4,7 +4,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
 
+import entities.User;
 import utils.CryptoKeyHandler;
 
 /*
@@ -23,9 +25,14 @@ public class ManageUserLogin {
     /*
      * Metodo para loggar o usuario
      */
-    public int logUser(Connection conn, String user, String pass) {
+    public int logUser(Connection conn, User user) {
+
+        
+        String pass = user.getPass();
 
         String criptoPass = CryptoKeyHandler.getCipherPass(pass);
+
+        user.setPass(criptoPass);
 
         // User userTest = new User(user, criptoPass);
 
@@ -45,8 +52,7 @@ public class ManageUserLogin {
         //     ex.printStackTrace();
         // }
 
-        this.setUser(new User(user, criptoPass));
-
+        this.setUser(user);
 
         this.getUser().carregar(conn);
 
@@ -60,19 +66,28 @@ public class ManageUserLogin {
 
     }
 
-    public int registerUser(Connection conn, String nome, String user, String pass) {
+    public int registerUser(Connection conn, User user) {
+
+        String pass = user.getPass();
 
         String criptoPass = CryptoKeyHandler.getCipherPass(pass);
 
-        this.setUser(new User(nome, user, criptoPass));
-        this.getUser().carregar(conn);
+        user.setPass(criptoPass);
+
+        this.setUser(user);
         if(this.getUser().getID() != 0) {
             // Utilizar de algum dialogo para informar que o registro foi MAL SUCEDIDO
             return -1;
         }
 
         this.getUser().inserir(conn);
-        this.setLogged(true);
+        
+        try {
+            conn.commit();
+        } catch (SQLException ex) {
+            System.out.println("Nao foi possivel registrar o usuario! SQLExeption");
+        }
+
         return 1;
     }
 

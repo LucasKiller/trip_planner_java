@@ -10,35 +10,42 @@ import enums.RequestType;
 public class ClientSocket {
     
     private Socket clientSocket;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
     
     public void start() throws IOException {
         clientSocket = new Socket(Server.ADDRESS, Server.PORT);
+
+        out = new ObjectOutputStream(clientSocket.getOutputStream());
+
+        in = new ObjectInputStream(clientSocket.getInputStream());
     }
 
-    public void doRequest() {
+    public Response doRequest(Request request) {
 
-        try (ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream())) {
+        Response response = null;
 
-                // out.writeObject(request);
-
-                User user = new User("User", "Senha");
-
-                Request testRequest = new Request(RequestType.GET_USER, user);
-
-                out.writeObject(testRequest);
-
+        try {
+                out.writeObject(request);
                 out.flush();
 
-                Request response = (Request) in.readObject();
+                if(request.getType() == RequestType.CLOSE_CONNECTION) {
 
-                User responseUser = (User) response.getParameters()[0];
+                    in.close();
+                    out.close();
+                    return null;
 
-                System.out.println("Resposta do servidor: " + responseUser.getUser()); 
+                }
+
+                response = (Response) in.readObject();
+
+                System.out.println("Recebido do servidor: " + response.getType());
 
         } catch( IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
+
+        return response;
 
     }
 

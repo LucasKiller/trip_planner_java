@@ -1,11 +1,12 @@
-package classes;
+package entities;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Hotel {
+public class Hotel implements Serializable{
     
     private int ID;
     private String nome;

@@ -1,11 +1,12 @@
-package classes;
+package entities;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Carro {
+public class Carro implements Serializable {
     private String nome;
     private String marca;
     private String placa;

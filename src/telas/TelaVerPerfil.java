@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import classes.ClientSocket;
 import classes.ManageUserLogin;
 
 import java.awt.BorderLayout;
@@ -20,7 +21,7 @@ public class TelaVerPerfil extends JFrame{
     private JLabel loginUser;
     private JButton botaoVoltar;
     
-    public TelaVerPerfil(Connection conn, ManageUserLogin manager) {
+    public TelaVerPerfil(ClientSocket clientSocket) {
         super("Perfil");
 
         nomeUser = new JLabel("Nome: " + manager.getUser().getNome());
