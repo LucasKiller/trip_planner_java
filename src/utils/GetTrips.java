@@ -5,14 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import classes.ManageUserLogin;
+import classes.LoginAndRegisterUser;
 import entities.Carro;
 import entities.Hotel;
 import entities.Viagem;
 
 public class GetTrips {
     
-    public static Viagem[] getTrips(Connection conn, ManageUserLogin manager) {
+    public static Viagem[] getTrips(Connection conn, LoginAndRegisterUser manager) {
         ArrayList <Viagem> viagens = new ArrayList<Viagem>();
 
         String sqlSelect = ("SELECT * FROM trips WHERE id_user = ?");

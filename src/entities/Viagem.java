@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import classes.ManageUserLogin;
+import classes.LoginAndRegisterUser;
 
 public class Viagem implements Serializable{
 
@@ -96,7 +96,7 @@ public class Viagem implements Serializable{
         }
     }
 
-    public void carregar(Connection conn, ManageUserLogin manager) {
+    public void carregar(Connection conn, LoginAndRegisterUser manager) {
 
         String sqlSelect = "SELECT * FROM trips WHERE id_user = ?";
 

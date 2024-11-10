@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 import classes.ClientSocket;
+import classes.ManageUserInstance;
 import classes.Request;
-import classes.Response;
 import entities.*;
 
 import enums.RequestType;
@@ -430,17 +430,17 @@ public class TelaCriarViagem extends JFrame {
                 Hotel hotel = new Hotel(campoNomeHotel.getText(), campoEnderecoHotel.getText(),campoCheckInHotel.getText(), campoCheckOutHotel.getText());
                 Carro carro = new Carro(campoNomeCarro.getText(), campoModeloCarro.getText(), campoPlacaCarro.getText(), temSeguro.isSelected(), Integer.parseInt(campoValorSeguro.getText()),"Teste");
 
-                Request reqUser = new Request(RequestType.GET_USER, new Object[0]);
+                // Request reqUser = new Request(RequestType.GET_USER, new Object[0]);
 
-                Response resUser = clientSocket.doRequest(reqUser);
+                // Response resUser = clientSocket.doRequest(reqUser);
 
-                User user = (User) resUser.getParameters()[0];
+                User user = ManageUserInstance.getUserInstance();
 
                 Viagem trip = new Viagem(user, hotel, carro, campoDataInicio.getText(), campoDataFim.getText(), campoNomeViagem.getText(), campoDescricaoViagem.getText()); // 
 
                 Request reqCreateTrip = new Request(RequestType.CREATE_TRIP, hotel, carro, trip);
 
-                Response resCreateTrip = clientSocket.doRequest(reqCreateTrip);
+                clientSocket.doRequest(reqCreateTrip);
                 
                 new TelaPainelViagens(clientSocket);
                 dispose();

@@ -1,8 +1,5 @@
 package classes;
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -17,16 +14,14 @@ import utils.CryptoKeyHandler;
  * Objeto mng com os metodos logUser e registerUser
  */
 
-public class ManageUserLogin {
+public class LoginAndRegisterUser {
     
-    private boolean isLogged = false;
     private User user;
 
     /*
      * Metodo para loggar o usuario
      */
     public int logUser(Connection conn, User user) {
-
         
         String pass = user.getPass();
 
@@ -61,7 +56,6 @@ public class ManageUserLogin {
             return -1;
         } 
 
-        this.setLogged(true); // Informar que o login foi bem sucedido e trocar telas
         return 1;
 
     }
@@ -89,14 +83,6 @@ public class ManageUserLogin {
         }
 
         return 1;
-    }
-
-    public boolean getIsLogged() {
-        return isLogged;
-    }
-
-    private void setLogged(boolean isLogged) {
-        this.isLogged = isLogged;
     }
 
     public User getUser() {

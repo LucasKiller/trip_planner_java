@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 import classes.ClientSocket;
+import classes.ManageUserInstance;
 import classes.Request;
 import classes.Response;
 import entities.User;
 import enums.*;
-
 
 public class TelaInicial extends JFrame {
     private JLabel bemVindo;
@@ -107,6 +107,9 @@ public class TelaInicial extends JFrame {
                         if (res.getType() == ResponseType.USER_NOT_LOGGED) {
                             JOptionPane.showMessageDialog(caixa, "Login ou senha incorretos!");
                         } else if (res.getType() == ResponseType.USER_LOGGED) {
+
+                            ManageUserInstance.setUserInstance( (User) res.getParameters()[0]);
+
                             JOptionPane.showMessageDialog(caixa, "Login bem-sucedido!");
                             new TelaPainelViagens(clientSocket);
                             dispose();
