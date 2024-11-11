@@ -160,7 +160,7 @@ public class TelaModificarViagens extends JFrame {
 
             btnEditar.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    TelaEditarViagem telaEditarViagem = new TelaEditarViagem(conn, manager, viagem);
+                    TelaEditarViagem telaEditarViagem = new TelaEditarViagem(conn, manager, viagem, TelaModificarViagens.this);
                     telaEditarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 }
             });

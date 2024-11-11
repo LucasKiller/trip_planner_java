@@ -31,8 +31,6 @@ public class TelaEditarViagem extends JFrame{
     private JTextField campoNomeViagem;
     private JLabel descricaoViagem;
     private JTextField campoDescricaoViagem;
-    private JLabel cidade;
-    private JTextField campoCidade;
     private JLabel nomeHotel;
     private JTextField campoNomeHotel;
     private JLabel enderecoHotel;
@@ -68,7 +66,7 @@ public class TelaEditarViagem extends JFrame{
     // private JLabel imagemLabelCarro;
     // private JButton botaoSelecionarImagemCarro;
 
-    public TelaEditarViagem(Connection conn, ManageUserLogin manager, Viagem viagem){
+    public TelaEditarViagem(Connection conn, ManageUserLogin manager, Viagem viagem, TelaModificarViagens telaModificarViagens) {
         super("Edição de Viagem");
 
         criarViagem = new JLabel("Altere os dados da viagem");
@@ -76,19 +74,17 @@ public class TelaEditarViagem extends JFrame{
         campoNomeViagem = new JTextField(viagem.getNomeViagem(), 10);
         descricaoViagem = new JLabel("Descrição da viagem:");
         campoDescricaoViagem = new JTextField(viagem.getDescricaoViagem(), 10);
-        cidade = new JLabel("Cidade:");
-        campoCidade = new JTextField(10); //getCidade()
-        nomeHotel = new JLabel("nome do hotel:");
+        nomeHotel = new JLabel("Hotel:");
         campoNomeHotel = new JTextField(viagem.getHotel().getNome(), 10);
         enderecoHotel = new JLabel("Endereço:");
         campoEnderecoHotel = new JTextField(viagem.getHotel().getEndereco(), 10);
         checkInHotel = new JLabel("Check-in:");
-        campoCheckInHotel = new JTextField(10); //getCheckIn()
+        campoCheckInHotel = new JTextField(viagem.getHotel().getCheckin(), 10);
         checkOutHotel = new JLabel("Check-out:");
-        campoCheckOutHotel = new JTextField(10); //getCheckOut()
+        campoCheckOutHotel = new JTextField(viagem.getHotel().getCheckout(), 10);
         alugarCarro = new JLabel("Você vai alugar um carro?");
-        temCarro = new JCheckBox("Sim"); //isTemCarro()
-        semCarro = new JCheckBox("Não"); //isTemCarro()
+        temCarro = new JCheckBox("Sim", viagem.isTemCarro());
+        semCarro = new JCheckBox("Não", !viagem.isTemCarro());
         dataInicio = new JLabel("Data de início:");
         campoDataInicio = new JTextField(viagem.getDiaInicial(), 10);
         dataFim = new JLabel("Data de fim:");
@@ -138,13 +134,6 @@ public class TelaEditarViagem extends JFrame{
         caixaDescricao.add(descricaoViagem);
         caixaDescricao.add(campoDescricaoViagem);
         caixa.add(caixaDescricao);
-
-        JPanel caixaCidade = new JPanel();
-        caixaCidade.setLayout(new FlowLayout());
-
-        caixaCidade.add(cidade);
-        caixaCidade.add(campoCidade);
-        caixa.add(caixaCidade);
 
         JPanel caixaNomeHotel = new JPanel();
         caixaNomeHotel.setLayout(new FlowLayout());
@@ -214,17 +203,10 @@ public class TelaEditarViagem extends JFrame{
         caixaCarro.add(semCarro);
         caixa.add(caixaCarro);        
 
-        caixa.add(Box.createVerticalStrut(10));
+        caixa.add(Box.createVerticalStrut(1));
 
-        JPanel caixaBotoes = new JPanel();
-        caixaBotoes.setLayout(new FlowLayout());
-
-        caixaBotoes.add(botaoCriarViagem);
-        caixaBotoes.add(Box.createHorizontalStrut(20));
-        caixaBotoes.add(botaoCancelarViagem);
-        caixa.add(caixaBotoes);
-
-        caixa.add(Box.createVerticalStrut(20));
+        
+        caixa.add(Box.createVerticalStrut(1));
 
         JPanel painelBorda = new JPanel();
         painelBorda.setLayout(new BoxLayout(painelBorda, BoxLayout.Y_AXIS));
@@ -238,6 +220,9 @@ public class TelaEditarViagem extends JFrame{
         contentPane.add(Box.createHorizontalStrut(10));
         contentPane.add(painelBorda);
         contentPane.add(Box.createHorizontalStrut(10));
+
+        temCarro.setSelected(false);
+        semCarro.setSelected(true);
 
         temCarro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -264,34 +249,34 @@ public class TelaEditarViagem extends JFrame{
                         caixa.add(Box.createVerticalStrut(10), 15);
                         caixaNomeCarro.add(nomeCarro);
                         caixaNomeCarro.add(campoNomeCarro);
-                        caixa.add(caixaNomeCarro, 15);
+                        caixa.add(caixaNomeCarro, 14);
 
                         JPanel caixaModeloCarro = new JPanel();
                         caixaModeloCarro.setLayout(new FlowLayout());
 
                         caixaModeloCarro.add(modeloCarro);
                         caixaModeloCarro.add(campoModeloCarro);
-                        caixa.add(caixaModeloCarro, 16);
+                        caixa.add(caixaModeloCarro, 15);
 
                         JPanel caixaPlacaCarro = new JPanel();
                         caixaPlacaCarro.setLayout(new FlowLayout());
 
                         caixaPlacaCarro.add(placaCarro);
                         caixaPlacaCarro.add(campoPlacaCarro);
-                        caixa.add(caixaPlacaCarro, 17);
+                        caixa.add(caixaPlacaCarro, 16);
 
                         JPanel caixaSeguroCarro = new JPanel();
                         caixaSeguroCarro.setLayout(new FlowLayout());
 
                         caixaSeguroCarro.add(seguroCarro);
-                        caixa.add(caixaSeguroCarro, 18);
+                        caixa.add(caixaSeguroCarro, 17);
 
                         JPanel caixaCarroSeguro = new JPanel();
                         caixaCarroSeguro.setLayout(new FlowLayout());
 
                         caixaCarroSeguro.add(temSeguro);
                         caixaCarroSeguro.add(semSeguro);
-                        caixa.add(caixaCarroSeguro, 19);
+                        caixa.add(caixaCarroSeguro, 18);
 
                         // JPanel caixaImagemCarro = new JPanel();
                         // caixaImagemCarro.setLayout(new FlowLayout());
@@ -305,7 +290,7 @@ public class TelaEditarViagem extends JFrame{
 
                         // caixaImagemLabelCarro.add(imagemLabelCarro);
                         // caixa.add(caixaImagemLabelCarro, 21);
-                        // caixa.add(Box.createVerticalStrut(10));
+                        caixa.add(Box.createVerticalStrut(10), 19);
 
                         caixa.revalidate();
                         pack();
@@ -343,6 +328,8 @@ public class TelaEditarViagem extends JFrame{
                     seguroCarro.setVisible(false);
                     temSeguro.setVisible(false);
                     semSeguro.setVisible(false);
+                    valorSeguro.setVisible(false);
+                    campoValorSeguro.setVisible(false);
                     // textImagemCarro.setVisible(false);
                     // botaoSelecionarImagemCarro.setVisible(false);
                     // imagemLabelCarro.setVisible(false);
@@ -365,7 +352,7 @@ public class TelaEditarViagem extends JFrame{
 
                         caixaValorSeguro.add(valorSeguro);
                         caixaValorSeguro.add(campoValorSeguro);
-                        caixa.add(caixaValorSeguro, 20);
+                        caixa.add(caixaValorSeguro, 19);
 
                         caixa.revalidate();
                         pack();
@@ -422,23 +409,51 @@ public class TelaEditarViagem extends JFrame{
         //     }
         // });
 
+        JPanel caixaBotoes = new JPanel();
+        caixaBotoes.setLayout(new FlowLayout());
+
+        caixaBotoes.add(botaoCriarViagem);
+        caixaBotoes.add(Box.createHorizontalStrut(20));
+        caixaBotoes.add(botaoCancelarViagem);
+        caixa.add(caixaBotoes);
+
         botaoCriarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 viagem.setNomeViagem(campoNomeViagem.getText());
                 viagem.setDescricaoViagem(campoDescricaoViagem.getText());
                 viagem.setDiaInicial(campoDataInicio.getText());
                 viagem.setDiaFinal(campoDataFim.getText());
+
                 viagem.getHotel().setNome(campoNomeHotel.getText());
                 viagem.getHotel().setEndereco(campoEnderecoHotel.getText());
-                viagem.getCarro().setNome(campoNomeCarro.getText());
-                viagem.getCarro().setMarca(campoModeloCarro.getText());
-                viagem.getCarro().setPlaca(campoPlacaCarro.getText());
-                viagem.getCarro().setTemSeguro(temSeguro.isSelected());
-                int valorSeguroInt = campoValorSeguro.getText().isEmpty() ? 0 : Integer.parseInt(campoValorSeguro.getText());
-                viagem.getCarro().setValorSeguro(valorSeguroInt);
+                viagem.getHotel().setCheckin(campoCheckInHotel.getText());
+                viagem.getHotel().setCheckout(campoCheckOutHotel.getText());
+
+                if (temCarro.isSelected()) {
+                    viagem.getCarro().setNome(campoNomeCarro.getText());
+                    viagem.getCarro().setMarca(campoModeloCarro.getText());
+                    viagem.getCarro().setPlaca(campoPlacaCarro.getText());
+                    viagem.getCarro().setTemSeguro(temSeguro.isSelected());
+                    int valorSeguroInt = campoValorSeguro.getText().isEmpty() ? 0 : Integer.parseInt(campoValorSeguro.getText());
+                    viagem.getCarro().setValorSeguro(valorSeguroInt);
+
+                } else {
+                    viagem.getCarro().setNome("");
+                    viagem.getCarro().setMarca("");
+                    viagem.getCarro().setPlaca("");
+                    viagem.getCarro().setTemSeguro(false);
+                    viagem.getCarro().setValorSeguro(0);
+                }
 
                 viagem.atualiza(conn);
+                viagem.getHotel().atualiza(conn);
+                viagem.getCarro().atualiza(conn);
+
+                telaModificarViagens.dispose();
+
                 dispose();
+
+                new TelaModificarViagens(conn, manager);
             }
         });
 
