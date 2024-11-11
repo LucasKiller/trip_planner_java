@@ -213,7 +213,7 @@ public class TelaPainelViagens extends JFrame {
         sairUserItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                // new TelaInicial(conn);
+                new TelaInicial(clientSocket);
             }
         });
 
