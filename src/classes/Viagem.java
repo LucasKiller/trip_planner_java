@@ -58,6 +58,7 @@ public class Viagem {
         try (PreparedStatement stm = conn.prepareStatement(sqlDelete)) {
             stm.setInt(1, this.getID());
             stm.executeUpdate();
+            conn.commit();
         } catch (Exception ex) {
             ex.printStackTrace();
             try {
@@ -82,6 +83,7 @@ public class Viagem {
             stm.setInt(8, this.getID());
     
             stm.executeUpdate();
+            conn.commit();
         } catch (Exception ex) {
             try {
                 conn.rollback();
@@ -137,6 +139,15 @@ public class Viagem {
 
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
+    }
+
+    public boolean isTemCarro() {
+        if (this.carro != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public Carro getCarro() {
