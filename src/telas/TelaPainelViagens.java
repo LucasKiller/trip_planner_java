@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import classes.*;
 import entities.*;
 import enums.*;
+import utils.HandleLanguageChoice;
 
 public class TelaPainelViagens extends JFrame {
     private JLabel painelControle;
@@ -20,8 +21,9 @@ public class TelaPainelViagens extends JFrame {
     private JMenuItem verUserItem;
     private JMenuItem sairUserItem;
     private Viagem[] viagens;
+    private static ResourceBundle bundle = HandleLanguageChoice.getDefinedLang("TelaPainelViagens");
 
-    public TelaPainelViagens(ClientSocket clientSocket, ResourceBundle bundle) {
+    public TelaPainelViagens(ClientSocket clientSocket) {
         super(bundle.getString("painelControle"));
 
         painelControle = new JLabel(bundle.getString("painelControle"));
@@ -149,7 +151,7 @@ public class TelaPainelViagens extends JFrame {
 
         addViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(clientSocket, bundle);
+                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(clientSocket);
                 telaCriarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 TelaPainelViagens.this.dispose();
             }
@@ -165,7 +167,7 @@ public class TelaPainelViagens extends JFrame {
 
         verUserItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaVerPerfil telaVerPerfil = new TelaVerPerfil(clientSocket, bundle);
+                TelaVerPerfil telaVerPerfil = new TelaVerPerfil(clientSocket);
                 telaVerPerfil.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
@@ -180,7 +182,7 @@ public class TelaPainelViagens extends JFrame {
         sairUserItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new TelaInicial(clientSocket, bundle);
+                new TelaInicial(clientSocket);
             }
         });
 

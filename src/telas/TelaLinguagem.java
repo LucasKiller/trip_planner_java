@@ -62,8 +62,9 @@ public class TelaLinguagem extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = languageComboBox.getSelectedIndex();
                 HandleLanguageChoice.setDefinedLang(selectedIndex);
-                JOptionPane.showMessageDialog(TelaLinguagem.this, bundle.getString("confirmButton") + " selecionado.");
-                new TelaInicial(clientSocket, HandleLanguageChoice.getDefinedLang("TelaInicial"));
+                // JOptionPane.showMessageDialog(TelaLinguagem.this, bundle.getString("confirmButton") + " selecionado.");
+                new TelaInicial(clientSocket);
+                TelaLinguagem.this.dispose();
             }
         });
         selectionPanel.add(confirmButton);

@@ -3,10 +3,8 @@ package utils;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import telas.TelaInicial;
 
 public class HandleLanguageChoice {
 

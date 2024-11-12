@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import classes.*;
 import entities.*;
 import enums.*;
+import utils.HandleLanguageChoice;
 
 public class TelaEditarViagem extends JFrame {
     private JLabel criarViagem;
@@ -46,11 +47,12 @@ public class TelaEditarViagem extends JFrame {
     private JCheckBox semSeguro;
     private JLabel valorSeguro;
     private JTextField campoValorSeguro;
+    private static ResourceBundle bundle = HandleLanguageChoice.getDefinedLang("TelaEditarViagem");
     // private JLabel textImagemCarro;
     // private JLabel imagemLabelCarro;
     // private JButton botaoSelecionarImagemCarro;
 
-    public TelaEditarViagem(ClientSocket clientSocket, Viagem viagem, TelaModificarViagens telaModificarViagens, ResourceBundle bundle) {
+    public TelaEditarViagem(ClientSocket clientSocket, Viagem viagem, TelaModificarViagens telaModificarViagens) {
         super(bundle.getString("tela.editarViagem.titulo"));
 
         criarViagem = new JLabel(bundle.getString("tela.editarViagem.titulo"));

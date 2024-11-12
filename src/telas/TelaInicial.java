@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import classes.*;
 import entities.*;
 import enums.*;
+import utils.HandleLanguageChoice;
 
 public class TelaInicial extends JFrame {
     private JLabel bemVindo;
@@ -20,8 +21,9 @@ public class TelaInicial extends JFrame {
     private JTextField campoNovoNome;
     private JTextField campoNovoLogin;
     private JPasswordField campoNovaSenha;
+    private static ResourceBundle bundle = HandleLanguageChoice.getDefinedLang("TelaInicial");
 
-    public TelaInicial(ClientSocket clientSocket, ResourceBundle bundle) {
+    public TelaInicial(ClientSocket clientSocket) {
         super(bundle.getString("titulo.telaInicial"));
 
         bemVindo = new JLabel(bundle.getString("bemVindo"));
@@ -109,7 +111,7 @@ public class TelaInicial extends JFrame {
                             ManageUserInstance.setUserInstance( (User) res.getParameters()[0]);
 
                             JOptionPane.showMessageDialog(caixa, bundle.getString("confirmacao.loginSucesso"));
-                            new TelaPainelViagens(clientSocket, bundle);
+                            new TelaPainelViagens(clientSocket);
                             dispose();
                         }
                     }

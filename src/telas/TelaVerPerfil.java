@@ -6,13 +6,15 @@ import java.util.ResourceBundle;
 
 import classes.*;
 import entities.*;
+import utils.HandleLanguageChoice;
 
 public class TelaVerPerfil extends JFrame {
     private JLabel nomeUser;
     private JLabel loginUser;
     private JButton botaoVoltar;
+    private static ResourceBundle bundle = HandleLanguageChoice.getDefinedLang("TelaVerPerfil");
 
-    public TelaVerPerfil(ClientSocket clientSocket, ResourceBundle bundle) {
+    public TelaVerPerfil(ClientSocket clientSocket) {
         super(bundle.getString("perfil"));
 
          User user = ManageUserInstance.getUserInstance();

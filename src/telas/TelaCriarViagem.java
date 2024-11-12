@@ -11,6 +11,8 @@ import classes.Request;
 import entities.*;
 
 import enums.RequestType;
+import utils.HandleLanguageChoice;
+import utils.ResourseBundle;
 
 public class TelaCriarViagem extends JFrame {
     private JLabel criarViagem;
@@ -48,8 +50,9 @@ public class TelaCriarViagem extends JFrame {
     private JCheckBox semSeguro;
     private JLabel valorSeguro;
     private JTextField campoValorSeguro;
+    private static ResourceBundle bundle = HandleLanguageChoice.getDefinedLang("TelaCriarViagem");
 
-    public TelaCriarViagem(ClientSocket clientSocket, ResourceBundle bundle) {
+    public TelaCriarViagem(ClientSocket clientSocket) {
         super(bundle.getString("tela.criarViagem.titulo"));
 
         criarViagem = new JLabel(bundle.getString("tela.criarViagem.titulo"));
@@ -407,7 +410,7 @@ public class TelaCriarViagem extends JFrame {
 
         botaoCancelarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new TelaPainelViagens(clientSocket, bundle);
+                new TelaPainelViagens(clientSocket);
                 dispose();
             }
         });
@@ -430,7 +433,7 @@ public class TelaCriarViagem extends JFrame {
 
                 clientSocket.doRequest(reqCreateTrip);
                 
-                new TelaPainelViagens(clientSocket, bundle);
+                new TelaPainelViagens(clientSocket);
                 dispose();
             }
         });
