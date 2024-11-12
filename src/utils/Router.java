@@ -80,6 +80,8 @@ public class Router {
 
                 res = new Response(ResponseType.TRIP_CREATED, new Object[0]);
 
+                break;
+
             case UPDATE_TRIP:
                 
                 hotel = (Hotel) request.getParameters()[0];
@@ -99,6 +101,8 @@ public class Router {
 
                 res = new Response(ResponseType.TRIP_UPDATED, new Object[0]);
 
+                break;
+
             case DELETE_TRIP:
 
                 trip = (Viagem) request.getParameters()[0];
@@ -111,6 +115,8 @@ public class Router {
                 }
 
                 res = new Response(ResponseType.TRIP_DELETED, new Object[0]);
+
+                break;
 
             default:
 

@@ -436,7 +436,7 @@ public class TelaCriarViagem extends JFrame {
 
                 User user = ManageUserInstance.getUserInstance();
 
-                Viagem trip = new Viagem(user, hotel, carro, campoDataInicio.getText(), campoDataFim.getText(), campoNomeViagem.getText(), campoDescricaoViagem.getText()); // 
+                Viagem trip = new Viagem(user, hotel, carro, campoDataFim.getText(), campoDataInicio.getText(), campoNomeViagem.getText(), campoDescricaoViagem.getText());
 
                 Request reqCreateTrip = new Request(RequestType.CREATE_TRIP, hotel, carro, trip);
 
