@@ -1,10 +1,12 @@
-package classes;
+package entities;
+
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class User {
+public class User implements Serializable{
     
     private String user;
     private String nome;
@@ -28,6 +30,24 @@ public class User {
         this.nome = nome;
         this.pass = pass;
     }
+
+    // public User(byte[] data) {
+
+    //     try {
+    //         ByteArrayInputStream byteIn = new ByteArrayInputStream(data);
+    //         ObjectInputStream in = new ObjectInputStream(byteIn);
+
+    //         User testUser = (User) in.readObject();
+
+    //         this.user = testUser.user;
+    //         this.pass = testUser.pass;
+
+
+    //     } catch (IOException | ClassNotFoundException e) {
+    //         e.printStackTrace();
+    //     }
+
+    // }
 
     //Metodos de acesso e modificadores
     public String getUser() {

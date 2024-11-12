@@ -1,11 +1,12 @@
-package classes;
+package entities;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Carro {
+public class Carro implements Serializable {
     private String nome;
     private String marca;
     private String placa;
@@ -104,23 +105,40 @@ public class Carro {
 
     }
 
-    public void atualizar(Connection conn) {
-        String sqlUpdate = "UPDATE carro SET nome = ?, marca = ?, placa = ?, temSeguro = ?, img_path = ? WHERE id = ?";
-
-        try (PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
-
-            stm.setString(1, this.getNome());
-            stm.setString(2, this.getMarca());
-            stm.setString(3, this.getPlaca());
-            stm.setBoolean(4, this.isTemSeguro());
-            stm.setString(5, this.getImagem());
-            stm.setInt(6, this.getID());
-
-            stm.execute();
-        } catch(SQLException sql_ex) {
-            sql_ex.printStackTrace();
+    public void atualiza(Connection conn) {
+        String sqlUpdate = "UPDATE carro SET nome = ?, marca = ?, placa = ?, temSeguro = ?, valorSeguro = ?, img_path = ? WHERE id = ?";
+        try {
+            // Desativa o autocommit se ainda não estiver desativado
+            if (conn.getAutoCommit()) {
+                conn.setAutoCommit(false);
+            }
+    
+            try (PreparedStatement stm = conn.prepareStatement(sqlUpdate)) {
+                stm.setString(1, this.getNome());
+                stm.setString(2, this.getMarca());
+                stm.setString(3, this.getPlaca());
+                stm.setBoolean(4, this.isTemSeguro());
+                stm.setInt(5, this.getValorSeguro());
+                stm.setString(6, this.getImagem());  // Atualiza a imagem também se necessário
+                stm.setInt(7, this.getID());
+    
+                int rowsAffected = stm.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Atualização do carro realizada com sucesso.");
+                    conn.commit();
+                } else {
+                    System.out.println("Nenhuma linha foi atualizada. Verifique o ID do carro.");
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao atualizar carro: " + ex.getMessage());
+            try {
+                conn.rollback();
+            } catch (SQLException rollbackEx) {
+                System.out.println("Erro ao fazer rollback: " + rollbackEx.getMessage());
+            }
         }
-    }
+    }    
 
     public void carregar(Connection conn) {
         String sqlSelect = "SELECT * FROM carro WHERE id = ?";

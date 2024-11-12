@@ -1,10 +1,13 @@
-package classes;
+package entities;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Viagem {
+import classes.LoginAndRegisterUser;
+
+public class Viagem implements Serializable{
 
     private int ID;
     private User user;
@@ -52,25 +55,26 @@ public class Viagem {
         }
     }
 
-     public void excluir(Connection conn) {
+    public void excluir(Connection conn) {
         String sqlDelete = "DELETE FROM trips WHERE id = ?";
 
-        try (PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
+        try (PreparedStatement stm = conn.prepareStatement(sqlDelete)) {
             stm.setInt(1, this.getID());
-
-            stm.execute();
-        } catch(Exception ex) {
+            stm.executeUpdate();
+            conn.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
             try {
                 conn.rollback();
-            } catch(SQLException sql_ex) {
-                System.out.println(sql_ex.getStackTrace());
+            } catch (SQLException sql_ex) {
+                sql_ex.printStackTrace();
             }
         }
     }
 
     public void atualiza(Connection conn) {
         String sqlUpdate = "UPDATE trips SET nome = ?, descrp = ?, id_hotel = ?, id_carro = ?, init_date = ?, final_date = ?, img_path = ? WHERE id = ?";
-
+    
         try (PreparedStatement stm = conn.prepareStatement(sqlUpdate)) {
             stm.setString(1, this.getNomeViagem());
             stm.setString(2, this.getDescricaoViagem());
@@ -79,21 +83,21 @@ public class Viagem {
             stm.setString(5, this.getDiaInicial());
             stm.setString(6, this.getDiaFinal());
             stm.setString(7, this.getImagepath());
-            stm.setInt(8, this.getUser().getID());
-
-            stm.setInt(6, this.getID());
-
-            stm.execute();
+            stm.setInt(8, this.getID());
+    
+            stm.executeUpdate();
+            conn.commit();
         } catch (Exception ex) {
             try {
                 conn.rollback();
-            } catch(SQLException sql_ex) {
-                System.out.println(sql_ex.getStackTrace());
+            } catch (SQLException sql_ex) {
+                sql_ex.printStackTrace();
             }
+            ex.printStackTrace();
         }
-    }
+    }    
 
-    public void carregar(Connection conn, ManageUserLogin manager) {
+    public void carregar(Connection conn, LoginAndRegisterUser manager) {
 
         String sqlSelect = "SELECT * FROM trips WHERE id_user = ?";
 
@@ -138,6 +142,15 @@ public class Viagem {
 
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
+    }
+
+    public boolean isTemCarro() {
+        if (this.carro != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public Carro getCarro() {

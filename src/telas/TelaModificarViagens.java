@@ -4,38 +4,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import entities.Viagem;
+import enums.RequestType;
 import classes.ClientSocket;
 import classes.Request;
 import classes.Response;
-import entities.Viagem;
-import enums.RequestType;
 
+import java.awt.event.ActionEvent;
 
-public class TelaPainelViagens extends JFrame {
+public class TelaModificarViagens extends JFrame {
     private JLabel painelControle;
     private JSeparator separador;
     private JMenuBar menuBar;
     private JMenu menuOpcoes;
-    private JMenuItem addViagemItem;
-    private JMenuItem excluirViagemItem;
-    private JMenu menuUser;
-    private JMenuItem verUserItem;
-    // private JMenuItem editarUserItem;
-    private JMenuItem sairUserItem;
-    private Viagem[] viagens;
+    private JMenuItem voltarViagemItem;
+    private Viagem [] viagens;
 
-    public TelaPainelViagens(ClientSocket clientSocket) {
-        super("Painel de controle");
+    public TelaModificarViagens(ClientSocket clientSocket) {
+        super("Painel de edição");
 
-        painelControle = new JLabel("Painel de controle de viagens:");
+        painelControle = new JLabel("Painel de edição de viagens:");
         separador = new JSeparator(SwingConstants.HORIZONTAL);
         menuBar = new JMenuBar();
         menuOpcoes = new JMenu("Opções");
-        addViagemItem = new JMenuItem("➕ Adicionar Viagem");
-        excluirViagemItem = new JMenuItem("🖋 Modificar Viagem");
-        menuUser = new JMenu("Usuário");
-        verUserItem = new JMenuItem("👔 Ver Perfil");
-        sairUserItem = new JMenuItem("🖐 Sair");
+        voltarViagemItem = new JMenuItem("◀ Voltar");
 
         painelControle.setFont(painelControle.getFont().deriveFont(Font.BOLD, 16));
         painelControle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -49,20 +41,11 @@ public class TelaPainelViagens extends JFrame {
         caixa.add(Box.createVerticalStrut(10));
         caixa.add(separador);
 
-        menuOpcoes.add(addViagemItem);
-        menuOpcoes.add(excluirViagemItem);
+        menuOpcoes.add(voltarViagemItem);
         
         menuBar.add(menuOpcoes);
 
-        menuUser.add(verUserItem);
-        // menuUser.add(editarUserItem);
-        menuUser.add(sairUserItem);
-
-        menuBar.add(menuUser);
-
         setJMenuBar(menuBar);
-
-        // viagens = GetTrips.getTrips(conn, manager); REQUISICAO -> GET_TRIPS
 
         Request req = new Request(RequestType.GET_TRIPS, new Object[0]);
 
@@ -72,11 +55,10 @@ public class TelaPainelViagens extends JFrame {
 
         JPanel gridPanel = new JPanel(new GridLayout(0, 4, 20, 20));
 
-        int contViagem = 1;
         for (Viagem viagem : viagens) {
             JPanel caixaViagem = new JPanel();
             caixaViagem.setLayout(new BoxLayout(caixaViagem, BoxLayout.Y_AXIS));
-            caixaViagem.setBorder(BorderFactory.createTitledBorder("Viagem " + contViagem));
+            caixaViagem.setBorder(BorderFactory.createTitledBorder("Viagem"));
 
             JLabel nomeViagem = new JLabel("Nome: " + viagem.getNomeViagem());
             JLabel descricaoViagem = new JLabel("Descrição: " + viagem.getDescricaoViagem());
@@ -136,10 +118,41 @@ public class TelaPainelViagens extends JFrame {
             caixaViagem.add(placa);
             caixaViagem.add(seguro);
             caixaViagem.add(valorSeguro);
+            caixaViagem.add(Box.createVerticalStrut(10));
+
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+
+            JButton btnExcluir = new JButton("❌");
+            JButton btnEditar = new JButton("🖊");
+
+            btnExcluir.setAlignmentX(Component.CENTER_ALIGNMENT);
+            btnEditar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            buttonPanel.add(btnExcluir);
+            buttonPanel.add(Box.createHorizontalStrut(15));
+            buttonPanel.add(btnEditar);
+
+            btnExcluir.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Request req = new Request(RequestType.DELETE_TRIP, viagem);
+                    clientSocket.doRequest(req);
+
+                    new TelaModificarViagens(clientSocket);
+                    TelaModificarViagens.this.dispose();
+                }
+            });
+
+            btnEditar.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    TelaEditarViagem telaEditarViagem = new TelaEditarViagem(clientSocket, viagem, TelaModificarViagens.this);
+                    telaEditarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                }
+            });
+
+            caixaViagem.add(buttonPanel);
 
             gridPanel.add(caixaViagem);
-
-            contViagem += 1;
 
             setSize(1280, 720);
         }
@@ -166,52 +179,39 @@ public class TelaPainelViagens extends JFrame {
         painelBorda.add(Box.createVerticalStrut(10));
         painelBorda.add(caixa);
 
+        JButton botaoVoltar = new JButton("Voltar");
+        botaoVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+        botaoVoltar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(clientSocket);
+                telaPainelViagens.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                TelaModificarViagens.this.dispose();
+            }
+        });
+        painelBorda.add(Box.createVerticalStrut(10));
+        painelBorda.add(botaoVoltar);
+        painelBorda.add(Box.createVerticalStrut(10));
+
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
         contentPane.add(painelBorda, BorderLayout.CENTER);
 
-        addViagemItem.addActionListener(new ActionListener() {
+        voltarViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(clientSocket);
-                telaCriarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                TelaPainelViagens.this.dispose();
-            }
-        });
-
-        excluirViagemItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaModificarViagens telaExcluirViagem = new TelaModificarViagens(clientSocket);
-                telaExcluirViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                TelaPainelViagens.this.dispose();
-            }
-        });
-
-        verUserItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaVerPerfil telaVerPerfil = new TelaVerPerfil(clientSocket);
-                telaVerPerfil.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        });
-
-        // editarUserItem.addActionListener(new ActionListener() {
-        //     public void actionPerformed(ActionEvent e) {
-        //         TelaEditarPerfil telaEditarPerfil = new TelaEditarPerfil();
-        //         telaEditarPerfil.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //     }
-        // });
-
-        sairUserItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new TelaInicial(clientSocket);
+                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(clientSocket);
+                telaPainelViagens.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                TelaModificarViagens.this.dispose();
             }
         });
 
         if (viagens.length <= 4 && viagens.length > 0) {
             pack();
         }
-
+        
+        setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Desconecta do DB ao fechar a janela
         this.addWindowListener(new WindowAdapter() {
@@ -220,8 +220,7 @@ public class TelaPainelViagens extends JFrame {
                 clientSocket.doRequest(new Request(RequestType.CLOSE_CONNECTION, new Object[0]));
             }
         });
-        setVisible(true);
-        setLocationRelativeTo(null);
+        
 
     }
 }

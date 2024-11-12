@@ -1,11 +1,12 @@
-package classes;
+package entities;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Hotel {
+public class Hotel implements Serializable{
     
     private int ID;
     private String nome;
@@ -93,24 +94,20 @@ public class Hotel {
     }
 
     public void atualiza(Connection conn) {
-        String sqlUpdate = "UPDATE hotel SET nome = ?, endereco = ?, checkin = ?, checkout = ?, img_path = ? WHERE id = ?";
-
+        String sqlUpdate = "UPDATE hotel SET nome = ?, endereco = ?, checkin = ?, checkout = ? WHERE id = ?";
         try (PreparedStatement stm = conn.prepareStatement(sqlUpdate)) {
             stm.setString(1, this.getNome());
             stm.setString(2, this.getEndereco());
             stm.setString(3, this.getCheckin());
             stm.setString(4, this.getCheckout());
-            stm.setInt(6, this.getID());
-
-            stm.execute();
-        } catch (Exception ex) {
-            try {
-                conn.rollback();
-            } catch(SQLException sql_ex) {
-                System.out.println(sql_ex.getStackTrace());
-            }
+            stm.setInt(5, this.getID());
+    
+            stm.executeUpdate();
+            conn.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    }
+    }  
 
     public void carregar(Connection conn) {
 
