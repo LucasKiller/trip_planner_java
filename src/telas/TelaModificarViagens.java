@@ -3,9 +3,11 @@ package telas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ResourceBundle;
 
 import entities.*;
 import enums.*;
+import utils.HandleLanguageChoice;
 import classes.*;
 
 public class TelaModificarViagens extends JFrame {
@@ -15,15 +17,16 @@ public class TelaModificarViagens extends JFrame {
     private JMenu menuOpcoes;
     private JMenuItem voltarViagemItem;
     private Viagem [] viagens;
+    private static ResourceBundle bundle = HandleLanguageChoice.getDefinedLang("TelaModificarViagens");
 
     public TelaModificarViagens(ClientSocket clientSocket) {
         super("Painel de edição");
 
-        painelControle = new JLabel("Painel de edição de viagens:");
+        painelControle = new JLabel(bundle.getString("title"));
         separador = new JSeparator(SwingConstants.HORIZONTAL);
         menuBar = new JMenuBar();
-        menuOpcoes = new JMenu("Opções");
-        voltarViagemItem = new JMenuItem("◀ Voltar");
+        menuOpcoes = new JMenu(bundle.getString("menuOptions"));
+        voltarViagemItem = new JMenuItem(bundle.getString("backButton"));
 
         painelControle.setFont(painelControle.getFont().deriveFont(Font.BOLD, 16));
         painelControle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -56,29 +59,29 @@ public class TelaModificarViagens extends JFrame {
             caixaViagem.setLayout(new BoxLayout(caixaViagem, BoxLayout.Y_AXIS));
             caixaViagem.setBorder(BorderFactory.createTitledBorder("Viagem"));
 
-            JLabel nomeViagem = new JLabel("Nome: " + viagem.getNomeViagem());
-            JLabel descricaoViagem = new JLabel("Descrição: " + viagem.getDescricaoViagem());
-            JLabel dataViagem = new JLabel("Data: " + viagem.getDiaInicial() + " - " + viagem.getDiaFinal());
-            JLabel hotelNome = new JLabel("Hotel: " + viagem.getHotel().getNome());
-            JLabel endereco = new JLabel("Endereço: " + viagem.getHotel().getEndereco());
-            JLabel checkin = new JLabel("Check-in: " + viagem.getHotel().getCheckin());
-            JLabel checkout = new JLabel("Check-out: " + viagem.getHotel().getCheckout());
-            JLabel carroNome = new JLabel("Carro: " + viagem.getCarro().getNome());
-            JLabel marca = new JLabel("Marca: " + viagem.getCarro().getMarca());
-            JLabel placa = new JLabel("Placa: " + viagem.getCarro().getPlaca());
-            JLabel seguro = new JLabel("Tem seguro: " + (viagem.getCarro().isTemSeguro() ? "Sim" : "Não"));
-            JLabel valorSeguro = new JLabel("Valor do seguro: " + Integer.toString(viagem.getCarro().getValorSeguro()));
+            JLabel nomeViagem = new JLabel(bundle.getString("tripNameLabel") + viagem.getNomeViagem());
+            JLabel descricaoViagem = new JLabel(bundle.getString("tripDescriptionLabel") + viagem.getDescricaoViagem());
+            JLabel dataViagem = new JLabel(bundle.getString("tripDateLabel") + viagem.getDiaInicial() + " - " + viagem.getDiaFinal());
+            JLabel hotelNome = new JLabel(bundle.getString("hotelNameLabel") + viagem.getHotel().getNome());
+            JLabel endereco = new JLabel(bundle.getString("hotelAddressLabel") + viagem.getHotel().getEndereco());
+            JLabel checkin = new JLabel(bundle.getString("hotelCheckinLabel") + viagem.getHotel().getCheckin());
+            JLabel checkout = new JLabel(bundle.getString("hotelCheckoutLabel") + viagem.getHotel().getCheckout());
+            JLabel carroNome = new JLabel(bundle.getString("carNameLabel") + viagem.getCarro().getNome());
+            JLabel marca = new JLabel(bundle.getString("carBrandLabel") + viagem.getCarro().getMarca());
+            JLabel placa = new JLabel(bundle.getString("carPlateLabel") + viagem.getCarro().getPlaca());
+            JLabel seguro = new JLabel(bundle.getString("carInsuranceLabel") + (viagem.getCarro().isTemSeguro() ? "Sim" : "Não"));
+            JLabel valorSeguro = new JLabel(bundle.getString("carInsuranceValueLabel") + Integer.toString(viagem.getCarro().getValorSeguro()));
 
             if (viagem.getCarro().getNome().equals("")) {
-                carroNome.setText("Carro: Não informado");
+                carroNome.setText(bundle.getString("carNotProvidedLabel"));
             }
 
             if (viagem.getCarro().getMarca().equals("")) {
-                marca.setText("Marca: Não informado");
+                marca.setText(bundle.getString("brandNotProvidedLabel"));
             }
 
             if (viagem.getCarro().getPlaca().equals("")) {
-                placa.setText("Placa: Não informado");
+                placa.setText(bundle.getString("plateNotProvidedLabel"));
             }
 
             if (viagem.getCarro().isTemSeguro() == false) {
@@ -86,7 +89,7 @@ public class TelaModificarViagens extends JFrame {
             }
 
             if (viagem.getCarro().getValorSeguro() == 0) {
-                valorSeguro.setText("Valor do seguro: Não informado");
+                valorSeguro.setText(bundle.getString("insuranceValueNotProvidedLabel"));
             }
 
             nomeViagem.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -157,7 +160,7 @@ public class TelaModificarViagens extends JFrame {
             JPanel caixaSemViagem = new JPanel();
             caixaSemViagem.setLayout(new BoxLayout(caixaSemViagem, BoxLayout.Y_AXIS));
 
-            JLabel nomeViagemDefault = new JLabel("Não há nenhuma viagem adicionada!");
+            JLabel nomeViagemDefault = new JLabel(bundle.getString("noTripsLabel"));
             nomeViagemDefault.setAlignmentX(Component.CENTER_ALIGNMENT);
             nomeViagemDefault.setFont(nomeViagemDefault.getFont().deriveFont(Font.BOLD, 16));
             caixaSemViagem.add(nomeViagemDefault);

@@ -12,7 +12,6 @@ import entities.*;
 
 import enums.RequestType;
 import utils.HandleLanguageChoice;
-import utils.ResourseBundle;
 
 public class TelaCriarViagem extends JFrame {
     private JLabel criarViagem;
@@ -20,8 +19,6 @@ public class TelaCriarViagem extends JFrame {
     private JTextField campoNomeViagem;
     private JLabel descricaoViagem;
     private JTextField campoDescricaoViagem;
-    private JLabel cidade;
-    private JTextField campoCidade;
     private JLabel nomeHotel;
     private JTextField campoNomeHotel;
     private JLabel enderecoHotel;
@@ -60,8 +57,6 @@ public class TelaCriarViagem extends JFrame {
         campoNomeViagem = new JTextField(10);
         descricaoViagem = new JLabel(bundle.getString("tela.descricaoViagem.rotulo"));
         campoDescricaoViagem = new JTextField(10);
-        cidade = new JLabel(bundle.getString("tela.cidade.rotulo"));
-        campoCidade = new JTextField(10);
         nomeHotel = new JLabel(bundle.getString("tela.nomeHotel.rotulo"));
         campoNomeHotel = new JTextField(10);
         enderecoHotel = new JLabel(bundle.getString("tela.enderecoHotel.rotulo"));
@@ -116,13 +111,6 @@ public class TelaCriarViagem extends JFrame {
         caixaDescricao.add(descricaoViagem);
         caixaDescricao.add(campoDescricaoViagem);
         caixa.add(caixaDescricao);
-
-        JPanel caixaCidade = new JPanel();
-        caixaCidade.setLayout(new FlowLayout());
-
-        caixaCidade.add(cidade);
-        caixaCidade.add(campoCidade);
-        caixa.add(caixaCidade);
 
         JPanel caixaNomeHotel = new JPanel();
         caixaNomeHotel.setLayout(new FlowLayout());
@@ -192,17 +180,11 @@ public class TelaCriarViagem extends JFrame {
         caixaCarro.add(semCarro);
         caixa.add(caixaCarro);        
 
-        caixa.add(Box.createVerticalStrut(10));
+        caixa.add(Box.createVerticalStrut(1));
 
-        JPanel caixaBotoes = new JPanel();
-        caixaBotoes.setLayout(new FlowLayout());
 
-        caixaBotoes.add(botaoCriarViagem);
-        caixaBotoes.add(Box.createHorizontalStrut(20));
-        caixaBotoes.add(botaoCancelarViagem);
-        caixa.add(caixaBotoes);
 
-        caixa.add(Box.createVerticalStrut(20));
+        caixa.add(Box.createVerticalStrut(1));
 
         JPanel painelBorda = new JPanel();
         painelBorda.setLayout(new BoxLayout(painelBorda, BoxLayout.Y_AXIS));
@@ -407,6 +389,14 @@ public class TelaCriarViagem extends JFrame {
         //         }
         //     }
         // });
+
+        JPanel caixaBotoes = new JPanel();
+        caixaBotoes.setLayout(new FlowLayout());
+
+        caixaBotoes.add(botaoCriarViagem);
+        caixaBotoes.add(Box.createHorizontalStrut(20));
+        caixaBotoes.add(botaoCancelarViagem);
+        caixa.add(caixaBotoes);
 
         botaoCancelarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

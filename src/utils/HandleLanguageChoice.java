@@ -26,19 +26,19 @@ public class HandleLanguageChoice {
         try {
             switch (langChoice) {
                 case 0:
-                    bundle = ResourceBundle.getBundle(baseName + "_Portugues_Brasil", locales[langChoice]);
+                    bundle = ResourceBundle.getBundle(baseName + "_Portugues_Brasil", locales[langChoice], new UTF8Control());
                     break;
                 case 1:
-                    bundle = ResourceBundle.getBundle(baseName + "_Espanhol_Espanha", locales[langChoice]);
+                    bundle = ResourceBundle.getBundle(baseName + "_Espanhol_Espanha", locales[langChoice], new UTF8Control());
                     break;
                 case 2:
-                    bundle = ResourceBundle.getBundle(baseName + "_Frances_Franca", locales[langChoice]);
+                    bundle = ResourceBundle.getBundle(baseName + "_Frances_Franca", locales[langChoice], new UTF8Control());
                     break;
                 case 3:
-                    bundle = ResourceBundle.getBundle(baseName + "_Ingles_USA", locales[langChoice]);
+                    bundle = ResourceBundle.getBundle(baseName + "_Ingles_USA", locales[langChoice], new UTF8Control());
                     break;
                 case 4:
-                    bundle = ResourceBundle.getBundle(baseName + "_Italiano_Italia", locales[langChoice]);
+                    bundle = ResourceBundle.getBundle(baseName + "_Italiano_Italia", locales[langChoice], new UTF8Control());
                     break;
             }
         } catch (Exception ex) {

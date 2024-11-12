@@ -57,40 +57,40 @@ public class TelaEditarViagem extends JFrame {
 
         criarViagem = new JLabel(bundle.getString("tela.editarViagem.titulo"));
         nomeViagem = new JLabel(bundle.getString("tela.nomeViagem.rotulo"));
-        campoNomeViagem = new JTextField(10);
+        campoNomeViagem = new JTextField(viagem.getNomeViagem(), 10);
         descricaoViagem = new JLabel(bundle.getString("tela.descricaoViagem.rotulo"));
-        campoDescricaoViagem = new JTextField(10);
+        campoDescricaoViagem = new JTextField(viagem.getDescricaoViagem(), 10);
         nomeHotel = new JLabel(bundle.getString("tela.nomeHotel.rotulo"));
-        campoNomeHotel = new JTextField(10);
+        campoNomeHotel = new JTextField(viagem.getHotel().getNome(), 10);
         enderecoHotel = new JLabel(bundle.getString("tela.enderecoHotel.rotulo"));
-        campoEnderecoHotel = new JTextField(10);
+        campoEnderecoHotel = new JTextField(viagem.getHotel().getEndereco(), 10);
         checkInHotel = new JLabel(bundle.getString("tela.checkInHotel.rotulo"));
-        campoCheckInHotel = new JTextField(10);
+        campoCheckInHotel = new JTextField(viagem.getHotel().getCheckin(), 10);
         checkOutHotel = new JLabel(bundle.getString("tela.checkOutHotel.rotulo"));
-        campoCheckOutHotel = new JTextField(10);
+        campoCheckOutHotel = new JTextField(viagem.getHotel().getCheckout(), 10);
         alugarCarro = new JLabel(bundle.getString("tela.alugarCarro.rotulo"));
         temCarro = new JCheckBox(bundle.getString("botao.sim"));
         semCarro = new JCheckBox(bundle.getString("botao.nao"));
         dataInicio = new JLabel(bundle.getString("tela.dataInicio.rotulo"));
-        campoDataInicio = new JTextField(10);
+        campoDataInicio = new JTextField(viagem.getDiaInicial(), 10);
         dataFim = new JLabel(bundle.getString("tela.dataFim.rotulo"));
-        campoDataFim = new JTextField(10);
+        campoDataFim = new JTextField(viagem.getDiaFinal(), 10);
         // textImagem = new JLabel(bundle.getString("tela.imagemViagem.rotulo"));
         // botaoSelecionarImagem = new JButton(bundle.getString("botao.selecionarImagem"));
         // imagemLabel = new JLabel();
         botaoCriarViagem = new JButton(bundle.getString("botao.editarViagem"));
         botaoCancelarViagem = new JButton(bundle.getString("botao.cancelar"));
         nomeCarro = new JLabel(bundle.getString("tela.nomeCarro.rotulo"));
-        campoNomeCarro = new JTextField(10);
+        campoNomeCarro = new JTextField(viagem.getCarro().getNome(), 10);
         modeloCarro = new JLabel(bundle.getString("tela.modeloCarro.rotulo"));
-        campoModeloCarro = new JTextField(10);
+        campoModeloCarro = new JTextField(viagem.getCarro().getMarca(), 10);
         placaCarro = new JLabel(bundle.getString("tela.placaCarro.rotulo"));
-        campoPlacaCarro = new JTextField(10);
+        campoPlacaCarro = new JTextField(viagem.getCarro().getPlaca(), 10);
         seguroCarro = new JLabel(bundle.getString("tela.seguroCarro.rotulo"));
         temSeguro = new JCheckBox(bundle.getString("botao.sim"));
         semSeguro = new JCheckBox(bundle.getString("botao.nao"));
         valorSeguro = new JLabel(bundle.getString("tela.valorSeguro.rotulo"));
-        campoValorSeguro = new JTextField(10);
+        campoValorSeguro = new JTextField(String.valueOf(viagem.getCarro().getValorSeguro()), 10);
         // textImagemCarro = new JLabel(bundle.getString("tela.imagemCarro.rotulo"));
         // imagemLabelCarro = new JLabel();
         // botaoSelecionarImagemCarro = new JButton(bundle.getString("botao.selecionarImagemCarro"));
@@ -353,6 +353,8 @@ public class TelaEditarViagem extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (semSeguro.isSelected()) {
                     temSeguro.setSelected(false);
+
+                    viagem.getCarro().setValorSeguro(0);
 
                     valorSeguro.setVisible(false);
                     campoValorSeguro.setVisible(false);

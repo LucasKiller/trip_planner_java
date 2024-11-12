@@ -31,7 +31,7 @@ public class TelaPainelViagens extends JFrame {
         menuBar = new JMenuBar();
         menuOpcoes = new JMenu(bundle.getString("menuOpcoes"));
         addViagemItem = new JMenuItem(bundle.getString("addViagemItem"));
-        editarViagemItem = new JMenuItem(bundle.getString("excluirViagemItem"));
+        editarViagemItem = new JMenuItem(bundle.getString("editarViagemItem"));
         menuUser = new JMenu(bundle.getString("menuUser"));
         verUserItem = new JMenuItem(bundle.getString("verUserItem"));
         sairUserItem = new JMenuItem(bundle.getString("sairUserItem"));
@@ -127,7 +127,7 @@ public class TelaPainelViagens extends JFrame {
             JPanel caixaSemViagem = new JPanel();
             caixaSemViagem.setLayout(new BoxLayout(caixaSemViagem, BoxLayout.Y_AXIS));
 
-            JLabel nomeViagemDefault = new JLabel("Não há nenhuma viagem adicionada!");
+            JLabel nomeViagemDefault = new JLabel(bundle.getString("semViagemAdicionada"));
             nomeViagemDefault.setAlignmentX(Component.CENTER_ALIGNMENT);
             nomeViagemDefault.setFont(nomeViagemDefault.getFont().deriveFont(Font.BOLD, 16));
             caixaSemViagem.add(nomeViagemDefault);
@@ -160,8 +160,8 @@ public class TelaPainelViagens extends JFrame {
 
         editarViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaModificarViagens telaExcluirViagem = new TelaModificarViagens(clientSocket);
-                telaExcluirViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                TelaModificarViagens telaModificarViagem = new TelaModificarViagens(clientSocket);
+                telaModificarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 TelaPainelViagens.this.dispose();
             }
         });

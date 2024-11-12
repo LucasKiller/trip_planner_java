@@ -6,6 +6,7 @@ import classes.ClientSocket;
 import classes.Request;
 import enums.RequestType;
 import utils.HandleLanguageChoice;
+import utils.UTF8Control;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,7 +34,7 @@ public class TelaLinguagem extends JFrame {
 
         // Carrega o idioma padrão
         try {
-            bundle = ResourceBundle.getBundle("utils.lang.TelaLinguagem_Portugues_Brasil", locales[0]);
+            bundle = ResourceBundle.getBundle("utils.lang.TelaLinguagem_Portugues_Brasil", locales[0], new UTF8Control());
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao carregar o recurso de idioma", "Erro", JOptionPane.ERROR_MESSAGE);
