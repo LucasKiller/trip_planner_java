@@ -22,8 +22,8 @@ public class TelaLinguagem extends JFrame {
     private JLabel titleLabel;
     private ResourceBundle bundle;
 
-    private static String[] idiomas = {"Português (Brasil)", "Espanhol (Espanha)", "Francês (França)", "Inglês (EUA)", "Mandarim (China)"};
-    private static Locale[] locales = {new Locale("pt", "BR"), new Locale("es", "ES"), new Locale("fr", "FR"), new Locale("en", "US"), new Locale("zh", "CN")};
+    private static String[] idiomas = {"Português (Brasil)", "Espanhol (Espanha)", "Francês (França)", "Inglês (EUA)", "Italiano (Itália)"};
+    private static Locale[] locales = {new Locale("pt", "BR"), new Locale("es", "ES"), new Locale("fr", "FR"), new Locale("en", "US"), new Locale("it", "IT")};
     
     public TelaLinguagem(ClientSocket clientSocket) {
         // Configurações da janela

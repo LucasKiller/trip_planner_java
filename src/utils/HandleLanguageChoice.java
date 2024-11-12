@@ -10,7 +10,7 @@ public class HandleLanguageChoice {
 
     private static int langChoice;
     private static Locale[] locales = { new Locale("pt", "BR"), new Locale("es", "ES"), new Locale("fr", "FR"),
-            new Locale("en", "US"), new Locale("zh", "CN") };
+            new Locale("en", "US"), new Locale("it", "IT") };
 
     // private static ResourseBundle bundle = null;
 
@@ -38,7 +38,7 @@ public class HandleLanguageChoice {
                     bundle = ResourceBundle.getBundle(baseName + "_Ingles_USA", locales[langChoice]);
                     break;
                 case 4:
-                    bundle = ResourceBundle.getBundle(baseName + "_Mandarim_China", locales[langChoice]);
+                    bundle = ResourceBundle.getBundle(baseName + "_Italiano_Italia", locales[langChoice]);
                     break;
             }
         } catch (Exception ex) {
