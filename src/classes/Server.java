@@ -1,19 +1,12 @@
 package classes;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.io.*;
+import java.net.*;
+import java.sql.*;
 import java.util.Scanner;
+import utils.*;
 
 import enums.RequestType;
-import utils.ConnectDB;
-import utils.CryptoKeyHandler;
-import utils.DatabaseSetup;
-import utils.Router;
 
 public class Server {
 
