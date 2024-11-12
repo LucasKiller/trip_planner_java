@@ -165,7 +165,7 @@ public class TelaPainelViagens extends JFrame {
 
         verUserItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaVerPerfil telaVerPerfil = new TelaVerPerfil(clientSocket);
+                TelaVerPerfil telaVerPerfil = new TelaVerPerfil(clientSocket, bundle);
                 telaVerPerfil.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });

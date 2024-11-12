@@ -109,7 +109,7 @@ public class TelaInicial extends JFrame {
                             ManageUserInstance.setUserInstance( (User) res.getParameters()[0]);
 
                             JOptionPane.showMessageDialog(caixa, bundle.getString("confirmacao.loginSucesso"));
-                            new TelaPainelViagens(clientSocket);
+                            new TelaPainelViagens(clientSocket, bundle);
                             dispose();
                         }
                     }

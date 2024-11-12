@@ -407,7 +407,7 @@ public class TelaCriarViagem extends JFrame {
 
         botaoCancelarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new TelaPainelViagens(clientSocket);
+                new TelaPainelViagens(clientSocket, bundle);
                 dispose();
             }
         });
@@ -430,7 +430,7 @@ public class TelaCriarViagem extends JFrame {
 
                 clientSocket.doRequest(reqCreateTrip);
                 
-                new TelaPainelViagens(clientSocket);
+                new TelaPainelViagens(clientSocket, bundle);
                 dispose();
             }
         });
