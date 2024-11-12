@@ -16,7 +16,7 @@ public class TelaPainelViagens extends JFrame {
     private JMenuBar menuBar;
     private JMenu menuOpcoes;
     private JMenuItem addViagemItem;
-    private JMenuItem excluirViagemItem;
+    private JMenuItem editarViagemItem;
     private JMenu menuUser;
     private JMenuItem verUserItem;
     private JMenuItem sairUserItem;
@@ -31,6 +31,7 @@ public class TelaPainelViagens extends JFrame {
         menuBar = new JMenuBar();
         menuOpcoes = new JMenu(bundle.getString("menuOpcoes"));
         addViagemItem = new JMenuItem(bundle.getString("addViagemItem"));
+        editarViagemItem = new JMenuItem(bundle.getString("excluirViagemItem"));
         menuUser = new JMenu(bundle.getString("menuUser"));
         verUserItem = new JMenuItem(bundle.getString("verUserItem"));
         sairUserItem = new JMenuItem(bundle.getString("sairUserItem"));
@@ -48,7 +49,7 @@ public class TelaPainelViagens extends JFrame {
         caixa.add(separador);
 
         menuOpcoes.add(addViagemItem);
-        menuOpcoes.add(excluirViagemItem);
+        menuOpcoes.add(editarViagemItem);
         
         menuBar.add(menuOpcoes);
 
@@ -157,7 +158,7 @@ public class TelaPainelViagens extends JFrame {
             }
         });
 
-        excluirViagemItem.addActionListener(new ActionListener() {
+        editarViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 TelaModificarViagens telaExcluirViagem = new TelaModificarViagens(clientSocket);
                 telaExcluirViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
