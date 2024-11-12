@@ -354,8 +354,6 @@ public class TelaEditarViagem extends JFrame {
                 if (semSeguro.isSelected()) {
                     temSeguro.setSelected(false);
 
-                    viagem.getCarro().setValorSeguro(0);
-
                     valorSeguro.setVisible(false);
                     campoValorSeguro.setVisible(false);
                 };

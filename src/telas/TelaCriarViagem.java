@@ -154,8 +154,8 @@ public class TelaCriarViagem extends JFrame {
         caixaDataFim.add(campoDataFim);
         caixa.add(caixaDataFim);
 
-        // JPanel caixaImagem = new JPanel();
-        // caixaImagem.setLayout(new FlowLayout());
+        JPanel caixaImagem = new JPanel();
+        caixaImagem.setLayout(new FlowLayout());
 
         // caixaImagem.add(textImagem);
         // caixaImagem.add(botaoSelecionarImagem);
@@ -182,8 +182,7 @@ public class TelaCriarViagem extends JFrame {
 
         caixa.add(Box.createVerticalStrut(1));
 
-
-
+        
         caixa.add(Box.createVerticalStrut(1));
 
         JPanel painelBorda = new JPanel();
@@ -191,13 +190,16 @@ public class TelaCriarViagem extends JFrame {
         
         painelBorda.add(Box.createVerticalStrut(10));
         painelBorda.add(caixa);
-        
+    
         Container contentPane = getContentPane();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 
         contentPane.add(Box.createHorizontalStrut(10));
         contentPane.add(painelBorda);
         contentPane.add(Box.createHorizontalStrut(10));
+
+        temCarro.setSelected(false);
+        semCarro.setSelected(true);
 
         temCarro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -294,12 +296,6 @@ public class TelaCriarViagem extends JFrame {
                 if (semCarro.isSelected()) {
                     temCarro.setSelected(false);
 
-                    campoNomeCarro.setText("");
-                    campoModeloCarro.setText("");
-                    campoPlacaCarro.setText("");
-                    campoValorSeguro.setText("0");
-                    semSeguro.setSelected(true);
-
                     nomeCarro.setVisible(false);
                     campoNomeCarro.setVisible(false);
                     modeloCarro.setVisible(false);
@@ -309,6 +305,8 @@ public class TelaCriarViagem extends JFrame {
                     seguroCarro.setVisible(false);
                     temSeguro.setVisible(false);
                     semSeguro.setVisible(false);
+                    valorSeguro.setVisible(false);
+                    campoValorSeguro.setVisible(false);
                     // textImagemCarro.setVisible(false);
                     // botaoSelecionarImagemCarro.setVisible(false);
                     // imagemLabelCarro.setVisible(false);
@@ -346,8 +344,6 @@ public class TelaCriarViagem extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (semSeguro.isSelected()) {
                     temSeguro.setSelected(false);
-
-                    campoValorSeguro.setText("0");
 
                     valorSeguro.setVisible(false);
                     campoValorSeguro.setVisible(false);
@@ -410,10 +406,6 @@ public class TelaCriarViagem extends JFrame {
                 
                 Hotel hotel = new Hotel(campoNomeHotel.getText(), campoEnderecoHotel.getText(),campoCheckInHotel.getText(), campoCheckOutHotel.getText());
                 Carro carro = new Carro(campoNomeCarro.getText(), campoModeloCarro.getText(), campoPlacaCarro.getText(), temSeguro.isSelected(), Integer.parseInt(campoValorSeguro.getText()),"Teste");
-
-                // Request reqUser = new Request(RequestType.GET_USER, new Object[0]);
-
-                // Response resUser = clientSocket.doRequest(reqUser);
 
                 User user = ManageUserInstance.getUserInstance();
 
