@@ -3,6 +3,7 @@ package telas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ResourceBundle;
 
 import classes.*;
 import entities.*;
@@ -17,22 +18,20 @@ public class TelaPainelViagens extends JFrame {
     private JMenuItem excluirViagemItem;
     private JMenu menuUser;
     private JMenuItem verUserItem;
-    // private JMenuItem editarUserItem;
     private JMenuItem sairUserItem;
     private Viagem[] viagens;
 
-    public TelaPainelViagens(ClientSocket clientSocket) {
-        super("Painel de controle");
+    public TelaPainelViagens(ClientSocket clientSocket, ResourceBundle bundle) {
+        super(bundle.getString("painelControle"));
 
-        painelControle = new JLabel("Painel de controle de viagens:");
+        painelControle = new JLabel(bundle.getString("painelControle"));
         separador = new JSeparator(SwingConstants.HORIZONTAL);
         menuBar = new JMenuBar();
-        menuOpcoes = new JMenu("Opções");
-        addViagemItem = new JMenuItem("➕ Adicionar Viagem");
-        excluirViagemItem = new JMenuItem("🖋 Modificar Viagem");
-        menuUser = new JMenu("Usuário");
-        verUserItem = new JMenuItem("👔 Ver Perfil");
-        sairUserItem = new JMenuItem("🖐 Sair");
+        menuOpcoes = new JMenu(bundle.getString("menuOpcoes"));
+        addViagemItem = new JMenuItem(bundle.getString("addViagemItem"));
+        menuUser = new JMenu(bundle.getString("menuUser"));
+        verUserItem = new JMenuItem(bundle.getString("verUserItem"));
+        sairUserItem = new JMenuItem(bundle.getString("sairUserItem"));
 
         painelControle.setFont(painelControle.getFont().deriveFont(Font.BOLD, 16));
         painelControle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -73,40 +72,20 @@ public class TelaPainelViagens extends JFrame {
         for (Viagem viagem : viagens) {
             JPanel caixaViagem = new JPanel();
             caixaViagem.setLayout(new BoxLayout(caixaViagem, BoxLayout.Y_AXIS));
-            caixaViagem.setBorder(BorderFactory.createTitledBorder("Viagem " + contViagem));
+            caixaViagem.setBorder(BorderFactory.createTitledBorder(bundle.getString("viagemTitulo") + contViagem));
 
-            JLabel nomeViagem = new JLabel("Nome: " + viagem.getNomeViagem());
-            JLabel descricaoViagem = new JLabel("Descrição: " + viagem.getDescricaoViagem());
-            JLabel dataViagem = new JLabel("Data: " + viagem.getDiaInicial() + " - " + viagem.getDiaFinal());
-            JLabel hotelNome = new JLabel("Hotel: " + viagem.getHotel().getNome());
-            JLabel endereco = new JLabel("Endereço: " + viagem.getHotel().getEndereco());
-            JLabel checkin = new JLabel("Check-in: " + viagem.getHotel().getCheckin());
-            JLabel checkout = new JLabel("Check-out: " + viagem.getHotel().getCheckout());
-            JLabel carroNome = new JLabel("Carro: " + viagem.getCarro().getNome());
-            JLabel marca = new JLabel("Marca: " + viagem.getCarro().getMarca());
-            JLabel placa = new JLabel("Placa: " + viagem.getCarro().getPlaca());
-            JLabel seguro = new JLabel("Tem seguro: " + (viagem.getCarro().isTemSeguro() ? "Sim" : "Não"));
-            JLabel valorSeguro = new JLabel("Valor do seguro: " + Integer.toString(viagem.getCarro().getValorSeguro()));
-
-            if (viagem.getCarro().getNome().equals("")) {
-                carroNome.setText("Carro: Não informado");
-            }
-
-            if (viagem.getCarro().getMarca().equals("")) {
-                marca.setText("Marca: Não informado");
-            }
-
-            if (viagem.getCarro().getPlaca().equals("")) {
-                placa.setText("Placa: Não informado");
-            }
-
-            if (viagem.getCarro().isTemSeguro() == false) {
-                seguro.setText("Tem seguro: Não");
-            }
-
-            if (viagem.getCarro().getValorSeguro() == 0) {
-                valorSeguro.setText("Valor do seguro: Não informado");
-            }
+            JLabel nomeViagem = new JLabel(bundle.getString("nomeViagem") + viagem.getNomeViagem());
+            JLabel descricaoViagem = new JLabel(bundle.getString("descricaoViagem") + viagem.getDescricaoViagem());
+            JLabel dataViagem = new JLabel(bundle.getString("dataViagem") + viagem.getDiaInicial() + " - " + viagem.getDiaFinal());
+            JLabel hotelNome = new JLabel(bundle.getString("hotelNome") + viagem.getHotel().getNome());
+            JLabel endereco = new JLabel(bundle.getString("endereco") + viagem.getHotel().getEndereco());
+            JLabel checkin = new JLabel(bundle.getString("checkin") + viagem.getHotel().getCheckin());
+            JLabel checkout = new JLabel(bundle.getString("checkout") + viagem.getHotel().getCheckout());
+            JLabel carroNome = new JLabel(bundle.getString("carroNome") + viagem.getCarro().getNome());
+            JLabel marca = new JLabel(bundle.getString("marca") + viagem.getCarro().getMarca());
+            JLabel placa = new JLabel(bundle.getString("placa") + viagem.getCarro().getPlaca());
+            JLabel seguro = new JLabel(bundle.getString("seguro") + (viagem.getCarro().isTemSeguro() ? bundle.getString("sim") : bundle.getString("nao")));
+            JLabel valorSeguro = new JLabel(bundle.getString("valorSeguro") + (viagem.getCarro().getValorSeguro() > 0 ? Integer.toString(viagem.getCarro().getValorSeguro()) : bundle.getString("valorSeguroNaoInformado")));
 
             nomeViagem.setAlignmentX(Component.CENTER_ALIGNMENT);
             descricaoViagem.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -170,7 +149,7 @@ public class TelaPainelViagens extends JFrame {
 
         addViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(clientSocket);
+                TelaCriarViagem telaCriarViagem = new TelaCriarViagem(clientSocket, bundle);
                 telaCriarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 TelaPainelViagens.this.dispose();
             }
@@ -201,7 +180,7 @@ public class TelaPainelViagens extends JFrame {
         sairUserItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new TelaInicial(clientSocket);
+                new TelaInicial(clientSocket, bundle);
             }
         });
 

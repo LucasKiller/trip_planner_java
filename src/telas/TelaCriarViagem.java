@@ -3,6 +3,7 @@ package telas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ResourceBundle;
 
 import classes.ClientSocket;
 import classes.ManageUserInstance;
@@ -10,7 +11,6 @@ import classes.Request;
 import entities.*;
 
 import enums.RequestType;
-
 
 public class TelaCriarViagem extends JFrame {
     private JLabel criarViagem;
@@ -35,9 +35,6 @@ public class TelaCriarViagem extends JFrame {
     private JTextField campoDataInicio;
     private JLabel dataFim;
     private JTextField campoDataFim;
-    // private JLabel textImagem;
-    // private JLabel imagemLabel;
-    // private JButton botaoSelecionarImagem;
     private JButton botaoCriarViagem;
     private JButton botaoCancelarViagem;
     private JLabel nomeCarro;
@@ -51,54 +48,45 @@ public class TelaCriarViagem extends JFrame {
     private JCheckBox semSeguro;
     private JLabel valorSeguro;
     private JTextField campoValorSeguro;
-    // private JLabel textImagemCarro;
-    // private JLabel imagemLabelCarro;
-    // private JButton botaoSelecionarImagemCarro;
 
-    public TelaCriarViagem(ClientSocket clientSocket){
-        super("Criar Viagem");
+    public TelaCriarViagem(ClientSocket clientSocket, ResourceBundle bundle) {
+        super(bundle.getString("tela.criarViagem.titulo"));
 
-        criarViagem = new JLabel("Como vai ser a sua viagem?");
-        nomeViagem = new JLabel("Nome da viagem:");
-        campoNomeViagem = new JTextField("Viagem em família", 10);
-        descricaoViagem = new JLabel("Descrição da viagem:");
-        campoDescricaoViagem = new JTextField("Viagem de férias", 10);
-        cidade = new JLabel("Cidade:");
-        campoCidade = new JTextField("São Paulo", 10);
-        nomeHotel = new JLabel("nome do hotel:");
-        campoNomeHotel = new JTextField("Hotel X", 10);
-        enderecoHotel = new JLabel("Endereço:");
-        campoEnderecoHotel = new JTextField("Rua X, 123", 10);
-        checkInHotel = new JLabel("Check-in:");
-        campoCheckInHotel = new JTextField("01/01/2021", 10);
-        checkOutHotel = new JLabel("Check-out:");
-        campoCheckOutHotel = new JTextField("10/01/2021", 10);
-        alugarCarro = new JLabel("Você vai alugar um carro?");
-        temCarro = new JCheckBox("Sim");
-        semCarro = new JCheckBox("Não");
-        dataInicio = new JLabel("Data de início:");
-        campoDataInicio = new JTextField("01/01/2021", 10);
-        dataFim = new JLabel("Data de fim:");
-        campoDataFim = new JTextField("10/01/2021", 10);
-        // textImagem = new JLabel("Imagem:");
-        // botaoSelecionarImagem = new JButton("Selecionar Imagem");
-        // imagemLabel = new JLabel();
-        botaoCriarViagem = new JButton("Criar Viagem");
-        botaoCancelarViagem = new JButton("Cancelar");
-        nomeCarro = new JLabel("Nome do carro:");
-        campoNomeCarro = new JTextField("Carro X", 10);
-        modeloCarro = new JLabel("Modelo do carro:");
-        campoModeloCarro = new JTextField("Modelo X", 10);
-        placaCarro = new JLabel("Placa do carro:");
-        campoPlacaCarro = new JTextField("XXX-0000", 10);
-        seguroCarro = new JLabel("Você contratou um seguro?");
-        temSeguro = new JCheckBox("Sim");
-        semSeguro = new JCheckBox("Não");
-        valorSeguro = new JLabel("Valor do seguro:");
-        campoValorSeguro = new JTextField("100", 10);
-        // textImagemCarro = new JLabel("Imagem Carro:");
-        // imagemLabelCarro = new JLabel();
-        // botaoSelecionarImagemCarro = new JButton("Selecionar Imagem");
+        criarViagem = new JLabel(bundle.getString("tela.criarViagem.titulo"));
+        nomeViagem = new JLabel(bundle.getString("tela.nomeViagem.rotulo"));
+        campoNomeViagem = new JTextField(10);
+        descricaoViagem = new JLabel(bundle.getString("tela.descricaoViagem.rotulo"));
+        campoDescricaoViagem = new JTextField(10);
+        cidade = new JLabel(bundle.getString("tela.cidade.rotulo"));
+        campoCidade = new JTextField(10);
+        nomeHotel = new JLabel(bundle.getString("tela.nomeHotel.rotulo"));
+        campoNomeHotel = new JTextField(10);
+        enderecoHotel = new JLabel(bundle.getString("tela.enderecoHotel.rotulo"));
+        campoEnderecoHotel = new JTextField(10);
+        checkInHotel = new JLabel(bundle.getString("tela.checkInHotel.rotulo"));
+        campoCheckInHotel = new JTextField(10);
+        checkOutHotel = new JLabel(bundle.getString("tela.checkOutHotel.rotulo"));
+        campoCheckOutHotel = new JTextField(10);
+        alugarCarro = new JLabel(bundle.getString("tela.alugarCarro.rotulo"));
+        temCarro = new JCheckBox(bundle.getString("botao.sim"));
+        semCarro = new JCheckBox(bundle.getString("botao.nao"));
+        dataInicio = new JLabel(bundle.getString("tela.dataInicio.rotulo"));
+        campoDataInicio = new JTextField(10);
+        dataFim = new JLabel(bundle.getString("tela.dataFim.rotulo"));
+        campoDataFim = new JTextField(10);
+        botaoCriarViagem = new JButton(bundle.getString("botao.criarViagem"));
+        botaoCancelarViagem = new JButton(bundle.getString("botao.cancelar"));
+        nomeCarro = new JLabel(bundle.getString("tela.nomeCarro.rotulo"));
+        campoNomeCarro = new JTextField(10);
+        modeloCarro = new JLabel(bundle.getString("tela.modeloCarro.rotulo"));
+        campoModeloCarro = new JTextField(10);
+        placaCarro = new JLabel(bundle.getString("tela.placaCarro.rotulo"));
+        campoPlacaCarro = new JTextField(10);
+        seguroCarro = new JLabel(bundle.getString("tela.seguroCarro.rotulo"));
+        temSeguro = new JCheckBox(bundle.getString("botao.sim"));
+        semSeguro = new JCheckBox(bundle.getString("botao.nao"));
+        valorSeguro = new JLabel(bundle.getString("tela.valorSeguro.rotulo"));
+        campoValorSeguro = new JTextField(10);
 
         criarViagem.setFont(criarViagem.getFont().deriveFont(Font.BOLD, 20));
         
