@@ -431,7 +431,7 @@ public class TelaEditarViagem extends JFrame{
                     viagem.getCarro().setValorSeguro(0);
                 }
 
-                Request req = new Request(RequestType.UPDATE_TRIP, viagem); 
+                Request req = new Request(RequestType.UPDATE_TRIP, viagem.getHotel(), viagem.getCarro(), viagem); 
                 
                 clientSocket.doRequest(req);
 
