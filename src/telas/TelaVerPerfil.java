@@ -1,12 +1,10 @@
 package telas;
 
 import javax.swing.*;
-
-import classes.ClientSocket;
-import classes.ManageUserInstance;
-
-import entities.User;
 import java.awt.*;
+
+import classes.*;
+import entities.*;
 
 public class TelaVerPerfil extends JFrame{
     private JLabel nomeUser;

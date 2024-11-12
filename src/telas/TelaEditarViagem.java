@@ -5,11 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 import classes.*;
-
-import entities.Viagem;
+import entities.*;
 import enums.*;
-
-
 
 public class TelaEditarViagem extends JFrame{
     private JLabel criarViagem;

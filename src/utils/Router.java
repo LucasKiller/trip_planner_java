@@ -1,11 +1,8 @@
 package utils;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 
-import classes.LoginAndRegisterUser;
-import classes.Request;
-import classes.Response;
+import classes.*;
 import entities.*;
 import enums.*;
 

@@ -4,11 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import classes.ClientSocket;
-import classes.ManageUserInstance;
-import classes.Request;
-import classes.Response;
-import entities.User;
+import classes.*;
+import entities.*;
 import enums.*;
 
 public class TelaInicial extends JFrame {

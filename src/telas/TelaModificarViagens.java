@@ -4,13 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import entities.Viagem;
-import enums.RequestType;
-import classes.ClientSocket;
-import classes.Request;
-import classes.Response;
-
-import java.awt.event.ActionEvent;
+import entities.*;
+import enums.*;
+import classes.*;
 
 public class TelaModificarViagens extends JFrame {
     private JLabel painelControle;

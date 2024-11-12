@@ -1,10 +1,7 @@
 package utils;
-import java.sql.Statement;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
+
+import java.sql.*;
+import java.io.*;
 
 /*
  *  Classe dedicada para a preparacao da database no localhost
