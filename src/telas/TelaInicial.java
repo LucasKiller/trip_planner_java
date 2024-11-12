@@ -1,28 +1,15 @@
 package telas;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-import classes.ManageUserLogin;
-import utils.ConnectDB;
-
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import java.sql.Connection;
+import classes.ClientSocket;
+import classes.ManageUserInstance;
+import classes.Request;
+import classes.Response;
+import entities.User;
+import enums.*;
 
 public class TelaInicial extends JFrame {
     private JLabel bemVindo;
@@ -36,11 +23,8 @@ public class TelaInicial extends JFrame {
     private JTextField campoNovoLogin; // nome
     private JPasswordField campoNovaSenha; // login
 
-    private ManageUserLogin manager;
-
-    public TelaInicial(Connection conn) {
+    public TelaInicial(ClientSocket clientSocket) {
         super("Login");
-        manager = new ManageUserLogin();
 
         bemVindo = new JLabel("Seja bem-vindo ao Trip Planner Java!");
         botaoLogin = new JButton("Entrar");
@@ -115,12 +99,19 @@ public class TelaInicial extends JFrame {
                     if (login.isEmpty() || senha.isEmpty()) {
                         JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para logar!");
                     } else {
-                        int result = manager.logUser(conn, login, senha);
-                        if (result == -1) {
+
+                        Request req = new Request(RequestType.LOG_USER, new User(login, senha));
+
+                        Response res = clientSocket.doRequest(req);
+                        
+                        if (res.getType() == ResponseType.USER_NOT_LOGGED) {
                             JOptionPane.showMessageDialog(caixa, "Login ou senha incorretos!");
-                        } else {
+                        } else if (res.getType() == ResponseType.USER_LOGGED) {
+
+                            ManageUserInstance.setUserInstance( (User) res.getParameters()[0]);
+
                             JOptionPane.showMessageDialog(caixa, "Login bem-sucedido!");
-                            new TelaPainelViagens(conn, manager);
+                            new TelaPainelViagens(clientSocket);
                             dispose();
                         }
                     }
@@ -151,16 +142,17 @@ public class TelaInicial extends JFrame {
                         JOptionPane.showMessageDialog(caixa, "Preencha todos os campos para se registrar!");
                     } else {
                         try {
-                                
-                            int result = manager.registerUser(conn, novoNome, novoLogin, novaSenha);
 
-                            if(result == -1) {
+                            Request req = new Request(RequestType.CREATE_USER, new User(novoNome, novoLogin, novaSenha));
+
+                            Response res = clientSocket.doRequest(req);
+
+                            if(res.getType() == ResponseType.USER_NOT_CREATED) {
                                 JOptionPane.showMessageDialog(contentPane, "Registro não foi efetuado! Usuário já existente!");
-                            } else {
+                            } else if (res.getType() == ResponseType.USER_CREATED){
                                 JOptionPane.showMessageDialog(contentPane, "Registro efetuado com sucesso!");
                             }
 
-                            conn.commit();
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
@@ -174,7 +166,7 @@ public class TelaInicial extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                ConnectDB.desconectar(conn);
+                clientSocket.doRequest(new Request(RequestType.CLOSE_CONNECTION, new Object[0]));
             }
         });
         setVisible(true);

@@ -1,34 +1,14 @@
 package telas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-import java.sql.Connection;
-
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-
-import classes.ManageUserLogin;
-import classes.Viagem;
-import utils.GetTrips;
+import entities.Viagem;
+import enums.RequestType;
+import classes.ClientSocket;
+import classes.Request;
+import classes.Response;
 
 import java.awt.event.ActionEvent;
 
@@ -38,9 +18,9 @@ public class TelaModificarViagens extends JFrame {
     private JMenuBar menuBar;
     private JMenu menuOpcoes;
     private JMenuItem voltarViagemItem;
-    private ArrayList<Viagem> viagens;
+    private Viagem [] viagens;
 
-    public TelaModificarViagens(Connection conn, ManageUserLogin manager) {
+    public TelaModificarViagens(ClientSocket clientSocket) {
         super("Painel de edição");
 
         painelControle = new JLabel("Painel de edição de viagens:");
@@ -48,7 +28,6 @@ public class TelaModificarViagens extends JFrame {
         menuBar = new JMenuBar();
         menuOpcoes = new JMenu("Opções");
         voltarViagemItem = new JMenuItem("◀ Voltar");
-        viagens = new ArrayList<Viagem>();
 
         painelControle.setFont(painelControle.getFont().deriveFont(Font.BOLD, 16));
         painelControle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -68,7 +47,11 @@ public class TelaModificarViagens extends JFrame {
 
         setJMenuBar(menuBar);
 
-        viagens = GetTrips.getTrips(conn, manager);
+        Request req = new Request(RequestType.GET_TRIPS, new Object[0]);
+
+        Response res = clientSocket.doRequest(req);
+
+        viagens = (Viagem[]) res.getParameters();
 
         JPanel gridPanel = new JPanel(new GridLayout(0, 4, 20, 20));
 
@@ -152,15 +135,17 @@ public class TelaModificarViagens extends JFrame {
 
             btnExcluir.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    viagem.excluir(conn);
-                    new TelaModificarViagens(conn, manager);
+                    Request req = new Request(RequestType.DELETE_TRIP, viagem);
+                    clientSocket.doRequest(req);
+
+                    new TelaModificarViagens(clientSocket);
                     TelaModificarViagens.this.dispose();
                 }
             });
 
             btnEditar.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    TelaEditarViagem telaEditarViagem = new TelaEditarViagem(conn, manager, viagem, TelaModificarViagens.this);
+                    TelaEditarViagem telaEditarViagem = new TelaEditarViagem(clientSocket, viagem, TelaModificarViagens.this);
                     telaEditarViagem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 }
             });
@@ -172,7 +157,7 @@ public class TelaModificarViagens extends JFrame {
             setSize(1280, 720);
         }
 
-        if (viagens.isEmpty()) {
+        if (viagens.length == 0) {
             JPanel caixaSemViagem = new JPanel();
             caixaSemViagem.setLayout(new BoxLayout(caixaSemViagem, BoxLayout.Y_AXIS));
 
@@ -199,7 +184,7 @@ public class TelaModificarViagens extends JFrame {
         botaoVoltar.setFont(new Font("Arial", Font.BOLD, 14));
         botaoVoltar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, manager);
+                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(clientSocket);
                 telaPainelViagens.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 TelaModificarViagens.this.dispose();
             }
@@ -215,19 +200,27 @@ public class TelaModificarViagens extends JFrame {
 
         voltarViagemItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(conn, manager);
+                TelaPainelViagens telaPainelViagens = new TelaPainelViagens(clientSocket);
                 telaPainelViagens.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 TelaModificarViagens.this.dispose();
             }
         });
 
-        if (viagens.size() <= 4 && viagens.size() > 0) {
+        if (viagens.length <= 4 && viagens.length > 0) {
             pack();
         }
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         setVisible(true);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Desconecta do DB ao fechar a janela
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                clientSocket.doRequest(new Request(RequestType.CLOSE_CONNECTION, new Object[0]));
+            }
+        });
+        
 
     }
 }

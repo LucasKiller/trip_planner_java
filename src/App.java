@@ -1,32 +1,21 @@
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
+import classes.ClientSocket;
 import telas.TelaInicial;
-import utils.ConnectDB;
-import utils.DatabaseSetup;
+
+import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        String driver = "com.mysql.cj.jdbc.Driver";
-        Connection conn = null;
 
         try {
-            Class.forName(driver);
 
-            conn = ConnectDB.conectar();
+            ClientSocket clientSocket = new ClientSocket();
+            clientSocket.start();
 
-            conn.setAutoCommit(false);
-            DatabaseSetup.executeInitialSQL(conn);
+            new TelaInicial(clientSocket);
 
-            new TelaInicial(conn);
-            
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Driver não encontrado!");
-        } catch (SQLException sql_ex) {
-            System.out.println("Não foi possível realizar a conexão ao server: " + sql_ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("Não foi possível ler o arquivo!");
+            System.out.println("Erro ao iniciar o Socket do cliente!");
         }
     }
 }

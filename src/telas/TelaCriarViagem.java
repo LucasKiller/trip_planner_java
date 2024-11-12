@@ -1,31 +1,16 @@
 package telas;
 
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-// import java.awt.Image;
-import java.awt.FlowLayout;
-// import java.io.File;
-import java.sql.Connection;
-import java.sql.SQLException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-// import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-// import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import classes.ClientSocket;
+import classes.ManageUserInstance;
+import classes.Request;
+import entities.*;
 
-import classes.Carro;
-import classes.Hotel;
-import classes.ManageUserLogin;
-import classes.Viagem;
+import enums.RequestType;
 
-import java.awt.event.ActionEvent;
 
 public class TelaCriarViagem extends JFrame {
     private JLabel criarViagem;
@@ -70,7 +55,7 @@ public class TelaCriarViagem extends JFrame {
     // private JLabel imagemLabelCarro;
     // private JButton botaoSelecionarImagemCarro;
 
-    public TelaCriarViagem(Connection conn, ManageUserLogin manager){
+    public TelaCriarViagem(ClientSocket clientSocket){
         super("Criar Viagem");
 
         criarViagem = new JLabel("Como vai ser a sua viagem?");
@@ -434,7 +419,7 @@ public class TelaCriarViagem extends JFrame {
 
         botaoCancelarViagem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new TelaPainelViagens(conn, manager);
+                new TelaPainelViagens(clientSocket);
                 dispose();
             }
         });
@@ -444,30 +429,36 @@ public class TelaCriarViagem extends JFrame {
                 
                 Hotel hotel = new Hotel(campoNomeHotel.getText(), campoEnderecoHotel.getText(),campoCheckInHotel.getText(), campoCheckOutHotel.getText());
                 Carro carro = new Carro(campoNomeCarro.getText(), campoModeloCarro.getText(), campoPlacaCarro.getText(), temSeguro.isSelected(), Integer.parseInt(campoValorSeguro.getText()),"Teste");
-                Viagem trip = new Viagem(manager.getUser(), hotel, carro, campoDataInicio.getText(), campoDataFim.getText(), campoNomeViagem.getText(), campoDescricaoViagem.getText());
 
-                try {
-                    hotel.inserir(conn);
-                    conn.commit();
-                    carro.inserir(conn);
-                    conn.commit();
-                    trip.inserir(conn);
-                    conn.commit();
-                } catch (SQLException sql_ex) {
-                    sql_ex.printStackTrace();
-                }
+                // Request reqUser = new Request(RequestType.GET_USER, new Object[0]);
+
+                // Response resUser = clientSocket.doRequest(reqUser);
+
+                User user = ManageUserInstance.getUserInstance();
+
+                Viagem trip = new Viagem(user, hotel, carro, campoDataInicio.getText(), campoDataFim.getText(), campoNomeViagem.getText(), campoDescricaoViagem.getText()); // 
+
+                Request reqCreateTrip = new Request(RequestType.CREATE_TRIP, hotel, carro, trip);
+
+                clientSocket.doRequest(reqCreateTrip);
                 
-                new TelaPainelViagens(conn, manager);
+                new TelaPainelViagens(clientSocket);
                 dispose();
             }
         });
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Desconecta do DB ao fechar a janela
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                clientSocket.doRequest(new Request(RequestType.CLOSE_CONNECTION, new Object[0]));
+            }
+        });
         setVisible(true);
+        setLocationRelativeTo(null);
 
         caixa.add(Box.createVerticalStrut(10));
         pack();
-        setLocationRelativeTo(null);
-        
     }
 }

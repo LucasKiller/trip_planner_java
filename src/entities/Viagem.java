@@ -1,10 +1,13 @@
-package classes;
+package entities;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Viagem {
+import classes.LoginAndRegisterUser;
+
+public class Viagem implements Serializable{
 
     private int ID;
     private User user;
@@ -94,7 +97,7 @@ public class Viagem {
         }
     }    
 
-    public void carregar(Connection conn, ManageUserLogin manager) {
+    public void carregar(Connection conn, LoginAndRegisterUser manager) {
 
         String sqlSelect = "SELECT * FROM trips WHERE id_user = ?";
 

@@ -1,29 +1,15 @@
 package telas;
 
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-// import java.awt.Image;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-// import java.io.File;
-import java.sql.Connection;
+import classes.*;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-// import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-// import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import entities.Viagem;
+import enums.*;
 
-import classes.ManageUserLogin;
-import classes.Viagem;
 
-import java.awt.event.ActionEvent;
 
 public class TelaEditarViagem extends JFrame{
     private JLabel criarViagem;
@@ -66,7 +52,7 @@ public class TelaEditarViagem extends JFrame{
     // private JLabel imagemLabelCarro;
     // private JButton botaoSelecionarImagemCarro;
 
-    public TelaEditarViagem(Connection conn, ManageUserLogin manager, Viagem viagem, TelaModificarViagens telaModificarViagens) {
+    public TelaEditarViagem(ClientSocket clientSocket, Viagem viagem, TelaModificarViagens telaModificarViagens) {
         super("Edição de Viagem");
 
         criarViagem = new JLabel("Altere os dados da viagem");
@@ -445,15 +431,15 @@ public class TelaEditarViagem extends JFrame{
                     viagem.getCarro().setValorSeguro(0);
                 }
 
-                viagem.atualiza(conn);
-                viagem.getHotel().atualiza(conn);
-                viagem.getCarro().atualiza(conn);
+                Request req = new Request(RequestType.UPDATE_TRIP, viagem); 
+                
+                clientSocket.doRequest(req);
 
                 telaModificarViagens.dispose();
 
                 dispose();
 
-                new TelaModificarViagens(conn, manager);
+                new TelaModificarViagens(clientSocket);
             }
         });
 
@@ -464,6 +450,13 @@ public class TelaEditarViagem extends JFrame{
         });
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Desconecta do DB ao fechar a janela
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                clientSocket.doRequest(new Request(RequestType.CLOSE_CONNECTION, new Object[0]));
+            }
+        });
         setVisible(true);
 
         caixa.add(Box.createVerticalStrut(10));

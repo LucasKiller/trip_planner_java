@@ -1,30 +1,31 @@
 package telas;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-import classes.ManageUserLogin;
+import classes.ClientSocket;
+import classes.ManageUserInstance;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.sql.Connection;
-
-import javax.swing.Box;
+import entities.User;
+import java.awt.*;
 
 public class TelaVerPerfil extends JFrame{
     private JLabel nomeUser;
     private JLabel loginUser;
     private JButton botaoVoltar;
     
-    public TelaVerPerfil(Connection conn, ManageUserLogin manager) {
+    public TelaVerPerfil(ClientSocket clientSocket) {
         super("Perfil");
 
-        nomeUser = new JLabel("Nome: " + manager.getUser().getNome());
-        loginUser = new JLabel("Usuário: @" + manager.getUser().getUser());
+        // Request req = new Request(RequestType.GET_USER, new Object[0]);
+
+        // Response res = clientSocket.doRequest(req);
+
+        // User user = (User) res.getParameters()[0];
+
+        User user = ManageUserInstance.getUserInstance();
+
+        nomeUser = new JLabel("Nome: " + user.getNome());
+        loginUser = new JLabel("Usuário: @" + user.getUser());
         botaoVoltar = new JButton("Voltar");
 
         nomeUser.setAlignmentX(JLabel.CENTER_ALIGNMENT);
