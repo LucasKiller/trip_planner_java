@@ -57,7 +57,7 @@ public class TelaModificarViagens extends JFrame {
         for (Viagem viagem : viagens) {
             JPanel caixaViagem = new JPanel();
             caixaViagem.setLayout(new BoxLayout(caixaViagem, BoxLayout.Y_AXIS));
-            caixaViagem.setBorder(BorderFactory.createTitledBorder("Viagem"));
+            caixaViagem.setBorder(BorderFactory.createTitledBorder(bundle.getString("tripTitle")));
 
             JLabel nomeViagem = new JLabel(bundle.getString("tripNameLabel") + viagem.getNomeViagem());
             JLabel descricaoViagem = new JLabel(bundle.getString("tripDescriptionLabel") + viagem.getDescricaoViagem());
@@ -69,7 +69,7 @@ public class TelaModificarViagens extends JFrame {
             JLabel carroNome = new JLabel(bundle.getString("carNameLabel") + viagem.getCarro().getNome());
             JLabel marca = new JLabel(bundle.getString("carBrandLabel") + viagem.getCarro().getMarca());
             JLabel placa = new JLabel(bundle.getString("carPlateLabel") + viagem.getCarro().getPlaca());
-            JLabel seguro = new JLabel(bundle.getString("carInsuranceLabel") + (viagem.getCarro().isTemSeguro() ? "Sim" : "Não"));
+            JLabel seguro = new JLabel(bundle.getString("carInsuranceLabel") + (viagem.getCarro().isTemSeguro() ? bundle.getString("sim") : bundle.getString("nao")));
             JLabel valorSeguro = new JLabel(bundle.getString("carInsuranceValueLabel") + Integer.toString(viagem.getCarro().getValorSeguro()));
 
             if (viagem.getCarro().getNome().equals("")) {
@@ -85,7 +85,10 @@ public class TelaModificarViagens extends JFrame {
             }
 
             if (viagem.getCarro().isTemSeguro() == false) {
-                seguro.setText("Tem seguro: Não");
+                seguro.setText(bundle.getString("carInsuranceLabel") + bundle.getString("nao"));
+            }
+            else {
+                seguro.setText(bundle.getString("carInsuranceLabel") + bundle.getString("sim"));
             }
 
             if (viagem.getCarro().getValorSeguro() == 0) {
@@ -178,7 +181,7 @@ public class TelaModificarViagens extends JFrame {
         painelBorda.add(Box.createVerticalStrut(10));
         painelBorda.add(caixa);
 
-        JButton botaoVoltar = new JButton("Voltar");
+        JButton botaoVoltar = new JButton(bundle.getString("backButton"));
         botaoVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
         botaoVoltar.setFont(new Font("Arial", Font.BOLD, 14));
         botaoVoltar.addActionListener(new ActionListener() {
