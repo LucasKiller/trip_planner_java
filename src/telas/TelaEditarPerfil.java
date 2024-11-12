@@ -1,6 +1,8 @@
 package telas;
 
 import java.io.File;
+import java.util.ResourceBundle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,22 +20,22 @@ public class TelaEditarPerfil extends JFrame {
     private JButton botaoSelecionarImagemPerfil;
     private JButton botaoSalvar;
     private JButton botaoCancelar;
-    
-    public TelaEditarPerfil() {
-        super("Edição de Perfil");
 
-        editarPerfil = new JLabel("Altere seus dados");
-        nomePerfil = new JLabel("Editar nome:");
-        campoNomePerfil = new JTextField(10); //deixar o nome do perfil aqui
-        loginPerfil = new JLabel("Editar login:");
-        campoLoginPerfil = new JTextField(10); //deixar o login do perfil aqui
-        senhaPerfil = new JLabel("Editar senha:");
-        campoSenhaPerfil = new JTextField(10); //deixar a senha do perfil aqui se não tiver tempo
-        textImagemPerfil = new JLabel("Editar imagem:");
+    public TelaEditarPerfil(ResourceBundle bundle) {
+        super(bundle.getString("editarPerfil"));
+
+        editarPerfil = new JLabel(bundle.getString("editarPerfil"));
+        nomePerfil = new JLabel(bundle.getString("nomePerfil"));
+        campoNomePerfil = new JTextField(10);
+        loginPerfil = new JLabel(bundle.getString("loginPerfil"));
+        campoLoginPerfil = new JTextField(10);
+        senhaPerfil = new JLabel(bundle.getString("senhaPerfil"));
+        campoSenhaPerfil = new JTextField(10);
+        textImagemPerfil = new JLabel(bundle.getString("textImagemPerfil"));
         imagemLabelPerfil = new JLabel();
-        botaoSelecionarImagemPerfil = new JButton("Selecionar");
-        botaoSalvar = new JButton("Salvar");
-        botaoCancelar = new JButton("Cancelar");
+        botaoSelecionarImagemPerfil = new JButton(bundle.getString("botaoSelecionarImagemPerfil"));
+        botaoSalvar = new JButton(bundle.getString("botaoSalvar"));
+        botaoCancelar = new JButton(bundle.getString("botaoCancelar"));
 
         editarPerfil.setFont(editarPerfil.getFont().deriveFont(Font.BOLD, 20));
 
@@ -138,6 +140,5 @@ public class TelaEditarPerfil extends JFrame {
         caixa.add(Box.createVerticalStrut(10));
         pack();
         setLocationRelativeTo(null);
-
     }
 }

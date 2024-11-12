@@ -1,6 +1,6 @@
 
 import classes.ClientSocket;
-import telas.TelaInicial;
+import telas.TelaLinguagem;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ public class App {
             ClientSocket clientSocket = new ClientSocket();
             clientSocket.start();
 
-            new TelaInicial(clientSocket);
+            new TelaLinguagem(clientSocket);
 
         } catch (IOException ex) {
             System.out.println("Erro ao iniciar o Socket do cliente!");

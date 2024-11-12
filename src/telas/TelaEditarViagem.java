@@ -3,12 +3,14 @@ package telas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ResourceBundle;
 
 import classes.*;
 import entities.*;
 import enums.*;
+import utils.HandleLanguageChoice;
 
-public class TelaEditarViagem extends JFrame{
+public class TelaEditarViagem extends JFrame {
     private JLabel criarViagem;
     private JLabel nomeViagem;
     private JTextField campoNomeViagem;
@@ -45,52 +47,53 @@ public class TelaEditarViagem extends JFrame{
     private JCheckBox semSeguro;
     private JLabel valorSeguro;
     private JTextField campoValorSeguro;
+    private static ResourceBundle bundle = HandleLanguageChoice.getDefinedLang("TelaEditarViagem");
     // private JLabel textImagemCarro;
     // private JLabel imagemLabelCarro;
     // private JButton botaoSelecionarImagemCarro;
 
     public TelaEditarViagem(ClientSocket clientSocket, Viagem viagem, TelaModificarViagens telaModificarViagens) {
-        super("Edição de Viagem");
+        super(bundle.getString("tela.editarViagem.titulo"));
 
-        criarViagem = new JLabel("Altere os dados da viagem");
-        nomeViagem = new JLabel("Nome da viagem:");
+        criarViagem = new JLabel(bundle.getString("tela.editarViagem.titulo"));
+        nomeViagem = new JLabel(bundle.getString("tela.nomeViagem.rotulo"));
         campoNomeViagem = new JTextField(viagem.getNomeViagem(), 10);
-        descricaoViagem = new JLabel("Descrição da viagem:");
+        descricaoViagem = new JLabel(bundle.getString("tela.descricaoViagem.rotulo"));
         campoDescricaoViagem = new JTextField(viagem.getDescricaoViagem(), 10);
-        nomeHotel = new JLabel("Hotel:");
+        nomeHotel = new JLabel(bundle.getString("tela.nomeHotel.rotulo"));
         campoNomeHotel = new JTextField(viagem.getHotel().getNome(), 10);
-        enderecoHotel = new JLabel("Endereço:");
+        enderecoHotel = new JLabel(bundle.getString("tela.enderecoHotel.rotulo"));
         campoEnderecoHotel = new JTextField(viagem.getHotel().getEndereco(), 10);
-        checkInHotel = new JLabel("Check-in:");
+        checkInHotel = new JLabel(bundle.getString("tela.checkInHotel.rotulo"));
         campoCheckInHotel = new JTextField(viagem.getHotel().getCheckin(), 10);
-        checkOutHotel = new JLabel("Check-out:");
+        checkOutHotel = new JLabel(bundle.getString("tela.checkOutHotel.rotulo"));
         campoCheckOutHotel = new JTextField(viagem.getHotel().getCheckout(), 10);
-        alugarCarro = new JLabel("Você vai alugar um carro?");
-        temCarro = new JCheckBox("Sim", viagem.isTemCarro());
-        semCarro = new JCheckBox("Não", !viagem.isTemCarro());
-        dataInicio = new JLabel("Data de início:");
+        alugarCarro = new JLabel(bundle.getString("tela.alugarCarro.rotulo"));
+        temCarro = new JCheckBox(bundle.getString("botao.sim"));
+        semCarro = new JCheckBox(bundle.getString("botao.nao"));
+        dataInicio = new JLabel(bundle.getString("tela.dataInicio.rotulo"));
         campoDataInicio = new JTextField(viagem.getDiaInicial(), 10);
-        dataFim = new JLabel("Data de fim:");
+        dataFim = new JLabel(bundle.getString("tela.dataFim.rotulo"));
         campoDataFim = new JTextField(viagem.getDiaFinal(), 10);
-        // textImagem = new JLabel("Imagem:");
-        // botaoSelecionarImagem = new JButton("Selecionar Imagem");
+        // textImagem = new JLabel(bundle.getString("tela.imagemViagem.rotulo"));
+        // botaoSelecionarImagem = new JButton(bundle.getString("botao.selecionarImagem"));
         // imagemLabel = new JLabel();
-        botaoCriarViagem = new JButton("Editar Viagem");
-        botaoCancelarViagem = new JButton("Cancelar");
-        nomeCarro = new JLabel("Nome do carro:");
+        botaoCriarViagem = new JButton(bundle.getString("botao.editarViagem"));
+        botaoCancelarViagem = new JButton(bundle.getString("botao.cancelar"));
+        nomeCarro = new JLabel(bundle.getString("tela.nomeCarro.rotulo"));
         campoNomeCarro = new JTextField(viagem.getCarro().getNome(), 10);
-        modeloCarro = new JLabel("Modelo do carro:");
+        modeloCarro = new JLabel(bundle.getString("tela.modeloCarro.rotulo"));
         campoModeloCarro = new JTextField(viagem.getCarro().getMarca(), 10);
-        placaCarro = new JLabel("Placa do carro:");
+        placaCarro = new JLabel(bundle.getString("tela.placaCarro.rotulo"));
         campoPlacaCarro = new JTextField(viagem.getCarro().getPlaca(), 10);
-        seguroCarro = new JLabel("Você contratou um seguro?");
-        temSeguro = new JCheckBox("Sim", viagem.getCarro().isTemSeguro());
-        semSeguro = new JCheckBox("Não", !viagem.getCarro().isTemSeguro());
-        valorSeguro = new JLabel("Valor do seguro:");
+        seguroCarro = new JLabel(bundle.getString("tela.seguroCarro.rotulo"));
+        temSeguro = new JCheckBox(bundle.getString("botao.sim"));
+        semSeguro = new JCheckBox(bundle.getString("botao.nao"));
+        valorSeguro = new JLabel(bundle.getString("tela.valorSeguro.rotulo"));
         campoValorSeguro = new JTextField(String.valueOf(viagem.getCarro().getValorSeguro()), 10);
-        // textImagemCarro = new JLabel("Imagem Carro:");
+        // textImagemCarro = new JLabel(bundle.getString("tela.imagemCarro.rotulo"));
         // imagemLabelCarro = new JLabel();
-        // botaoSelecionarImagemCarro = new JButton("Selecionar Imagem");
+        // botaoSelecionarImagemCarro = new JButton(bundle.getString("botao.selecionarImagemCarro"));
 
         criarViagem.setFont(criarViagem.getFont().deriveFont(Font.BOLD, 20));
         
@@ -196,7 +199,7 @@ public class TelaEditarViagem extends JFrame{
         
         painelBorda.add(Box.createVerticalStrut(10));
         painelBorda.add(caixa);
-        
+    
         Container contentPane = getContentPane();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 
@@ -351,6 +354,8 @@ public class TelaEditarViagem extends JFrame{
                 if (semSeguro.isSelected()) {
                     temSeguro.setSelected(false);
 
+                    viagem.getCarro().setValorSeguro(0);
+
                     valorSeguro.setVisible(false);
                     campoValorSeguro.setVisible(false);
                 };
@@ -462,4 +467,3 @@ public class TelaEditarViagem extends JFrame{
         
     }
 }
-

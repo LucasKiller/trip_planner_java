@@ -2,29 +2,26 @@ package telas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ResourceBundle;
 
 import classes.*;
 import entities.*;
+import utils.HandleLanguageChoice;
 
-public class TelaVerPerfil extends JFrame{
+public class TelaVerPerfil extends JFrame {
     private JLabel nomeUser;
     private JLabel loginUser;
     private JButton botaoVoltar;
-    
+    private static ResourceBundle bundle = HandleLanguageChoice.getDefinedLang("TelaVerPerfil");
+
     public TelaVerPerfil(ClientSocket clientSocket) {
-        super("Perfil");
+        super(bundle.getString("perfil"));
 
-        // Request req = new Request(RequestType.GET_USER, new Object[0]);
+         User user = ManageUserInstance.getUserInstance();
 
-        // Response res = clientSocket.doRequest(req);
-
-        // User user = (User) res.getParameters()[0];
-
-        User user = ManageUserInstance.getUserInstance();
-
-        nomeUser = new JLabel("Nome: " + user.getNome());
-        loginUser = new JLabel("Usuário: @" + user.getUser());
-        botaoVoltar = new JButton("Voltar");
+        nomeUser = new JLabel(bundle.getString("nomeUser") + user.getNome());
+        loginUser = new JLabel(bundle.getString("loginUser") + user.getUser());
+        botaoVoltar = new JButton(bundle.getString("botaoVoltar"));
 
         nomeUser.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         loginUser.setAlignmentX(JLabel.CENTER_ALIGNMENT);
